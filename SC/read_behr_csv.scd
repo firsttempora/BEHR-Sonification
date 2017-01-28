@@ -6,47 +6,44 @@
 (
 (
 ~read_behr_csv = {|filename|
-    var d, data, count;
+    var d, data, count, rows, columns, variableNames;
     //filename.postln;
     d = CSVFileReader.read(filename);
     data = Dictionary.new;
 
-    // store array shape as integer array
-    data[d[0][0]] = [d[0][1].asInteger, d[0][2].asInteger];
-
-    // store data labels as array
-    data['variableNames'] = d[1];
+    // store array shape and variable names
+    rows = d[0][1].asInteger;
+    columns = d[0][2].asInteger;
+    variableNames = d[1];
 
     // initialize 2d arrays
-    data['variableNames'].do({|v,i|
-        data[v] = Array2D.new(data["ArrayShape"].at(0), data["ArrayShape"].at(1));
+    variableNames.do({|v,i|
+        data[v] = Array2D.new(rows, columns);
     });
 
     // for each variable name, read the data into the 2d arrays
     count = 0;
-    data["ArrayShape"].at(0).do({|r, i|
-        data["ArrayShape"].at(1).do({|c, j|
-            data['variableNames'].do({|v, k|
-                count.post; ": ".post; r.post; ", ".post; c.post; " ".post; v.postln;
+    rows.do({|r, i|
+        columns.do({|c, j|
+            variableNames.do({|v, k|
+                // count.post; ": ".post; r.post; ", ".post; c.post; " ".post; v.postln;
                 data[v][r,c] = d[count+2][k]
-            });
+                });
             count = count + 1;
+            });
         });
-    });
-
-
-    data.postln;
-    "\n".postln;
-    // d;
+    // data.postln;
     data;
 
 };
+
 );
 
 
 ~data = ~read_behr_csv.(~base_path +/+ ~data_path +/+ ~file_names[0]);
 );
 
+~data.keys
 ~data["Longitude"]
 ~data[0]
 ~data[1]
