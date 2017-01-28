@@ -25,7 +25,7 @@ var4 = rand([3, ar_sh]);
 var4(:,5) = nan;
 
 fid = fopen('dummy.csv','w');
-fprintf(fid, 'ArrayShape=%s\n',mat2str(ar_sh));
+fprintf(fid, 'ArrayShape,%d,%d\n',ar_sh(1),ar_sh(2));
 fprintf(fid, '%s\n', strjoin(header, ','));
 for a=1:numel(lon)
     fprintf(fid,'%d,%d,%.4g,%.4g,%.4g,%.4g,%.4g,%.4g,%.4g,%.4g\n',...
