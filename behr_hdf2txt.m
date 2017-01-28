@@ -19,7 +19,9 @@ function [  ] = behr_hdf2txt( hdffile, txtpath, varargin )
 %   BEHR_HDF2TXT( ___, 'nosplit' ) Saves all swaths in HDFFILE to a single
 %   .csv file. This can get fairly large.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% INPUT VALIDATION %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 split_swaths = true;
 vars = {};
