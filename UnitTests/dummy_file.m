@@ -16,9 +16,13 @@ lat = repmat(lat,1,ar_sh(2));
 lon = repmat(lon,ar_sh(1),1);
 
 var1 = rand(ar_sh);
+var1(5) = nan;
 var2 = rand(ar_sh);
+var2(5) = nan;
 var3 = rand(ar_sh);
+var3(5) = nan;
 var4 = rand([3, ar_sh]);
+var4(:,5) = nan;
 
 fid = fopen('dummy.csv','w');
 fprintf(fid, 'ArrayShape=%s\n',mat2str(ar_sh));
