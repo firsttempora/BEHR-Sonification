@@ -1,10 +1,9 @@
-~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
-
-~data_path = "UnitTests/";
-~file_names = ["dummy.csv", "dummy.csv"];
-
 (
-(
+/* ------------------
+ * ~read_behr_csv : takes a filename and parses csv file, returning a pointer to
+ * the data, stored in dictionary format. The keys are the variable names from the
+ * csv and the data is stored 2d arrays or arrays of 2d arrays when there is 3d data.
+ */
 ~read_behr_csv = {|filename|
     var d, data, count, rows, columns, variableNames, threeDvariables;
     //filename.postln;
@@ -68,43 +67,30 @@
     // return data
     data;
 };
+
+/* ------------------
+ * ~getAltitudeAt : returns the 3rd dimension (altitude) of array of 2d array data
+ * takes a pointer to data, and row/column indicies.
+ */
+~getAltitudeAt = {|arrayOf2dArrays, r, c|
+    var size = arrayOf2dArrays.size;
+    var vec = Array.newClear(size);
+    vec.size.do({|i|
+        vec[i] = arrayOf2dArrays[i][r,c];
+    });
+    vec;
+};
 );
 
+// unit testing.............................
+
+~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+~data_path = "UnitTests/";
+~file_names = ["dummy.csv", "dummy.csv"];
 ~data = ~read_behr_csv.(~base_path +/+ ~data_path +/+ ~file_names[0]);
-);
 
-~data.keys
-~data["BEHRColumnAmountNO2Trop"]
-~data[0]
-~data[1]
-~data[2]
-~data.[50]
-~data.[5].size
+~data.keys;
+~data["BEHRColumnAmountNO2Trop"];
+~data["BEHRNO2apriori"];
+~getAltitudeAt.(~data["BEHRNO2apriori"], 3, 4);
 
-t = "abcd";
-t[1..2]
-
-//~path = "/user/k/kermit/Downloads/BEHRWebTools/data/OMI_BEHR_v2-1B_20050101.txt";
-~path = "/Users/kermit/Desktop/behr_josh_project/BEHRWebTools/data/OMI_BEHR_v2-1B_20050101.txt";
-
-~data = CSVFileReader.read(~path);
-~dataT = Array.newClear(~data[0].size);
-~dataT.size.do{|i| ~dataT[i] = Array.newClear(~data.size-1)};
-~header = ~data[0];
-
-(
-(~dataT.size).do{|i|
-	(~dataT[0].size).do{|j|
-		~dataT[i][j] = ~data[j+1][i].asFloat;
-	};
-};
-);
-
-(
-~dataT.size.do{|i|
-	~dataT[i].plot(~header[i]);
-};
-);
-
-
-Date.getDate.format("%Y-%m-%d")
