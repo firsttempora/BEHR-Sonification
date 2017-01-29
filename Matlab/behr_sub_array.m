@@ -1,4 +1,4 @@
-function [ Data_out ] = behr_sub_array( Data, center_lon, center_lat, variables, cldtype, varargin )
+function [ Data_out ] = behr_sub_array( Data, center_lon, center_lat, cldtype, varargin )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,11 +6,11 @@ function [ Data_out ] = behr_sub_array( Data, center_lon, center_lat, variables,
 %%%%% INPUT CHECKING %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 p = inputParser;
-p.addParameter('sub_dims',[10 5]);
+p.addParameter('subdims',[10 5]);
 p.parse(varargin{:});
 pout = p.Results;
 
-sub_dims = pout.sub_dims;
+sub_dims = pout.subdims;
 
 if ~isstruct(Data) || any(~isfield(Data,{'Latitude','Longitude'}))
     error('behr_sonification:bad_input','DATA must be a structure with fields Latitude and Longitude')
@@ -18,20 +18,6 @@ elseif ~isnumeric(center_lon) || ~isscalar(center_lon) || center_lon < -125 || c
     error('behr_sonification:bad_input','CENTER_LON must be a scalar number between -125 and -65')
 elseif ~isnumeric(center_lat) || ~isscalar(center_lat) || center_lat < 25 || center_lat > 50
     error('behr_sonification:bad_input','CENTER_LAT must be a scalar number between 25 and 50')
-end
-
-if ischar(variables)
-    if strcmpi(variables, 'all')
-        variables = numeric_fields(Data);
-    else
-        variables = {variables};
-    end
-elseif ~iscellstr(variables)
-    error('behr_sonification:bad_input','VARIABLES must be a string or cell array of strings')
-end
-xx = ~isfield(Data, variables);
-if any(xx)
-    error('behr_sonification:bad_input','The following requested variables are not present in DATA: %s', strjoin(variables(xx), ', '));
 end
 
 if ~isnumeric(sub_dims) || numel(sub_dims) ~= 2
@@ -51,9 +37,6 @@ switch cldtype
     otherwise
         error('behr_sonification:bad_input','%s is not an allowable cldtype.',cldtype);
 end
-req_vars = {'Latitude';'Longitude';'XTrackQualityFlags';'vcdQualityFlags';cldfield};
-xx = ~ismember(req_vars, variables);
-variables = cat(1, req_vars(xx), variables(:));
 
 earth = referenceEllipsoid('wgs84','km');
 swath = find_best_swath(Data, center_lon, center_lat, earth);
@@ -63,6 +46,7 @@ end
 [x,y] = find_closest_pixel(Data(swath), center_lon, center_lat);
 [xx,yy] = get_subarray_inds(size(Data(swath).Longitude), x, y, sub_dims);
 
+variables = fieldnames(Data(swath));
 for v=1:numel(variables)
     if ismatrix(Data(swath).(variables{v}))
         Data_out.(variables{v}) = Data(swath).(variables{v})(xx,yy);
@@ -70,6 +54,10 @@ for v=1:numel(variables)
         Data_out.(variables{v}) = Data(swath).(variables{v})(:,xx,yy);
     end
 end
+
+Data_out.r = sqrt((Data_out.Longitude - center_lon).^2 + (Data_out.Latitude - center_lat).^2);
+Data_out.theta = atan2d(Data_out.Latitude - center_lat, Data_out.Longitude - center_lon);
+
 end
 
 function fns = numeric_fields(Data)
