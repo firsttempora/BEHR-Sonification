@@ -11,8 +11,8 @@
     data = Dictionary.new;
 
     // store array shape and variable names
-    rows = d[0][1].asInteger;
-    columns = d[0][2].asInteger;
+    rows = d[0][2].asInteger;
+    columns = d[0][1].asInteger;
     variableNames = d[1];
 
     // initialize 2d arrays
@@ -89,8 +89,18 @@
 ~file_names = ["dummy.csv", "dummy.csv"];
 ~data = ~read_behr_csv.(~base_path +/+ ~data_path +/+ ~file_names[0]);
 
-~data.keys;
-~data["BEHRColumnAmountNO2Trop"];
-~data["BEHRNO2apriori"];
-~getAltitudeAt.(~data["BEHRNO2apriori"], 3, 4);
-
+// (
+// ~data.keys.do({|k|
+//     k.postln;
+//     if(~data[k].class == Array2D, {
+//         ~data[k].rowsDo({|r|r.postln;});
+//         ~data[k].colsDo({|c|c.postln;});
+//         }, {
+//             ~data[k].size.do({|i|
+//                 ~data[k][i].rowsDo({|r|r.postln;});
+//                 ~data[k][i].colsDo({|c|c.postln;});
+//             });
+//     });
+// });
+// );
+// ~data.["BEHRNO2apriori"].at(0).colsDo({|r|r.plot})
