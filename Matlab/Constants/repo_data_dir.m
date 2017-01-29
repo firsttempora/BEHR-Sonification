@@ -3,7 +3,7 @@ function [ dpath ] = repo_data_dir( )
 %   Detailed explanation goes here
 
 mypath = fileparts(mfilename('fullpath'));
-dpath = fullfile(mypath,'..','data');
+dpath = fullfile(mypath,'..','..','data');
 
 end
 
