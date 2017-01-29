@@ -80,14 +80,31 @@
     });
     vec;
 };
+
+/* ------------------
+ * ~~make_filenames : returns all the files in a directory, as an array.
+ */
+~make_filenames = {|base|
+    var a = ("ls"+base).unixCmdGetStdOut;
+    var b = a.findAll("\n");
+    var c = Array.newClear(b.size);
+    b = [-1, b].flat;
+
+    (b.size-1).do({|i|
+        c[i] = a[(b[i]+1)..(b[i+1]-1)];
+    });
+    c;
+};
+
+"All functions successfully loaded".postln;
 );
 
 // unit testing.............................
 
-~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
-~data_path = "UnitTests/";
-~file_names = ["dummy.csv", "dummy.csv"];
-~data = ~read_behr_csv.(~base_path +/+ ~data_path +/+ ~file_names[0]);
+// ~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+// ~data_path = "UnitTests/";
+// ~file_names = ["dummy.csv", "dummy.csv"];
+// ~data = ~read_behr_csv.(~base_path +/+ ~data_path +/+ ~file_names[0]);
 
 // (
 // ~data.keys.do({|k|
