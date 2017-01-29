@@ -1,0 +1,77 @@
+\documentclass[10pt]{article}
+
+%Bring in the packages I'll need normally
+\usepackage{amsmath} %AMS Math Package
+\usepackage{amsthm} %Theorem formatting
+\usepackage{amssymb} %Math symbols like \mathbb
+\usepackage{cancel} %Allows you to draw diagonal cancelling out lines
+\usepackage{multicol} % Allows for multiple columns
+\usepackage{graphicx} %Allows images to be inserted using \includegraphics
+\usepackage{enumitem} %Allows for fancier lists, use [noitemsep] or [noitemsep, nolistsep] after \begin{}
+\usepackage{braket} %Dirac bra-ket notation
+\usepackage{textcomp}
+\usepackage{hyperref} %Allows the use of web links (\url, \href) and computer paths (\path)
+
+\usepackage{listings} %Way to typeset code; listings respect whitespace. Can be set inline with {\lstinline[breaklines=true]||} or as an environment
+\lstset{basicstyle=\ttfamily} %Causes the code environments to be typeset with a Courier-like font
+
+\usepackage[version=3]{mhchem} %Simpler chemistry notation, use \ce{} to typeset chemical formula
+	%e.g. \ce{H2O} for water and \ce{1/2SO4^2-} to set half a mol of sulfate ion.
+
+%Set the page to be letter sized with 1" margins
+\usepackage[dvips,letterpaper,margin=1in]{geometry}
+
+%title
+\title{•}
+\author{Josh Laughner}
+\date{\today}
+
+\begin{document}
+
+
+\begin{tabular}{lcccc}
+Variable & Min & Max & Mean & Median \\ \hline
+AMFStrat & 2.08264 & 3.54822 & 2.37503 & 2.28147\\
+AMFTrop & 0.123843 & 1.76217 & 0.95459 & 0.991355\\
+BEHRAMFTrop & 0.0377859 & 1.496 & 0.733424 & 0.739474\\
+BEHRAMFTropVisOnly & 0.0377859 & 3.51277 & 1.41399 & 1.20946\\
+BEHRAvgKernels & 6.68449e-31 & 63.6753 & 1.32618 & 0.8233\\
+BEHRColumnAmountNO2Trop & -3.4914e+15 & 1.12629e+16 & 2.47929e+15 & 2.435e+15\\
+BEHRColumnAmountNO2TropVisOnly & -2.23565e+15 & 9.15918e+15 & 1.84177e+15 & 1.62484e+15\\
+BEHRNO2apriori & 8.82943e-12 & 1.65123e-08 & 7.69508e-10 & 3.48259e-10\\
+BEHRPressureLevels & 200 & 1020 & 768.258 & 850\\
+BEHRScatteringWeights & 1e-30 & 3.84902 & 0.895486 & 0.590189\\
+CloudFraction & 0 & 1 & 0.187799 & 0.086\\
+CloudPressure & 150 & 999 & 775.838 & 810\\
+CloudRadianceFraction & 0 & 1 & 0.379819 & 0.323\\
+ColumnAmountNO2 & 1.75149e+15 & 1.0804e+16 & 5.9137e+15 & 5.86437e+15\\
+ColumnAmountNO2Strat & 3.5753e+15 & 4.2901e+15 & 3.98354e+15 & 3.99849e+15\\
+ColumnAmountNO2Trop & -2.2942e+15 & 6.9927e+15 & 1.93016e+15 & 1.88718e+15\\
+ColumnAmountNO2TropStd & 7.50712e+14 & 5.04724e+15 & 1.37492e+15 & 1.30845e+15\\
+GLOBETerpres & 957.517 & 996.46 & 986.888 & 987.856\\
+Latcorn & 36.331 & 40.751 & 38.8939 & 38.9002\\
+Latitude & 36.6963 & 40.6245 & 38.8956 & 38.8982\\
+Loncorn & -95.7121 & -84.7428 & -90.1913 & -90.1995\\
+Longitude & -94.9326 & -85.5141 & -90.1912 & -90.2011\\
+MODISAlbedo & 0.0141333 & 0.0699231 & 0.0322496 & 0.0311667\\
+MODISCloud & 0 & 1 & 0.408635 & 0.290667\\
+RelativeAzimuthAngle & 26.8189 & 165.584 & 93.1178 & 44.3113\\
+Row & 1 & 58 & 28.9714 & 29\\
+SlantColumnAmountNO2 & 6.23305e+15 & 1.85464e+16 & 1.17392e+16 & 1.15166e+16\\
+SolarAzimuthAngle & -162.683 & -108.166 & -131.051 & -130.037\\
+SolarZenithAngle & 14.1227 & 34.3034 & 24.0912 & 23.8968\\
+Swath & 41627 & 42253 & 41942.6 & 41947\\
+TerrainHeight & 109 & 467 & 194.683 & 188\\
+TerrainPressure & 956 & 999 & 988.663 & 989\\
+TerrainReflectivity & 0.02 & 0.094 & 0.0494236 & 0.05\\
+Time & 6.11005e+08 & 6.14719e+08 & 6.12872e+08 & 6.12903e+08\\
+ViewingAzimuthAngle & -111.802 & 86.5727 & -8.87297 & 67.7384\\
+ViewingZenithAngle & 0.854395 & 66.161 & 30.8594 & 31.4536\\
+XTrackQualityFlags & 0 & 177 & 51.0026 & 0\\
+vcdQualityFlags & 0 & 0 & 0 & 0\\
+BEHRSlantColumnAmountNO2Trop & -3.18251e+15 & 7.66476e+15 & 1.8382e+15 & 1.80935e+15\\
+ModelSCD & 9.49423e+13 & 8.9508e+15 & 2.41595e+15 & 2.37955e+15\\
+
+\end{tabular}
+
+\end{document}

@@ -57,6 +57,7 @@ for a=1:numel(F)
     
     subData = calculate_trop_scds(subData);
     subData = filter_clouds_rowanom(subData, cldtype, cldcrit);
+    subData = nan_below_ground_profile(subData);
     dnum = datenum(regexp(F(a).name,'\d\d\d\d\d\d\d\d','match','once'),'yyyymmdd');
     
     if ~strcmpi(vars,'all')
@@ -84,3 +85,11 @@ end
 
 end
 
+function Data = nan_below_ground_profile(Data)
+for a=1:numel(Data.Longitude)
+    pvec = Data.BEHRPressureLevels(:,a);
+    pTerr = Data.GLOBETerpres(a);
+    pp = pvec > pTerr;
+    Data.BEHRNO2apriori(pp,a) = nan;
+end
+end
