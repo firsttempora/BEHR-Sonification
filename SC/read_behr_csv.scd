@@ -82,7 +82,7 @@
 };
 
 /* ------------------
- * ~~make_filenames : returns all the files in a directory, as an array.
+ * ~make_filenames : returns all the files in a directory, as an array.
  */
 ~make_filenames = {|base|
     var a = ("ls"+base).unixCmdGetStdOut;
@@ -94,6 +94,62 @@
         c[i] = a[(b[i]+1)..(b[i+1]-1)];
     });
     c;
+};
+
+/* ------------------
+ * ~sumarize_statistics : finds the min, median, mean, and max for each key in a dictionary
+ */
+~sumarize_statistics = {|dict|
+    var blob = Dictionary.new;
+    dict.keys.do({|k|
+        blob[k] = Dictionary.new;
+        // max
+        if(dict[k].class == Array2D, {
+            blob[k]["max"] = dict[k].maxItem;
+        }, {
+            blob[k]["max"] = dict[k].size.do.collect({|i|dict[k][i].maxItem}).maxItem;
+        });
+
+        // min
+        if(dict[k].class == Array2D, {
+            blob[k]["min"] = dict[k].minItem;
+        }, {
+            blob[k]["min"] = dict[k].size.do.collect({|i|dict[k][i].minItem}).minItem;
+        });
+
+        // mean
+        if(dict[k].class == Array2D, {
+            blob[k]["mean"] = dict[k].mean;
+        }, {
+            var sum = 0.0;
+            var count = 0.0;
+            dict[k].size.do({|i|
+                dict[k][i].asArray.do({|value|
+                    if(value.isNaN, {}, {
+                        sum = sum + value;
+                        count = count + 1;
+                    });
+                });
+            });
+            blob[k]["mean"] = sum / count;
+        });
+
+        // median
+        if(dict[k].class == Array2D, {
+            blob[k]["median"] = dict[k].asArray.median;
+        }, {
+            var nums = List.new;
+            dict[k].size.do({|i|
+                dict[k][i].asArray.do({|value|
+                    if(value.isNaN, {}, {
+                        nums.add(value);
+                    });
+                });
+            });
+            blob[k]["median"] = nums.median;
+        });
+    });
+    blob;
 };
 
 "All functions successfully loaded".postln;

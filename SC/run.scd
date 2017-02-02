@@ -10,41 +10,19 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
 });
 );
 
-~data[0].keys;
-
 (
-~mi = ~data[0]["BEHRNO2apriori"].size.do.collect({|i|
-    ~data[0]["BEHRNO2apriori"][i].minItem;
+~dataSummary = Array.newClear(~data.size);
+~data.size.do({|i|
+    ~dataSummary[i] = ~sumarize_statistics.(~data[i]);
 });
-
-~ma = ~data[0]["BEHRNO2apriori"].size.do.collect({|i|
-    ~data[0]["BEHRNO2apriori"][i].mean;
-});
-
-~me = ~data[0]["BEHRNO2apriori"].size.do.collect({|i|
-    ~data[0]["BEHRNO2apriori"][i].maxItem;
-});
-
-
-
-// ~data[0]["BEHRScatteringWeights"].size.do({|i|
-//     ~data[0]["BEHRScatteringWeights"][i].minItem.post;
-//     "   ".post;
-//     ~data[0]["BEHRScatteringWeights"][i].maxItem.postln;
-//
-// });
 );
 
-~mi.minItem
-~ma.maxItem
 
 
+//~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);
+//a = a/a.maxItem;
 
-~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);
-(
-a = ~getAltitudeAt.(~data[10]["BEHRNO2apriori"], 0, 0).linexp(~mi.minItem, ~ma.maxItem, 0.0000001, 1);
-a = a/a.maxItem;
-);
+
 s.boot;
 
 (
