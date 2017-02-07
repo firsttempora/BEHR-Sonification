@@ -192,6 +192,26 @@
     blob;
 };
 
+/* ------------------
+ * ~findCellOfMinR : finds and returns the coordinates (row, col) of the minimum absolute
+ * value of a 2d array.
+ * Assuming that the 2d array passed in is the radius, this function finds the "center"
+ * Assuming that the 2d array passed in is the angle, this function finds the cell closest to 0 degrees
+ */
+~findCellOfAbsMin = {|array2d|
+    var minV = inf;
+    var cellOfMinV;
+    array2d.rows.do({|r|
+        array2d.cols.do({|c|
+            if(array2d[r,c].abs < minV, {
+                minV = array2d[r,c].abs;
+                cellOfMinV = [r, c];
+            });
+        });
+    });
+    cellOfMinV;
+};
+
 "All functions successfully loaded".postln;
 );
 
