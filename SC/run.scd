@@ -17,46 +17,59 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
 });
 );
 
-~dataSummary[0]["BEHRPressureLevels"]
-~data[1].keys
-
-
-//~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);
-//a = a/a.maxItem;
-
-
-s.boot;
-
 (
-SynthDef(\spectrum, {|freq, amp|
-    Out.ar(0, amp * SinOsc.ar(freq))
-}).add;
+s.waitForBoot(
+    thisProcess.interpreter.executeFile(~base_path+/+"SC/synths.scd");
+);
 );
 
 (
-b = Array.newClear(a.size);
-b.size.do({|i|
-    b[i] = Synth(\spectrum, [\freq, 75*i, \amp, a]);
-});
+~numChans = 2;
+~timeInverval = 0.2;
+~f0 = 60;
 );
-
-(
-b.size.do({|i|
-    b[i].set(\amp, a[i]);
-});
-);
-
 
 
 (
-b.size.do({|i|
-    b[i].free;
-});
+~t = Task.new({
+    var curNO2apriori = ~getAltitudeAt.(~data[0]["BEHRNO2apriori"], 0, 0);
+    var amps = (curNO2apriori / ~dataSummary[0]["BEHRNO2apriori"]["max"]);
+    ~synths = Array.newClear(curNO2apriori.size);
+    ~synths.size.do({|i|
+        [75*i, amps[i]].postln;
+        ~synths[i] = Synth(\spectrum, [\freq, ~f0*i, \amp, 0]);
+    });
+
+    ~data[0]["BEHRNO2apriori"][0].rows.do({|r|
+        ~data[0]["BEHRNO2apriori"][0].cols.do({|c|
+            curNO2apriori = ~getAltitudeAt.(~data[0]["BEHRNO2apriori"], r, c);
+            //amps = (curNO2apriori / ~nanMax.(curNO2apriori));
+            amps = (curNO2apriori / ~dataSummary[0]["BEHRNO2apriori"]["max"]);
+
+
+            ~synths.size.do({|i|
+                amps[i].postln;
+                if(amps[i].isNaN, {
+                    ~synths[i].set(\amp, 0);
+                }, {
+                    ~synths[i].set(\amp, amps[i]);
+                });
+
+            });
+            ~timeInverval.wait;
+            "\n".postln;
+        });
+    });
+
+
+    ~timeInverval.wait;
+    ~synths.size.do({|i|
+        ~synths[i].free;
+    });
+
+
+}).play;
+
+
 );
-
-x = Synth(\spectrum, [\freq, 440, \amp, 0.1]);
-
-a
-
-
 
