@@ -17,6 +17,8 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
 });
 );
 
+~dataSummary[0]["BEHRPressureLevels"]
+~data[1].keys
 
 
 //~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);

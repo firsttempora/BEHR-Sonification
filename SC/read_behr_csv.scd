@@ -96,6 +96,42 @@
     c;
 };
 
+
+/* ------------------
+ * ~nanMax : function that returns the maximum item in an array, and only NaN if all values
+ * in the array are also nan. Assumes -inf and inf will also not be legal values
+ */
+~nanMax = {|array|
+    var value = -inf;
+    array.do({|i|
+        if(i.isNaN.not and: {i > value;},
+            {value = i;}
+        );
+    });
+    if(value == -inf,
+        {value = array[0];}
+    );
+    value;
+};
+
+/* ------------------
+ * ~nanMin : function that returns the minimum item in an array, and only NaN if all values
+ * in the array are also nan. Assumes -inf and inf will also not be legal values
+ */
+~nanMin = {|array|
+    var value = inf;
+    array.do({|i|
+        if(i.isNaN.not and: {i < value;},
+            {value = i;}
+        );
+    });
+    if(value == inf,
+        {value = array[0];}
+    );
+    value;
+};
+
+
 /* ------------------
  * ~sumarize_statistics : finds the min, median, mean, and max for each key in a dictionary
  */
@@ -105,16 +141,20 @@
         blob[k] = Dictionary.new;
         // max
         if(dict[k].class == Array2D, {
-            blob[k]["max"] = dict[k].maxItem;
+            blob[k]["max"] = ~nanMax.(dict[k]);
         }, {
-            blob[k]["max"] = dict[k].size.do.collect({|i|dict[k][i].maxItem}).maxItem;
+            var tempmax;
+            tempmax = (dict[k].size.do.collect({|i| ~nanMax.(dict[k][i].asArray)}));
+            blob[k]["max"] = ~nanMax.(tempmax);
         });
 
         // min
         if(dict[k].class == Array2D, {
-            blob[k]["min"] = dict[k].minItem;
+            blob[k]["min"] = ~nanMin.(dict[k]);
         }, {
-            blob[k]["min"] = dict[k].size.do.collect({|i|dict[k][i].minItem}).minItem;
+            var tempmin;
+            tempmin = dict[k].size.do.collect({|i| ~nanMin.(dict[k][i].asArray)});
+            blob[k]["min"] = ~nanMin.(tempmin);
         });
 
         // mean
