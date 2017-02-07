@@ -1,4 +1,5 @@
-~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+//~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification/";
 ~data_path = "data/";
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
@@ -17,12 +18,16 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
 });
 );
 
+a = ~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);
+a = a/5e-10;
 
+~dataSummary[1]["BEHRNO2apriori"]["median"]
 
-//~getAltitudeAt.(~data[1]["BEHRNO2apriori"], 0, 0);
-//a = a/a.maxItem;
+~sw = ~getAltitudeAt.(~data[1]["BEHRScatteringWeights"],0,0);
+~sw = ~sw/~sw.maxItem;
 
-
+~plev = ~getAltitudeAt.(~data[1]["BEHRPressureLevels"],0,0);
+~plev = ~plev/~plev.maxItem;
 s.boot;
 
 (
@@ -31,10 +36,12 @@ SynthDef(\spectrum, {|freq, amp|
 }).add;
 );
 
+// This is giving no sound using BEHRNO2apriori (nans?)
 (
 b = Array.newClear(a.size);
 b.size.do({|i|
-    b[i] = Synth(\spectrum, [\freq, 75*i, \amp, a]);
+	a[i].postln;
+	b[i] = Synth(\spectrum, [\freq, 75*i, \amp, ~plev[i]]);
 });
 );
 
@@ -54,7 +61,29 @@ b.size.do({|i|
 
 x = Synth(\spectrum, [\freq, 440, \amp, 0.1]);
 
-a
+(
+b = Array.newClear(a.size);
+b.size.do({|i|
+	a[i].postln;
+	b[i] = Synth(\spectrum, [\freq, 75*i, \amp, 0]);
+});
 
+r = Task.new({
+	~data[1]["BEHRScatteringWeights"][0].colAt(0).size.do({|i|
+		~data[1]["BEHRScatteringWeights"][0].rowAt(0).size.do({|j|
+			[i,j].postln;
+			~swij = ~getAltitudeAt.(~data[1]["BEHRScatteringWeights"],i,j);
+			~swij = ~swij / ~swij.maxItem;
+			b.size.do({|k|
+				b[k].set(\amp, ~swij[k]);
+			});
+			1.wait
+		});
+	});
+});
 
+r.play;
+);
+
+~getAltitudeAt.(~data[1]["BEHRScatteringWeights"],0,3)
 
