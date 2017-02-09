@@ -17,7 +17,7 @@ end
 
 filename = sprintf('OMI_BEHR_subset_%s.csv', datestr(filedate, 'yyyy-mm-dd'));
 if ~exist('outfile','var')
-    outfile = fullfile(repo_data_dir, filename);
+    outfile = fullfile(repo_data_dir, 'BEHR_subsets', filename);
 elseif ~exist(fileparts(outfile),'dir')
     error('behr_sonification:dir_dne','Output path %s does not exist',outfile);
 end
