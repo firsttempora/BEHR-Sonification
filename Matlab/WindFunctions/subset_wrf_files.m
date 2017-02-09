@@ -1,4 +1,4 @@
-function [ windvel_sub, theta_sub, dnums_sub ] = subset_wind_dirs( windvel, theta, dnums, city_lon )
+function [ xx ] = subset_wrf_files( dnums, this_dnum, city_lon )
 %SUBSET_WIND_DIRS Averages wind speed and directions for 3 hours prior to OMI overpass
 %   [ WINDVEL_SUB, THETA_SUB, DNUMS_SUB ] = SUBSET_WIND_DIRS( WINDVEL,
 %   THETA, DNUMS, CITY_LON ) This function will find all wind velocity
@@ -20,14 +20,9 @@ dnums_sub = unique(dnum_dates);
 dnum_hour = (dnums - dnum_dates)*24;
 
 hh = dnum_hour >= utc_overpass - hours2avg & dnum_hour <= utc_overpass;
+dd = dnum_dates == floor(this_dnum);
 
-windvel_sub = nan(size(dnums_sub));
-theta_sub = nan(size(dnums_sub));
-for a=1:numel(dnums_sub)
-    xx = dnum_dates == dnums_sub(a);
-    windvel_sub(a) = nanmean(windvel(xx & hh));
-    theta_sub(a) = angle_meand(theta(xx & hh));
-end
+xx = hh & dd;
 
 
 

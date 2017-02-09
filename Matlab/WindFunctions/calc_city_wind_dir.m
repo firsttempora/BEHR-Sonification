@@ -1,4 +1,4 @@
-function [ windvel, theta, dnums, city_lon, city_lat ] = calc_city_wind_dir( city )
+function [ windvel, theta, udnum_days, city_lon, city_lat ] = calc_city_wind_dir( city )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -26,20 +26,32 @@ for a=1:numel(F)
     dnums = cat(1,dnums, datenum(F(a).name(s:e),'yyyy-mm-dd_HH-MM-SS'));
 end
 
-[XLON, XLAT, U, V, COSALPHA, SINALPHA] = read_wrf_vars(fpath, F, {'XLONG', 'XLAT', 'U', 'V', 'COSALPHA', 'SINALPHA'},false,0);
-% We can take just one 2D slice of lon, lat, cos, and sin because these do
-% not change in time. U and V we will take surface averaged over utchrs 19
-% and 20 as these are closest to OMI overpass at Atlanta (13-14 local time)
-XLON = XLON(:,:,1,1);
-XLAT = XLAT(:,:,1,1);
-COSALPHA = COSALPHA(:,:,1,1);
-SINALPHA = SINALPHA(:,:,1,1);
-% Lu 2015 used winds across the bottom 500 m or so
-Ubar = squeeze(nanmean(U(:,:,1:5,:),3));
-Vbar = squeeze(nanmean(V(:,:,1:5,:),3));
-[Ue, Ve] = wrf_winds_transform(Ubar, Vbar, COSALPHA, SINALPHA);
+dnum_days = floor(dnums);
+udnum_days = unique(dnum_days);
+% Because of memory concerns, we will only load the static variables
+% (XLONG, XLAT, COSALPHA, and SINALPHA) once, then load each day's wind and
+% go ahead and find the average wind for that day
+[XLON, XLAT, COSALPHA, SINALPHA] = read_wrf_vars(fpath, F(1), {'XLONG', 'XLAT', 'COSALPHA', 'SINALPHA'}, false, 0);
 
-[windvel, theta] = calc_avg_wind(XLON, XLAT, Ue, Ve, city_lon, city_lat);
+windvel = nan(size(udnum_days));
+theta = nan(size(udnum_days));
+for a=1:numel(udnum_days)
+    fprintf('Current date: %s:\n',datestr(udnum_days(a)));
+    ff = subset_wrf_files(dnums, udnum_days(a), city_lon);
+    if sum(ff) < 1
+        continue
+    end
+    [U, V] = read_wrf_vars(fpath, F(ff), {'U', 'V'}, false, 0);
+    
+    % Lu 2015 used winds across the bottom 500 m or so
+    Ubar = squeeze(nanmean(U(:,:,1:5,:),3));
+    Vbar = squeeze(nanmean(V(:,:,1:5,:),3));
+    [Ue, Ve] = wrf_winds_transform(Ubar, Vbar, COSALPHA, SINALPHA);
+    
+    [windvel_timevec, theta_timevec] = calc_avg_wind(XLON, XLAT, Ue, Ve, city_lon, city_lat);
+    windvel(a) = nanmean(windvel_timevec);
+    theta(a) = nanmean(theta_timevec);
+end
 
 end
 
