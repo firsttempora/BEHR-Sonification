@@ -1,5 +1,6 @@
-~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
-~data_path = "data/";
+//~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
+~data_path = "data/BEHR_subsets";
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
 ~file_names = ~make_filenames.(~base_path+/+~data_path);
@@ -31,20 +32,21 @@ s.waitForBoot(
 
 
 (
+var dataField = "BEHRScatteringWeights";
 ~t = Task.new({
-    var curNO2apriori = ~getAltitudeAt.(~data[0]["BEHRNO2apriori"], 0, 0);
-    var amps = (curNO2apriori / ~dataSummary[0]["BEHRNO2apriori"]["max"]);
+    var curNO2apriori = ~getAltitudeAt.(~data[0][dataField], 0, 0);
+    var amps = (curNO2apriori / ~dataSummary[0][dataField]["max"]);
     ~synths = Array.newClear(curNO2apriori.size);
     ~synths.size.do({|i|
         [75*i, amps[i]].postln;
         ~synths[i] = Synth(\spectrum, [\freq, ~f0*i, \amp, 0]);
     });
 
-    ~data[0]["BEHRNO2apriori"][0].rows.do({|r|
-        ~data[0]["BEHRNO2apriori"][0].cols.do({|c|
-            curNO2apriori = ~getAltitudeAt.(~data[0]["BEHRNO2apriori"], r, c);
+    ~data[0][dataField][0].rows.do({|r|
+        ~data[0][dataField][0].cols.do({|c|
+            curNO2apriori = ~getAltitudeAt.(~data[0][dataField], r, c);
             //amps = (curNO2apriori / ~nanMax.(curNO2apriori));
-            amps = (curNO2apriori / ~dataSummary[0]["BEHRNO2apriori"]["max"]);
+            amps = (curNO2apriori / ~dataSummary[0][dataField]["max"]);
 
 
             ~synths.size.do({|i|
