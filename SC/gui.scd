@@ -1,6 +1,6 @@
 (
 var sb = Window.screenBounds;
-w = Window.new("BEHR Error Sonification", Rect(sb.width/2-250,sb.height/2-150,500,300)).front;
+w = Window.new("BEHR Error Sonification", Rect(sb.width/2-250,sb.height/2-100,500,250)).front;
 w.onClose = {s.freeAll; /*CmdPeriod.run*/};
 // QtGUI.palette = QPalette.dark;
 
@@ -8,28 +8,19 @@ w.onClose = {s.freeAll; /*CmdPeriod.run*/};
 ~pad = 10;
 ~height = 20;
 ~buttonWidth = 80;
-~sliderWidth = 250;
 
-~sliderW = 120;
-~numberW = 40;
-~labelW = 80;
+~labelWidth = 70;
+~numberBoxWidth = 35;
+~sliderWidth = 160;
+~leftColWidth = ~labelWidth+~numberBoxWidth+~sliderWidth+(2*~pad);
 
-// ~testLabel = StaticText(w,
-// Rect(~margin, ~margin+~pad+~height, ~labelW, ~height));
-// ~testLabel.string = "this is a label";
-// ~testSlider = Slider(w,
-// Rect(~margin+~labelW+~pad, ~margin+~pad+~height, ~sliderW, ~height));
-// ~testNumber = NumberBox(w,
-// Rect(~margin+~labelW+~sliderW+(2*~pad), ~margin+~pad+~height, ~numberW, ~height));
-//
+~viewWidth = w.bounds.width - (2*~margin) - ~leftColWidth - ~pad;
+~viewHeight = ~viewWidth;
 
 
-
-
-
-
+// play pause button
 ~playPauseButton = Button(w,
-    Rect(w.bounds.width - ~margin - ~buttonWidth, ~margin, ~buttonWidth, ~height))
+    Rect(~margin, ~margin, ~leftColWidth, ~height))
     .states_([["play"],["pause"]])
     .action_({|button|
     if(button.value == 0, {
@@ -43,82 +34,84 @@ w.onClose = {s.freeAll; /*CmdPeriod.run*/};
     });
 });
 
-~speedSlider = EZSlider(w,
-    Rect(~margin, ~margin, ~sliderWidth, ~height),
-    "speed",
-    ControlSpec(0,1,'lin',0.01,0.25,''),
-    {|v|},
-    nil,
-    true,
-    100,
-    35,
-    0,
-    20
-);
+// speed slider
+~speedLabel = StaticText(w,
+	Rect(~margin, ~margin+~pad+~height, ~labelWidth, ~height));
+~speedLabel.string = "speed";
+~speedSpec = ControlSpec(0,5,\linear, 0.01);
+~speedSlider = Slider(w,
+	Rect(~margin+~pad+~labelWidth, ~margin+~pad+~height, ~sliderWidth, ~height))
+    .action_({|v|
+	    ~speedNumber.value = ~speedSpec.map(~speedSlider.value);
+    });
+~speedNumber = NumberBox(w,
+	Rect(~margin+~labelWidth+~sliderWidth+(2*~pad), ~margin+~pad+~height, ~numberBoxWidth, ~height));
+~speedSlider.valueAction = ~speedSpec.unmap(1);
 
+// balance slider
+~balanceLabel = StaticText(w,
+	Rect(~margin, ~margin+(2*~pad)+(2*~height), ~labelWidth, ~height));
+~balanceLabel.string = "balance";
+~balanceSpec = ControlSpec(0,1,\linear, 0.01);
+~balanceSlider = Slider(w,
+	Rect(~margin+~pad+~labelWidth, ~margin+(2*~pad)+(2*~height), ~sliderWidth, ~height))
+    .action_({|v|
+	    ~balanceNumber.value = ~balanceSpec.map(~balanceSlider.value);
+    });
+~balanceNumber = NumberBox(w,
+	Rect(~margin+~labelWidth+~sliderWidth+(2*~pad), ~margin+(2*~pad)+(2*~height), ~numberBoxWidth, ~height));
+~balanceSlider.valueAction = ~balanceSpec.unmap(0.5);
 
-~balanceSlider = EZSlider(w,
-    Rect(~margin, ~margin+(~pad)+(~height), ~sliderWidth, ~height),
-    "weights/profile",
-    ControlSpec(0,1,'lin',0.01,0.5,''),
-    {|v|},
-    nil,
-    true,
-    100,
-    35,
-    0,
-    20
-);
+// radius slider
+~radiusLabel = StaticText(w,
+	Rect(~margin, ~margin+(3*~pad)+(3*~height), ~labelWidth, ~height));
+~radiusLabel.string = "radius";
+~radiusSpec = ControlSpec(0,1,\linear, 0.01);
+~radiusSlider = Slider(w,
+	Rect(~margin+~pad+~labelWidth, ~margin+(3*~pad)+(3*~height), ~sliderWidth, ~height))
+    .action_({|v|
+	    ~radiusNumber.value = ~radiusSpec.map(~radiusSlider.value);
+	    ~setDrawCircleVis.(~radiusNumber.value, ~thetaNumber.value, ~circleVis);
+    });
+~radiusNumber = NumberBox(w,
+	Rect(~margin+~labelWidth+~sliderWidth+(2*~pad), ~margin+(3*~pad)+(3*~height), ~numberBoxWidth, ~height));
+~radiusSlider.valueAction = ~radiusSpec.unmap(0.5);
 
-~radiusSlider = EZSlider(w,
-    Rect(~margin, ~margin+(2*(~pad+~height)), ~sliderWidth, ~height),
-    "radius",
-    ControlSpec(0,1,'lin',0.01,0.5,'thing'),
-    {|v|
-        ~setDrawCircleVis.(~radiusSlider.value, ~thetaSlider.value, ~circleVis);
-    },
-    nil,
-    true,
-    100,
-    35,
-    0,
-    20
-);
+// theta slider
+~thetaLabel = StaticText(w,
+	Rect(~margin, ~margin+(4*~pad)+(4*~height), ~labelWidth, ~height));
+~thetaLabel.string = "angle";
+~thetaSpec = ControlSpec(-2*pi,0,\linear, 0.01);
+~thetaSlider = Slider(w,
+	Rect(~margin+~pad+~labelWidth, ~margin+(4*~pad)+(4*~height), ~sliderWidth, ~height))
+    .action_({|v|
+	    ~thetaNumber.value = ~thetaSpec.map(~thetaSlider.value);
+	    ~setDrawCircleVis.(~radiusNumber.value, ~thetaNumber.value, ~circleVis);
+    });
+~thetaNumber = NumberBox(w,
+	Rect(~margin+~labelWidth+~sliderWidth+(2*~pad), ~margin+(4*~pad)+(4*~height), ~numberBoxWidth, ~height));
+~thetaSlider.valueAction = ~thetaSpec.unmap(pi);
 
-~thetaSlider = EZSlider(w,
-    Rect(~margin, ~margin+(3*(~pad+~height)), ~sliderWidth, ~height),
-    "angle",
-    ControlSpec(-2*pi,0,'lin',0.01,pi,'thing'),
-    {|v|
-        ~setDrawCircleVis.(~radiusSlider.value, ~thetaSlider.value, ~circleVis);
-    },
-    nil,
-    true,
-    100,
-    35,
-    0,
-    20
-);
-
+// move through day controls
 ~prevDayButton = Button(w,
-    Rect(~margin, ~margin+(4*(~pad+~height)), ~buttonWidth, ~height))
-    .states_([["previous day"]])
+	Rect(~margin, ~margin+(5*~pad)+(5*~height), ~leftColWidth/3-~pad, ~height))
+    .states_([["previous"]])
     .action_();
 
-
 ~nextDayButton = Button(w,
-Rect(~margin+~sliderWidth-~buttonWidth, ~margin+(4*(~pad+~height)), ~buttonWidth, ~height))
-.states_([["next day"]])
-.action_();
-
+	Rect(~margin+(~leftColWidth/3*2)+(~pad), ~margin+(5*~pad)+(5*~height), ~leftColWidth/3-~pad, ~height))
+    .states_([["next"]])
+    .action_();
 
 ~dayField = StaticText(w,
-Rect(~margin+(~sliderWidth/2)-(~buttonWidth/2), ~margin+(4*(~pad+~height)), ~buttonWidth, ~height));
+	Rect(~margin+(~leftColWidth/3)+(~pad), ~margin+(5*~pad)+(5*~height), ~leftColWidth/3-~pad, ~height));
 ~dayField.string = Date.getDate.format("%Y-%d-%e");
 ~dayField.align = \center;
 
-
-
+// write some extra info?
+~windInfoField = StaticText(w,
+	Rect(~margin, ~margin+(6*~pad)+(6*~height), ~leftColWidth, ~height));
+~windInfoField.string = "wind speed: 10mph, wind direction: NNW";
 
 ~setDrawCircleVis = {|radius, theta, view|
     var pixelScale = 150;
@@ -128,7 +121,6 @@ Rect(~margin+(~sliderWidth/2)-(~buttonWidth/2), ~margin+(4*(~pad+~height)), ~but
     view.drawFunc = {|vv|
         var center = (view.bounds.width/2)@(view.bounds.height/2);
         var pointOnCircle = (radius*pixelScale/2*cos(theta)+center.x)@(radius*pixelScale/2*sin(theta)+center.y);
-
 
         // draw the outer circle (radius wide)
         Pen.fillColor = Color.white;
@@ -150,11 +142,11 @@ Rect(~margin+(~sliderWidth/2)-(~buttonWidth/2), ~margin+(4*(~pad+~height)), ~but
 };
 
 ~circleVis = UserView(w,
-    Rect(~margin+~sliderWidth+~pad, ~margin+~pad+~height, 200, 200));
+    Rect(~margin+~leftColWidth+~pad, ~margin, ~viewHeight, ~viewWidth));
 ~circleVis.background = Color.new255(230,230,230);
-~setDrawCircleVis.(~radiusSlider.value, ~thetaSlider.value, ~circleVis);
+~setDrawCircleVis.(~radiusNumber.value, ~thetaNumber.value, ~circleVis);
+
 
 );
-
 
 
