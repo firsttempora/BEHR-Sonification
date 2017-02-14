@@ -9,6 +9,7 @@
 \usepackage{icad2017,amsmath,epsfig,times,url}
 \usepackage{hyperref}
 \usepackage{hypcap}
+\usepackage{cite}
 
 % Example definitions.
 % --------------------
@@ -39,7 +40,13 @@
 Stanford, CA 94305 USA \\ {\tt  
 \href{mailto:kermit@ccrma.stanford.edu}{kermit@ccrma.stanford.edu}}}  
 
-
+%% if necessary, we will uncomment this to reduce the space the bib takes up..
+% \let\OLDthebibliography\thebibliography
+% \renewcommand\thebibliography[1]{
+%   \OLDthebibliography{#1}
+%   \setlength{\parskip}{0pt}
+%   \setlength{\itemsep}{0pt plus 0.3ex}
+% }
 
 \begin{document}
 \ninept
@@ -104,7 +111,9 @@ While the comparision of satellite and model SCDs only provides a single constra
 % -------------------------------------------------------------------------
 % Either list references using the bibliography style file IEEEtran.bst
 \bibliographystyle{IEEEtran}
+\footnotesize{
 \bibliography{refs2014}
+}
 %
 % or list them by yourself
 % \begin{thebibliography}{9}
