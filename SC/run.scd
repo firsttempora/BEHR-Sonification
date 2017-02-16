@@ -26,21 +26,30 @@ s.waitForBoot(
 
 (
 ~numChans = 2;
-~timeInverval = 0.2;
+~timeInverval = 1;
 ~f0 = 60;
 );
 
 
 (
 var dataField = "BEHRScatteringWeights";
+var dataField2 = "BEHRNO2apriori";
 ~t = Task.new({
     var curNO2apriori = ~getAltitudeAt.(~data[0][dataField], 0, 0);
     var amps = (curNO2apriori / ~dataSummary[0][dataField]["max"]);
+	var behrData2 = ~getAltitudeAt.(~data[0][dataField2],0,0);
+	var amps2 = (behrData2 / ~dataSummary[0][dataField2]["max"]);
     ~synths = Array.newClear(curNO2apriori.size);
     ~synths.size.do({|i|
         [75*i, amps[i]].postln;
-        ~synths[i] = Synth(\spectrum, [\freq, ~f0*i, \amp, 0]);
+        ~synths[i] = Synth(\spectrum, [\freq, ~f0*i, \amp, 0, \out, 0]);
     });
+
+	~synths2 = Array.newClear(behrData2.size);
+	~synths2.size.do({|i|
+		~synths2[i] = Synth(\spectrum, [\freq, ~f0*i, \amp, 0, \out, 1]);
+	});
+
 
     ~data[0][dataField][0].rows.do({|r|
         ~data[0][dataField][0].cols.do({|c|
@@ -58,6 +67,16 @@ var dataField = "BEHRScatteringWeights";
                 });
 
             });
+
+			behrData2 = ~getAltitudeAt.(~data[0][dataField2], r, c);
+			amps2 = (behrData2 / ~dataSummary[0][dataField2]["max"]);
+			~synths2.size.do({|i|
+				if(amps2[i].isNaN, {
+					~synths2[i].set(\amp, 0);
+				}, {
+					~synths2[i].set(\amp, amps2[i]);
+				});
+			});
             ~timeInverval.wait;
             "\n".postln;
         });
@@ -68,6 +87,9 @@ var dataField = "BEHRScatteringWeights";
     ~synths.size.do({|i|
         ~synths[i].free;
     });
+	~synths2.size.do({|i|
+		~synths2[i].free;
+	});
 
 
 }).play;
