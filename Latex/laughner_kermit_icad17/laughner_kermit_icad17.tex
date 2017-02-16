@@ -33,7 +33,7 @@
 %
 
 % IF TWO AUTHORS, uncomment this part
-\twoauthors{Josh Laughner} {Department of Chemistry \\ University of California, Berkeley \\ Berkeley, CA 94720  USA
+\twoauthors{Joshua L. Laughner} {Department of Chemistry \\ University of California, Berkeley \\ Berkeley, CA 94720  USA
 \\ {\tt \href{mailto:jlaughner@berkeley.edu}{jlaughner@berkeley.edu}}} {Elliot Kermit Canfield-Dafilou}  
 {Center for Computer Research \\in Music and Acoustics \\ Stanford University,
 Stanford, CA 94305 USA \\ {\tt  
@@ -54,11 +54,15 @@ Stanford, CA 94305 USA \\ {\tt
 \section{Introduction}
 \label{sec:intro}
 
+\subsection{The role of nitrogen oxides in air quality}
+
 \ce{NO_x} ($\equiv$ \ce{NO + NO_2}) is a family of trace gases in the atmosphere that plays an important role in air quality.  Photolysis of \ce{NO_2} produces ozone (\ce{O_3}), which is regulated by the Environmental Protection Agency (EPA) because of the negative health effects associated with exposure to elevated concentrations of \ce{O_3}. The role \ce{NO_x} plays in the production of \ce{O_3} is complex, as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of volatile organic compounds (VOCs), i.e. hydrocarbons that are present in the gas phase.
 
 \ce{NO_x} is emitted through a number of processes, both anthropogenic and natural. Anthropogenic sources are typically those involving combustion, as the high temperatures break the \ce{N_2} and \ce{O_2} molecules in the atmosphere, allowing them to recombine as \ce{NO} or \ce{NO_2}. Examples of such sources are vehicles, power plants, ships, and aircraft. Natural sources also include high temperature sources, such as biomass burning or lightning, as well as other sources such as soil bacteria.
 
 As a result, \ce{NO_x} is measured by a variety of methods, including ground-, aircraft-, and space-based instruments. These instruments can either measure point concentrations of \ce{NO_x} (or its components) or a tropospheric column measurement, i.e., the concentration integrated over the vertical extent of the troposphere.
+
+\subsection{Space-based measurement of NO$_2$}
 
 Space-based measurements of \ce{NO_2} tropospheric column density began over two decades ago with the launch of the Global Ozone Monitoring Experiment (GOME) instrument onboard the ERS-2 satellite in 1996. (Only \ce{NO_2}, rather than total \ce{NO_x} is measured due to its spectroscopic properties.) Since then, several additional instruments have been launched, including the SCanning Imaging Absorption SpectroMeter for Atmospheric CHartographY (SCIAMACHY), Ozone Monitoring Instrument (OMI), and GOME-2. All these instruments are carried onboard polar orbiting satellites, allowing them to observe the entire globe in 1--6 days, depending on the instrument and operational mode.
 
@@ -66,11 +70,13 @@ Space-based observations of \ce{NO_2} offer a level of combined spatial and temp
 
 The retrieval of \ce{NO_2} from space requires three main steps. First, the absorbance observed in reflected sunlight must be fit using a technique known as Differential Optical Absorption Spectroscopy (DOAS), which accounts for broadband features such a Rayleigh scattering as a baseline on top of which trace gas absorbances are detected. The second step is to separate the stratospheric and tropospheric \ce{NO_2} signals. Finally, to compute the final tropospheric vertical column density (VCD), it must be converted from a slant to vertical column density.
 
-The slant column density (SCD) is the immediate result of the spectral fitting and stratospheric subtraction. It represents the total integrated \ce{NO_2} concentration along all beam paths of sunlight through the atmosphere that reach the detector on board the satellite.  The magnitude of the SCD can be influenced by several factors, including the geometry of the light path through the atmosphere, the reflectivity of the surface in view of the detector, and the vertical profile of \ce{NO_2}. These factors are accounted for by use of an air mass factor (AMF) that gives the ratio of the SCD to the VCD \cite{palmer01}. 
+The slant column density (SCD) is the immediate result of the spectral fitting and stratospheric subtraction. It represents the total integrated \ce{NO_2} concentration along all beam paths of sunlight through the atmosphere that reach the detector on board the satellite.  The magnitude of the SCD can be influenced by several factors beyond the total concentration of \ce{NO_2}, including the geometry of the light path through the atmosphere, the reflectivity of the surface in view of the detector, and the vertical profile of \ce{NO_2}. Therefore, it is necessary to account for the influence of the factors so that the differences among measurments reflect the variability in \ce{NO_2} concentration, rather than path length, surface reflectivity, etc. These factors are accounted for by use of an air mass factor (AMF) that is used to convert the SCD to a VCD \cite{palmer01}. 
 
 The vertical profile of \ce{NO_2} is an important component to the retrieval. Over low reflectivity surfaces, the sensitivity of the satellite to \ce{NO_2} decreases by 8--10x from the top of the troposphere to the surface of the earth.  Therefore, the vertical position of \ce{NO_2} is crucial, as the same amount of \ce{NO_2} near the top of the troposphere generates greater absorbance than it would near the surface. To account for this, the vertical profile of \ce{NO_2} within a satellite pixel must be known \emph{a priori} before the retrieval can be completed.
 
 These profiles are obtained using chemical transport models (CTMs) which numerically solve the differential equations governing emission, transport, chemical reaction, and deposition to the surface for dozens to hundreds of chemical species. These models are computationally expensive, particularly when a global simulation is required. Global \ce{NO_2} retrievals, such as the KNMI DOMINO or NASA SPv3 retrievals, are forced to run these models at relatively coarse resolution of $1^\circ \times 1^\circ$ or $2.5^\circ \times 2^\circ$ degrees (longitude $\times$ latitude).  While necessary from the standpoint of computational cost, several studies implementing finer resolution (3--15 km, $\sim 10$x finer than the coarse retrievals) \cite{vinken14, lin15, mclinden14, russell11, kuhlmann15} have found that the improved profile shape has a significant impact on the retrieved VCD, on average \textbf{xx}\%.  Other work \cite{laughner16} has shown that the temporal resolution of these profiles can alter retrieved VCDs by $\sim 40\%$ and emissions derived from those VCDs by up to 100\%.
+
+\subsection{The application of sonification to space-based NO$_2$ measurements}
 
 Clearly, the accuracy of the profile shape is of paramount importance to space-based measurments of \ce{NO_2}. Validation of modeled profile shaped has been done using aircraft measurements, balloon sonde measurements, and ground-based multi-angle spectroscopic observations; while very effective where available, these are by necessity limited in time or space. 
 
@@ -83,13 +89,9 @@ Our goal is to develop a method to examine the agreement between the satellite S
 
 where $g(z)$ is the model profile as a function of altitude, $w(z)$ are altitude resolved weights that account for difference in path length between a vertical and slanted path as well as sensitivity to \ce{NO_2} at that altitude, and the integration limits $z_{\mathrm{ground}}$ and $z_{\mathrm{tropopause}}$ are the altitudes of the surface and troposphere-stratosphere boundary.
 
-While the comparision of satellite and model SCDs only provides a single constraint, and so does not lend itself to formal inversion to constrain the profile shape, the goal of this work is to use sonification to aid identification of patterns in the correlation between profile shape and satellite/model mismatch. By identifying how changes in the magnitude of the profile at various altitudes correlates with the satellite/model mismatch, we hope to identify what altitudes in the model are over- or under- estimated. The modeled profiles are resolved vertically on $\geq 28$ vertical levels; visually identifying correlations over this many semi-independent variable is challenging. Even in the sonic regime, correlation of 28 variables with a separate metric is difficult; however, the troposphere can be considered more broadly in 3--4 sections:
-	\begin{itemize}
-	\item The boundary layer; a well mixed portion of the troposphere that extends 100-2000 m above the surface.
-	\item The mid troposphere
-	\item The upper troposphere
-	\end{itemize}
-	Identifying patterns of over- or under- estimation in the modeled profiles even among these three coarse vertical regions can help reduce error due to the modeled profile and potentially allow the use of satellite/model SCD comparisons to constrain the profile shape during the retrieval, improving the profile resolution without significant computational cost.
+	While the comparision of satellite and model SCDs only provides a single constraint, and so does not lend itself to formal inversion to constrain the profile shape, the goal of this work is to use sonification to aid identification of patterns in the correlation between profile shape and satellite/model mismatch. By identifying how changes in the magnitude of the profile at various altitudes correlates with the satellite/model mismatch, we hope to identify what altitudes in the model are over- or under- estimated. The modeled profiles are resolved vertically on $\geq 28$ vertical levels; visually identifying correlations over this many semi-independent variable is challenging. Sonification allows us to represent the shape of the profile as a single quality, by transforming the vertical distribution of \ce{NO_2} to a spectral distribution of frequencies. Coupled with inherent spatial and temporal information possible in sound, sonification should offer an intuitive way of digesting significant information on the relationship between profile shape and model/satellite SCD agreement.
+
+	Identifying correlation of over- or under- estimation in the modeled SCDs with the profile shape is an important step to identifying the shortcomings of current methods of simulating \emph{a priori} \ce{NO_2} profiles.  For example, identifying a correlation between underestimated model SCDs and small \ce{NO_2} concentrations at high altitudes in the model profile suggests a missing high altitude source of \ce{NO_2} or incorrect vertical transport in the model. Conversely, if good agreement is found in a high-\ce{NO_2} concentration environment (like a city) but gets worse as one moves away from the city suggests that the influence of the city is not accounted for over a large enough area.
 
 
 \section{REFERENCES}
