@@ -1,7 +1,6 @@
-~data[0]["BEHRNO2apriori"][0].cols
-
 (
 var dataField = "BEHRNO2apriori";
+// var dataField = "BEHRScatteringWeights";
 var hardcodedcenterpixelRow = 2;
 var hardcodedcenterpixelCol = 1;
 
@@ -16,7 +15,7 @@ var hardcodedcenterpixelCol = 1;
         amps[i] = (curNO2apriori[i] / ~dataSummary[0][dataField]["max"]);
         ~synths[i] = Array.newClear(curNO2apriori[0].size);
         ~synths[i].size.do({|j|
-            ~synths[i][j] = Synth(\spectrum_pan2, [\freq, ~f0*i, \amp, 0, \chan, 0, \pan, i-1]);
+            ~synths[i][j] = Synth(\spectrum_pan2, [\freq, ~f0*j, \amp, 0, \chan, 0, \pan, i-1]);
         });
     });
 
@@ -27,13 +26,13 @@ var hardcodedcenterpixelCol = 1;
                 ~getAltitudeAt.(~data[date][dataField],
                     hardcodedcenterpixelRow, hardcodedcenterpixelCol-i+1);
             amps[i] = (curNO2apriori[i] / ~dataSummary[date][dataField]["max"]);
-            {plot(amps)}.defer;
+            {plot(~destroyNans.(amps[0]))}.defer;
             ~synths[i].size.do({|j|
                 (amps[i][j]/amps[i].size).postln;
                 if(amps[i][j].isNaN, {
                     ~synths[i][j].set(\amp, 0);
                 },{
-                        ~synths[i][j].set(\amp, amps[i][j]/amps[i].size);
+                        ~synths[i][j].set(\amp, amps[i][j]);
                 });
             });
             "playing pixel: ".post;
