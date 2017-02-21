@@ -1,5 +1,5 @@
-//~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
-~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
+~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+//~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
 ~data_path = "data/BEHR_subsets";
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
