@@ -192,6 +192,17 @@
     blob;
 };
 
+/*-------------------
+ * take an array, makes a _new_ array, and return nans into zeros
+ */
+~destroyNans = {|array|
+    var newArray = array.deepCopy;
+    newArray.size.do({|i|
+        if(newArray[i].isNaN, {newArray[i] = 0});
+    });
+    newArray;
+};
+
 /* ------------------
  * ~findCellOfMinR : finds and returns the coordinates (row, col) of the minimum absolute
  * value of a 2d array.
