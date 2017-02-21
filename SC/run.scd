@@ -2,7 +2,7 @@
 //~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
 ~data_path = "data/BEHR_subsets";
 
-thisProcess.interpreter.executeFile(~base_path+/+"SC/read_behr_csv.scd");
+thisProcess.interpreter.executeFile(~base_path+/+"SC/funcs.scd");
 ~file_names = ~make_filenames.(~base_path+/+~data_path);
 (
 ~data = Array.newClear(~file_names.size);

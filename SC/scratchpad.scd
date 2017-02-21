@@ -26,7 +26,7 @@ var hardcodedcenterpixelCol = 1;
                 ~getAltitudeAt.(~data[date][dataField],
                     hardcodedcenterpixelRow, hardcodedcenterpixelCol-i+1);
             amps[i] = (curNO2apriori[i] / ~dataSummary[date][dataField]["max"]);
-            {plot(~destroyNans.(amps[0]))}.defer;
+            //{plot(~destroyNans.(amps[0]))}.defer;
             ~synths[i].size.do({|j|
                 (amps[i][j]/amps[i].size).postln;
                 if(amps[i][j].isNaN, {
