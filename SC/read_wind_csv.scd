@@ -6,8 +6,7 @@
 ~parse_date_str = {|datestr|
 	var dlist, ddict;
 	dlist = datestr.split($-).asInteger;
-	dlist.postln;
-	ddict = Dictionary.newFrom(["year", dlist[0], "month", dlist[1], "day", dlist[2]]);
+	ddict = Dictionary.newFrom([\year, dlist[0], \month, dlist[1], \day, dlist[2]]);
 	// return ddict
 	ddict;
 };
@@ -24,11 +23,11 @@
 	ndays.do({|i|
 		thisDict = Dictionary.new;
 		varNames.do({|varName,k|
-			if(varName == "Date", {
-				thisDict[varName] = ~parse_date_str.(d[i+2][k]);
+			if(varName.asSymbol == \Date, {
+				thisDict[varName.asSymbol] = ~parse_date_str.(d[i+2][k]);
 				//ddict.postln;
 			},{
-				thisDict[varName] = d[i+2][k].asFloat;
+				thisDict[varName.asSymbol] = d[i+2][k].asFloat;
 			});
 		});
 		//thisDict.postln;
@@ -47,12 +46,7 @@
 	);
 
 	wind_data.do({|data,i|
-		/*if( (data["Date"]["year"] == dIn["year"]) &&
-			(data["Date"]["month"] == dIn["month"]) &&
-			(data["Date"]["day"] == dIn["day"]),
-			{windOut = data});*/
-
-		if(data["Date"] == dIn, {windOut = data; data["Date"].postcs});
+		if(data[\Date] == dIn, {windOut = data});
 	});
 	// return windOut
 	windOut;
