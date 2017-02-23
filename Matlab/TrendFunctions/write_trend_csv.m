@@ -1,6 +1,9 @@
 function [  ] = write_trend_csv( filename, site_name, lon, lat, varargin )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%WRITE_TREND_CSV Write a trend .csv file for a single site
+%   WRITE_TREND_CSV( FILENAME, SITE_NAME, LON, LAT, ... ) Writes a .csv
+%   file at FILENAME. Writes the SITE_NAME, LON, and LAT in the header. The
+%   following inputs must alternate variable names as strings and variable
+%   values as arrays.
 
 E = JLLErrors;
 

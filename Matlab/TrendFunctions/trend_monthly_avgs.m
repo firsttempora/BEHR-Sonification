@@ -7,17 +7,17 @@ end_dnum = datenum(end_date);
 while curr_dnum < end_dnum
     yr = year(curr_dnum);
     mn = month(curr_dnum);
-    d1 = sprintf('%04d-%02d-01', yr, mn);
-    d2 = sprintf('%04d-%02d-%02d', yr, mn, eomday(yr, mn));
-    fprintf('Averaging %s to %s\n', d1, d2);
-    [~, NO2_GRID, LON_GRID, LAT_GRID] = no2_column_map_2014(d1, d2, [-125 -65], [25 50],...
+    avg_start = sprintf('%04d-%02d-01', yr, mn);
+    avg_end = sprintf('%04d-%02d-%02d', yr, mn, eomday(yr, mn));
+    fprintf('Averaging %s to %s\n', avg_start, avg_end);
+    [~, NO2_GRID, LON_GRID, LAT_GRID] = no2_column_map_2014(avg_start, avg_end, [-125 -65], [25 50],...
         'clouds','omi','cloudfraccrit',0.2,'rowanomaly','XTrackFlags','rows',[1 58], 'makefig',false);
     
-    savename = fullfile(savedir, sprintf('BEHR_AVG_%s_%s-%s.mat', BEHR_version, d1, d2));
+    savename = fullfile(savedir, sprintf('BEHR_AVG_%s_%s-%s.mat', BEHR_version, avg_start, avg_end));
     fprintf('Saving %s\n', savename);
-    save(savename, 'NO2_GRID', 'LON_GRID', 'LAT_GRID');
+    save(savename, 'NO2_GRID', 'LON_GRID', 'LAT_GRID', 'avg_start', 'avg_end');
     
-    curr_dnum = datenum(d2) + 1; % end of month day + 1 = next month
+    curr_dnum = datenum(avg_end) + 1; % end of month day + 1 = next month
 end
 
 end
