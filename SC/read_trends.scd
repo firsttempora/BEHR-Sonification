@@ -1,5 +1,6 @@
 (
-~trends_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/data/trend_data/";
+~trends_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/data/trend_data/";
+// ~trends_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/data/trend_data/";
 ~location_types = ~make_filenames.(~trends_path);
 ~location_names = Array.newClear(~location_types.size);
 ~locations = Dictionary.new;
@@ -35,10 +36,6 @@
     });
 });
 
-
-
-
 );
 
 
-~locations["PowerPlants"]["Marshall"]["BEHRNO2"].size

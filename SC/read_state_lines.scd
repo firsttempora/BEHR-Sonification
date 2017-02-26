@@ -26,7 +26,7 @@ w = Window("can we draw the states?", Rect(100, 200, 500, 300)).front;
 
 ~mapWidth = 500;
 ~mapHeight = ~mapWidth/~lon2latRatio;
-~cityRadius = 10;
+~cityRadius = 5;
 
 ~mapView = UserView(w, Rect(0, 0, ~mapWidth, ~mapHeight));
 ~mapView.background = Color.new255(160, 160, 160);
@@ -45,15 +45,15 @@ w = Window("can we draw the states?", Rect(100, 200, 500, 300)).front;
 	Pen.fillStroke;
 };
 
-~cityView = UserView(w, Rect(0, 0, ~mapWidth, ~mapHeight));
-~cityView.drawFunc = { |vv|
-	Pen.fillColor = Color.new255(205, 41, 144).alpha_(0.5);//Color.black.alpha_(0.1);//Color.new255(240, 248, 255, 0);
-	Pen.strokeColor = Color.red;
+// ~cityView = UserView(w, Rect(0, 0, ~mapWidth, ~mapHeight));
+// ~cityView.drawFunc = { |vv|
+// Pen.fillColor = Color.new255(205, 41, 144).alpha_(0.5);//Color.black.alpha_(0.1);//Color.new255(240, 248, 255, 0);
+// Pen.strokeColor = Color.red;
 
-	// add a single city marker; this will of course be done in a loop at some point
-	Pen.addOval(Rect.fromPoints(40@130+~cityRadius, 40@130-~cityRadius));
-	Pen.fillStroke;
-};
+// // add a single city marker; this will of course be done in a loop at some point
+// Pen.addOval(Rect.fromPoints(40@130+~cityRadius, 40@130-~cityRadius));
+// Pen.fillStroke;
+// };
 
 );
 
