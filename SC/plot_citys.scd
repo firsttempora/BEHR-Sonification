@@ -1,3 +1,6 @@
+// this should probably be converted into a function that takes a user view, clears it, and draws the cities on top of it
+// also, should have a way of designating which locations are active in the sonification or not
+
 (
 ~cityView = UserView(w, Rect(0, 0, ~mapWidth, ~mapHeight));
 ~cityView.drawFunc = { |vv|
@@ -21,6 +24,5 @@
 		});
 		Pen.fillStroke;
 	});
-
 };
 );

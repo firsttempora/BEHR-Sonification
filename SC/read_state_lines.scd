@@ -19,11 +19,10 @@
 ~latMax = ~lat.maxItem;
 ~lon2latRatio = (~lonMax-~lonMin)/(~latMax-~latMin);
 
-
-w = Window("can we draw the states?", Rect(100, 200, 500, 300)).front;
+w = Window("can we draw the states?", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height/2, 700, 700)).front;
 w.onClose = ({if(~cityView.notNil, {~cityView = nil;});});
 
-~mapWidth = 500;
+~mapWidth = 700;
 ~mapHeight = ~mapWidth/~lon2latRatio;
 ~cityRadius = 5;
 
