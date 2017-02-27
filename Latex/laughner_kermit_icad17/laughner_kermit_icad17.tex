@@ -20,7 +20,7 @@
 \newcommand{\ce}[1]{$\mathrm{#1}$}
 % Title.
 % --------------------
-\title{Source of Error Detection Using Sonification}
+\title{Illustrating trends in nitrogen oxides across the US using sonification}
 
 % *** IMPORTANT ***
 % *** PLEASE LEAVE AUTHOR INFORMATION BLANK UNTIL FINAL CAMERA-READY SUBMISSION *** 
@@ -61,50 +61,50 @@ Stanford, CA 94305 USA \\ {\tt
 \section{Introduction}
 \label{sec:intro}
 
-\subsection{The role of nitrogen oxides in air quality}
+\subsection{Nitrogen oxides play a key role in controlling air quality.}
+\label{sec:nox-chemistry}
+Nitrogen oxide (\ce{NO}) and nitrogen dioxide (\ce{NO_2}), collectively known as \ce{NO_x}, play an important role in air quality.  Photolysis of \ce{NO_2} produces ozone (\ce{O_3}), and the reaction of \ce{NO} with oxidized volatile organic compounds (VOCs) can lead to the formation of fine particulate matter.
 
-\ce{NO_x} ($\equiv$ \ce{NO + NO_2}) is a family of trace gases in the atmosphere that plays an important role in air quality.  Photolysis of \ce{NO_2} produces ozone (\ce{O_3}), which is regulated by the Environmental Protection Agency (EPA) because of the negative health effects associated with exposure to elevated concentrations of \ce{O_3}. The role \ce{NO_x} plays in the production of \ce{O_3} is complex, as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of volatile organic compounds (VOCs), i.e. hydrocarbons that are present in the gas phase.
+Both ozone and particulate matter concentrations in the atmosphere are regulated by the Environmental Protection Agency (EPA) because of the negative health effects associated with exposure to them. Elevated concentrations of both are known to cause respiratory distress, especially in children \cite{romieu96}. Elevated ozone also damages crops, leading to significant economic losses as well as reducing food yields \cite{tai14}.
+
+The role \ce{NO_x} plays in the production of \ce{O_3} is complex, as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of VOCs. At both high and low concentrations of \ce{NO_x}, ozone production due to \ce{NO_x} cycling is suppressed, though for different reasons. At intermediate \ce{NO_x} concentrations, ozone production peaks \cite{murphy07}.  Therefore, cities attempting to improve their air quality by reducing \ce{NO_x} concentrations may see an increase in ozone initially, and a decrease only once \ce{NO_x} concentrations have fallen below a critical point. The value of that critical point depends on the mixture of VOCs present in the atmosphere.
 
 \ce{NO_x} is emitted through a number of processes, both anthropogenic and natural. Anthropogenic sources are typically those involving combustion, as the high temperatures break the \ce{N_2} and \ce{O_2} molecules in the atmosphere, allowing them to recombine as \ce{NO} or \ce{NO_2}. Examples of such sources are vehicles, power plants, ships, and aircraft. Natural sources also include high temperature sources, such as biomass burning or lightning, as well as other sources such as soil bacteria.
 
-As a result, \ce{NO_x} is measured by a variety of methods, including ground-, aircraft-, and space-based instruments. These instruments can either measure point concentrations of \ce{NO_x} (or its components) or a tropospheric column measurement, i.e., the concentration integrated over the vertical extent of the troposphere.
-
-\subsection{Space-based measurement of NO$_2$}
+\subsection{Space-based measurement of NO$_2$ and O$_3$ offer broad geographic and temporal coverage}
 
 Space-based measurements of \ce{NO_2} tropospheric column density began over two decades ago with the launch of the Global Ozone Monitoring Experiment (GOME) instrument onboard the ERS-2 satellite in 1996. (Only \ce{NO_2}, rather than total \ce{NO_x} is measured due to its spectroscopic properties.) Since then, several additional instruments have been launched, including the SCanning Imaging Absorption SpectroMeter for Atmospheric CHartographY (SCIAMACHY), Ozone Monitoring Instrument (OMI), and GOME-2. All these instruments are carried onboard polar orbiting satellites, allowing them to observe the entire globe in 1--6 days, depending on the instrument and operational mode.
 
 Space-based observations of \ce{NO_2} offer a level of combined spatial and temporal coverage not possible with ground- or aircraft- based instruments.  This offers several notable advantages, such as the ability to observe an entire urban and suburban area, to compare multiple urban areas across the globe using the same instrument, as well as the ability to monitor episodic events (biomass burning, lightning) difficult to track with other types of instruments.  Multiple papers have made use of these properties to investigate both anthropogenic \cite{ding15, lamsal15, tong15, huang14, vinken14, gu13, miyazaki12, russell12, lin10, kim09} and natural \ce{NO_x} emissions \cite{miyazaki14, beirle10, castellanos14, mebust14, mebust13, zorner16}.
 
-The retrieval of \ce{NO_2} from space requires three main steps. First, the absorbance observed in reflected sunlight must be fit using a technique known as Differential Optical Absorption Spectroscopy (DOAS) \cite{burrows-platt-borrell}, which accounts for broadband features such a Rayleigh scattering as a baseline on top of which trace gas absorbances are detected. The second step is to separate the stratospheric and tropospheric \ce{NO_2} signals \cite{bucsela13}. Finally, to compute the final tropospheric vertical column density (VCD), it must be converted from a slant to vertical column density.
+The result of these measurements is a ``tropospheric vertical column density'' (tVCD), usually in units of molecules/cm$^2$. This is the total number of molecules of \ce{NO_2} over one square centimeter of the Earth's surface between the surface and the top of the troposphere (typically $\sim$ 12 km). Rural areas considered ``clean'' typical have tVCDs of $\leq 1 \times 10^{15}$ molec. cm$^{-2}$. Highly polluted areas such as Los Angeles, CA, USA or Beijing, China have tVCDs in excess of $1 \times 10^{16}$ molec. cm$^{-2}$.
 
-The slant column density (SCD) is the immediate result of the spectral fitting and stratospheric subtraction. It represents the total integrated \ce{NO_2} concentration along all beam paths of sunlight through the atmosphere that reach the detector on board the satellite.  The magnitude of the SCD can be influenced by several factors beyond the total concentration of \ce{NO_2}, including the geometry of the light path through the atmosphere, the reflectivity of the surface in view of the detector, and the vertical profile of \ce{NO_2}. Therefore, it is necessary to account for the influence of the factors so that the differences among measurments reflect the variability in \ce{NO_2} concentration, rather than path length, surface reflectivity, etc. These factors are accounted for by use of an air mass factor (AMF) that is used to convert the SCD to a VCD \cite{palmer01}. 
+Measurements of \ce{O_3} from space are done similarly to measurements of \ce{NO_2} and are almost always measured by the same satellites. However, measurements of \emph{tropospheric} \ce{O_3} are complicated by the high concentration of \ce{O_3} in the stratosphere. Whereas the tropospheric and stratospheric components of the total \ce{NO_2} vertical column density are similar orders of magnitude, the tropospheric component of the \ce{O_3} total VCD is minor compared to the stratospheric component.
 
-The vertical profile of \ce{NO_2} is an important component to the retrieval. Over low reflectivity surfaces, the sensitivity of the satellite to \ce{NO_2} decreases by 8--10x from the top of the troposphere to the surface of the earth.  Therefore, the vertical position of \ce{NO_2} is crucial, as the same amount of \ce{NO_2} near the top of the troposphere generates greater absorbance than it would near the surface. To account for this, the vertical profile of \ce{NO_2} within a satellite pixel must be known \emph{a priori} before the retrieval can be completed.
+\subsection{NO$_x$ has decreased in the US over the past decade.}
+\label{sec:nox-decrease}
+In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 on.
 
-These profiles are obtained using chemical transport models (CTMs) which numerically solve the differential equations governing emission, transport, chemical reaction, and deposition to the surface for dozens to hundreds of chemical species. These models are computationally expensive, particularly when a global simulation is required. Global \ce{NO_2} retrievals, such as the KNMI DOMINO or NASA SPv3 retrievals, are forced to run these models at relatively coarse resolution of $1^\circ \times 1^\circ$ or $2.5^\circ \times 2^\circ$ degrees (longitude $\times$ latitude).  While necessary from the standpoint of computational cost, several studies implementing finer resolution (3--15 km, $\sim 10$x finer than the coarse retrievals) \cite{mclinden14, russell11, kuhlmann15} have found that the improved profile shape has a significant impact on the retrieved VCD, between --75 and +100\%.  Other work \cite{laughner16} has shown that the temporal resolution of these profiles can alter retrieved VCDs by $\sim 40\%$ and emissions derived from those VCDs by up to 100\%.
+\subsection{Sonifcation is an ideal educational tool to communicate the complexity of NO$_x$/O$_3$ chemistry.}
 
-\subsection{The application of sonification to space-based NO$_2$ measurements}
+\ce{NO_x} and \ce{O_3} have interesting temporal patterns on both the interannual and seasonal time scales. As discussed in \S\ref{sec:nox-decrease}, \ce{NO_x} has, in general, decreased across the US in the past decades. \ce{NO_x} concentrations also follow a seasonal cycle, owing to temperature dependent shifts in the chemistry, leading to a sinusoidal pattern superimposed on top of the interannual decrease.  The chemistry described in \S\ref{sec:nox-chemistry} means that \ce{O_3} concentrations will be related to \ce{NO_x} concentrations, but the exact dependence will vary from location to location.
 
-Clearly, the accuracy of the profile shape is of paramount importance to space-based measurments of \ce{NO_2}. Validation of modeled profile shaped has been done using aircraft measurements \cite{lamsal14} and ground-based lidar observations \cite{volten09}; while very effective where available, these are by necessity limited in time or space. 
-
-Our goal is to develop a method to examine the agreement between the satellite SCD and an SCD calculated from the modeled vertical profile using Eq. \eqref{eqn:scd-model}:
-
-\begin{equation}
-\mathrm{SCD_{model}} = \int_{z_{\mathrm{ground}}}^{z_{\mathrm{tropopause}}} w(z) g(z) \: dz
-\label{eqn:scd-model}
-\end{equation}
-
-where $g(z)$ is the model profile as a function of altitude, $w(z)$ are altitude resolved weights that account for difference in path length between a vertical and slanted path as well as sensitivity to \ce{NO_2} at that altitude, and the integration limits $z_{\mathrm{ground}}$ and $z_{\mathrm{tropopause}}$ are the altitudes of the surface and troposphere-stratosphere boundary.
-
-	While the comparision of satellite and model SCDs only provides a single constraint, and so does not lend itself to formal inversion to constrain the profile shape, the goal of this work is to use sonification to aid identification of patterns in the correlation between profile shape and satellite/model mismatch. By identifying how changes in the magnitude of the profile at various altitudes correlates with the satellite/model mismatch, we hope to identify what altitudes in the model are over- or under- estimated. The modeled profiles are resolved vertically on $\geq 28$ vertical levels; visually identifying correlations over this many semi-independent variable is challenging. Sonification allows us to represent the shape of the profile as a single quality, by transforming the vertical distribution of \ce{NO_2} to a spectral distribution of frequencies. Coupled with inherent spatial and temporal information possible in sound, sonification should offer an intuitive way of digesting significant information on the relationship between profile shape and model/satellite SCD agreement.
-
-	Identifying correlation of over- or under- estimation in the modeled SCDs with the profile shape is an important step to identifying the shortcomings of current methods of simulating \emph{a priori} \ce{NO_2} profiles.  For example, identifying a correlation between underestimated model SCDs and small \ce{NO_2} concentrations at high altitudes in the model profile suggests a missing high altitude source of \ce{NO_2} or incorrect vertical transport in the model. Conversely, if good agreement is found in a high-\ce{NO_2} concentration environment (like a city) but gets worse as one moves away from the city suggests that the influence of the city is not accounted for over a large enough area.
+These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} differently under different conditions.
 	
 \section{Approach to sonification}
-\subsection{Data preparation}
-	We make use of v2-1C of the BErkeley High Resolution (BEHR) OMI \ce{NO_2} product, which is publicly available at \url{http://behr.cchem.berkeley.edu/DownloadBEHRData.aspx}. Matlab code was used to subset the native pixel product to a $5 \times 10$ pixel (across $\times$ along track) subset centered on St. Louis, MO, USA (lat = 38.63$^\circ$ N, long = 90.20$^\circ$ W). Polar coordinates for the pixels were calculated, taking $\theta = 0^\circ$ as east and St. Louis as the origin. 
+\subsection{NO$_2$ satellite dataset}
+	We make use of v2-1C of the BErkeley High Resolution (BEHR) Ozone Monitoring Instrument (OMI) \ce{NO_2} gridded product, which is publicly available at \url{http://behr.cchem.berkeley.edu/DownloadBEHRData.aspx}. The BEHR dataset is chosen because it uses high-resolution \emph{a priori} \ce{NO_2} profiles that better resolve the urban/rural \ce{NO_2} gradient than the NASA Standard Product or the KNMI DOMINO product. The OMI is carried on board the NASA Aura satellite, launched in 2004, and is a nadir-viewing, UV-visible spectrometer with an overpass time of 13:30--14:00 local standard time \cite{levelt06}.
 	
-	Wind speed and direction over St. Louis were taken from the WRF-Chem model \cite{grell05}. A domain covering the central US was simulated at 12 km resolution. Meteorological initial and boundary conditions were taken from the North American Regional Reanalysis (NARR) dataset. Wind speed and direction was calculated daily from model output at 20:00 UTC, which approximately corresponds to the OMI overpass time. U and V wind fields were averaged across the first 5 model layers ($\sim 500$ m above ground level) of a $3 \times 3$ subset of model grid cells centered on St. Louis.  Wind speed and direction were computed from these averaged U and V fields.
+	We use the cities and power plants identified in Russell et al. 2012 \cite{russell12} as the sites for urban and power plant trends. Monthly average \ce{NO_2} tropospheric vertical column densities (tVCDs) are used to generate the trends. First, the gridded product is restricted to data meeting the following criteria:
+	
+	\begin{itemize}
+	\item Cloud fraction $\leq 0.2$
+	\item The XTrackQualityFlags value must be 0 for all pixels that contribute to this grid cell
+	\item The vcdQualityFlags must be an even integer (least significant bit is 0)
+	\item Only rows 1--58 (0 based indexing) are used due to a bug in v2-1C of the BEHR product that causes the edge rows to be too large.
+	\end{itemize}
+	
+	The gridded data is temporally averaged, weighted by the inverse of the pixel areas that contribute to the grid cells. This gives more weight to smaller, more representative pixels.  For each monthly average, the grid cells whose centers are within the radius of the site longitude and latitude given in \cite{russell12} are then themselves averaged to give a single value for each site for each month.
 
 
 \section{REFERENCES}
