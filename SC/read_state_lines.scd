@@ -1,6 +1,4 @@
 (
-~state_lines_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/data/geo_data/state_lines.csv";
-
 // read the state line data
 ~sl = CSVFileReader.read(~state_lines_path);
 // cast it as float, and remove the text heading
@@ -21,10 +19,10 @@
 ~latMax = ~lat.maxItem;
 ~lon2latRatio = (~lonMax-~lonMin)/(~latMax-~latMin);
 
+w = Window("can we draw the states?", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height/2, 700, 700)).front;
+w.onClose = ({if(~cityView.notNil, {~cityView = nil;});});
 
-w = Window("can we draw the states?", Rect(100, 200, 500, 300)).front;
-
-~mapWidth = 500;
+~mapWidth = 700;
 ~mapHeight = ~mapWidth/~lon2latRatio;
 ~cityRadius = 5;
 
@@ -45,18 +43,4 @@ w = Window("can we draw the states?", Rect(100, 200, 500, 300)).front;
 	Pen.fillStroke;
 };
 
-// ~cityView = UserView(w, Rect(0, 0, ~mapWidth, ~mapHeight));
-// ~cityView.drawFunc = { |vv|
-// Pen.fillColor = Color.new255(205, 41, 144).alpha_(0.5);//Color.black.alpha_(0.1);//Color.new255(240, 248, 255, 0);
-// Pen.strokeColor = Color.red;
-
-// // add a single city marker; this will of course be done in a loop at some point
-// Pen.addOval(Rect.fromPoints(40@130+~cityRadius, 40@130-~cityRadius));
-// Pen.fillStroke;
-// };
-
 );
-
-
-
-
