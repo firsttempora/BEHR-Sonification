@@ -10,6 +10,7 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/funcs.scd");
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_trends.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/trend_statistics.scd");
+thisProcess.interpreter.executeFile(~base_path+/+"SC/loc2polar.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_state_lines.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/plot_citys.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/make_checkboxes.scd");
