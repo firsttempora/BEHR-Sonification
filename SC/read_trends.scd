@@ -28,11 +28,13 @@
             var data = ~location_names[i][citynames][j+4];
             ~locations[type][cityname]["StartDate"][j] = data[0];
             ~locations[type][cityname]["EndDate"][j] = data[1];
-            ~locations[type][cityname]["BEHRNO2"][j] = data[2];
+            ~locations[type][cityname]["BEHRNO2"][j] = data[2].asFloat;
         });
 
     });
 });
+
+~totalNumDataPts = ~locations["PowerPlants"]["Marshall"]["BEHRNO2"].size;
 
 "trend data successfully loaded".postln;
 );
