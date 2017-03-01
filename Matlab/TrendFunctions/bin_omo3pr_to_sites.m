@@ -2,8 +2,8 @@ function [  ] = bin_omo3pr_to_sites(  )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
-%omo3pr_dir = '/Volumes/share-sat/SAT/OMI/OMO3PR/download_staging';
-omo3pr_dir = '/home/josh/Downloads';
+omo3pr_dir = '/Volumes/share-sat/SAT/OMI/OMO3PR/';
+%omo3pr_dir = '/home/josh/Downloads';
 omo3pr_fields = {'AerosolOpticalThickness','EffectiveCloudFractionUV1',...
     'EffectiveCloudFractionUV2','O3','ReflectanceCostFunction'};
 cities = read_trend_loc_xls('Cities');
@@ -15,25 +15,49 @@ power_plants = make_short_names(power_plants);
 substruct = make_empty_struct_from_cell({'o3','lon','lat','dnum'});
 short_names = [{cities.ShortName}, {power_plants.ShortName}];
 
-F = dir(fullfile(omo3pr_dir, 'OMI-Aura_L2-OMO3PR*.he5'));
-for a=1:numel(F)
-    % Get the month from the file name
-    filedate = date_from_file(F(a).name);
-    if a == 1 || month(filedate) ~= last_month
-        if a > 1
-            save_o3(o3, filedate);
-        end
-        o3 = make_empty_struct_from_cell(short_names, substruct);
-        last_month = month(filedate);
-    end
-    Data = read_hdf5(fullfile(omo3pr_dir, F(a).name), {'Longitude','Latitude'}, omo3pr_fields);
-    rejects = omo3pr_reject_pixel(Data);
-    Data.O3(:,rejects) = nan;
-    
-    o3 = bin_ozone(Data, o3, [cities; power_plants], filedate);
-end
-save_o3(o3,filedate);
+walk_dirs = make_walk_dirs(omo3pr_dir);
 
+for d=1:numel(walk_dirs)
+    F = dir(fullfile(walk_dirs{d}, 'OMI-Aura_L2-OMO3PR*.he5'));
+    o3 = make_empty_struct_from_cell(short_names, substruct);
+    fprintf('Binning data from %s\n',walk_dirs{d});
+    for a=1:numel(F)
+        % Get the month from the file name
+        filedate = date_from_file(F(a).name);
+        try
+            Data = read_hdf5(fullfile(walk_dirs{d}, F(a).name), {'Longitude','Latitude'}, omo3pr_fields);
+        catch err
+            if strcmpi(err.identifier,'MATLAB:imagesci:h5info:libraryError')
+                fprintf('\tProblem with file %s; skipping\n', F(a).name);
+                continue
+            else
+                rethrow(err);
+            end
+        end
+        rejects = omo3pr_reject_pixel(Data);
+        Data.O3(:,rejects) = nan;
+        
+        o3 = bin_ozone(Data, o3, [cities; power_plants], filedate);
+    end
+    save_o3(o3,filedate);
+end
+
+end
+
+function walk = make_walk_dirs(base_dir)
+D = dir(fullfile(base_dir,'20*'));
+walk = cell(1,numel(D)*12);
+i = 1;
+for a=1:numel(D)
+    D2 = dir(fullfile(base_dir, D(a).name));
+    for b=1:numel(D2)
+        if ~isempty(regexp(D2(b).name,'\d\d','once'))
+            walk{i} = fullfile(base_dir, D(a).name, D2(b).name);
+            i = i+1;
+        end
+    end
+end
+walk(i:end) = [];
 end
 
 function o3 = bin_ozone(Data, o3, sites, filedate)
