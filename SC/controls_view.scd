@@ -45,24 +45,21 @@
 Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height));
 ~speedSlider.valueAction = ~speedSpec.unmap(1);
 
-//
 
 
-// // balance slider
-// ~balanceLabel = StaticText(w,
-// Rect(~margin, ~margin+(2*~pad)+(2*~height), ~labelWidth, ~height));
-// ~balanceLabel.string = "balance";
-// ~balanceSpec = ControlSpec(0,1,\linear, 0.01);
-// ~balanceSlider = Slider(w,
-// Rect(~margin+~pad+~labelWidth, ~margin+(2*~pad)+(2*~height), ~sliderWidth, ~height))
-// .action_({|v|
-// 	~balanceNumber.value = ~balanceSpec.map(~balanceSlider.value);
-// });
-// ~balanceNumber = NumberBox(w,
-// Rect(~margin+~labelWidth+~sliderWidth+(2*~pad), ~margin+(2*~pad)+(2*~height), ~numberBoxWidth, ~height));
-// ~balanceSlider.valueAction = ~balanceSpec.unmap(0.5);
-//
-//
+// time indicator
+
+// loop on / off
+
+// o3 and no2 checkboxes
+
+// season filter on/off
+
+// relative vs absolute mapping
+
+// city/power plant same sound or not
+
+
 
 
 

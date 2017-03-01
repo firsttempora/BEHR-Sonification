@@ -1,6 +1,6 @@
 (
 ~numChans = 2;
-~timeInverval = 0.02;
+~timeInverval = 0.2;
 ~f0 = 60;
 );
 
