@@ -15,6 +15,7 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/loc2polar.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_state_lines.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/plot_citys.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/make_checkboxes.scd");
+thisProcess.interpreter.executeFile(~base_path+/+"SC/controls_view.scd");
 
 
 

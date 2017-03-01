@@ -7,16 +7,12 @@
 
 );
 
-// a view to hold checkboxes
-~checkBoxView = ScrollView(w, Rect(0, ~mapHeight + ~pad, ~checkBoxViewWidth, ~checkBoxViewHeight));
-
-
 (/* write the city/powerplant etc labels into GUI */
 {
 var xPos = ~pad;
 
 ~locations.keys.asArray.sort.do({|type|
-	var str = StaticText.new(~checkBoxView, Rect(xPos,0,~checkBoxWidth,~checkBoxHeight));
+	var str = StaticText.new(w, Rect(xPos,~mapHeight+~pad,~checkBoxWidth,~checkBoxHeight));
 	str.string = type;
 	str.align = \center;
 	xPos = xPos + ~checkBoxWidth + ~pad;
@@ -25,10 +21,13 @@ var xPos = ~pad;
 
 );
 
+// a view to hold checkboxes
+~checkBoxView = ScrollView(w, Rect(0, ~mapHeight + ~checkBoxHeight + (2*~pad), ~checkBoxViewWidth, ~checkBoxViewHeight));
+
 
 (/* make the location checkboxes */
 {
-	var topOfLocBoxes = ~checkBoxHeight + (2*~pad);
+	var topOfLocBoxes = 0;
 	var xPos = ~pad;
 	var yPos = topOfLocBoxes;
 

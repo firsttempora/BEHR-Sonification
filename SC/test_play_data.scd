@@ -4,23 +4,12 @@
 ~f0 = 60;
 );
 
-
-(
-~locsSelected = Array.newClear(~locations.size);
-~locations.keys.asArray.sort.do({|type, i|
-	~locsSelected[i] = Array.newClear(~locations[type].size);
-	~locations[type].keys.asArray.sort.do({|loc, j|
-		~locsSelected[i][j] = false;
-	});
-});
-);
-
 (
 ~synths = Array.newClear(~locations.size);
 ~locations.keys.asArray.sort.do({|type, i|
 	~synths[i] = Array.newClear(~locations[type].size);
 	~locations[type].keys.asArray.sort.do({|loc, j|
-		~synths[i][j] = Synth(\spectrum_pan2, [\freq, 0, \amp, 0.01]);
+		~synths[i][j] = Synth.newPaused(\spectrum_pan2, [\freq, 100, \amp, 0.01]);
 	});
 });
 
@@ -33,8 +22,10 @@
 				var curValScaled = curVal.linlin(~no2Summary["min"], ~no2Summary["max"], 500, 8000);
 				if(~locsSelected[i][j], {
 					~synths[i][j].set(\freq, curValScaled);
+					~synths[i][j].run(true);
 				}, {
-					~synths[i][j].set(\freq, 0);
+					~synths[i][j].run(false);
+					//~synths[i][j].set(\freq, 0);
 				});
 			});
 		});

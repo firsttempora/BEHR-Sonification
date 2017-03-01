@@ -19,7 +19,7 @@
 ~latMax = ~lat.maxItem;
 ~lon2latRatio = (~lonMax-~lonMin)/(~latMax-~latMin);
 
-w = Window("can we draw the states?", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height/2, 700, 700)).front;
+w = Window("BEHR Sonification", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height/2, 700, 750)).front;
 w.onClose = ({if(~cityView.notNil, {~cityView = nil;});});
 
 ~mapWidth = 700;

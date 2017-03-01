@@ -40,3 +40,12 @@
 );
 
 
+(
+~locsSelected = Array.newClear(~locations.size);
+~locations.keys.asArray.sort.do({|type, i|
+	~locsSelected[i] = Array.newClear(~locations[type].size);
+	~locations[type].keys.asArray.sort.do({|loc, j|
+		~locsSelected[i][j] = false;
+	});
+});
+);

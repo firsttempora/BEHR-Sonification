@@ -53,7 +53,6 @@
 			var radius = ((locView.bounds.width + locView.bounds.height)/2) * 0.3;
 			Pen.fillColor = Color.black;
 			Pen.strokeColor = Color.black;
-			Rect.fromPoints(center+radius, center-radius).postln;
 			Pen.addOval(Rect.fromPoints(center+radius, center-radius));
 			Pen.fillStroke;
 		};
