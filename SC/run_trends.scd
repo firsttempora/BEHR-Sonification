@@ -1,3 +1,4 @@
+(
 ~base_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/";
 //~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
 //~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
@@ -23,8 +24,4 @@ s.waitForBoot(
 );
 );
 
-(
-~numChans = 2;
-~timeInverval = 0.2;
-~f0 = 60;
 );

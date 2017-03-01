@@ -15,9 +15,6 @@
 });
 );
 
-// set a few cities to play
-~locsSelected[1][2..5] = true;
-
 (
 ~synths = Array.newClear(~locations.size);
 ~locations.keys.asArray.sort.do({|type, i|

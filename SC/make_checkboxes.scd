@@ -7,15 +7,18 @@
 
 );
 
+// a view to hold checkboxes
 ~checkBoxView = ScrollView(w, Rect(0, ~mapHeight + ~pad, ~checkBoxViewWidth, ~checkBoxViewHeight));
 
 
-({
+(/* write the city/powerplant etc labels into GUI */
+{
 var xPos = ~pad;
 
 ~locations.keys.asArray.sort.do({|type|
-	var cb = CheckBox.new(~checkBoxView, Rect(xPos,0,~checkBoxWidth,~checkBoxHeight));
-	cb.string = type;
+	var str = StaticText.new(~checkBoxView, Rect(xPos,0,~checkBoxWidth,~checkBoxHeight));
+	str.string = type;
+	str.align = \center;
 	xPos = xPos + ~checkBoxWidth + ~pad;
 });
 }.value;
@@ -23,11 +26,11 @@ var xPos = ~pad;
 );
 
 
-({
+(/* make the location checkboxes */
+{
 	var topOfLocBoxes = ~checkBoxHeight + (2*~pad);
 	var xPos = ~pad;
 	var yPos = topOfLocBoxes;
-
 
 	~locations.keys.asArray.sort.do({|type, i|
 		~locations[type].keys.asArray.sort.do({|loc, j|
@@ -35,6 +38,7 @@ var xPos = ~pad;
 			cb.string = loc;
 			cb.action = {
 				~locsSelected[i][j] = cb.value;
+				~markStatus.(~locsViews[i][j], cb.value);
 			};
 			yPos = yPos + ~checkBoxHeight + ~pad;
 		});
@@ -45,27 +49,3 @@ var xPos = ~pad;
 }.value;
 
 );
-
-// ({
-// 	var topOfLocBoxes = ~mapHeight + ~checkBoxHeight + (3*~pad);
-// 	var xPos = ~pad;
-// 	var yPos = topOfLocBoxes;
-//
-// 	~locations.keys.asArray.sort.do({|type|
-// 		~locations[type].keys.asArray.sort.do({|loc|
-// 			var cb = CheckBox.new(w, Rect(xPos,yPos,~checkBoxWidth,~checkBoxHeight));
-// 			cb.string = loc;
-//
-// 			if((yPos+~pad+~checkBoxHeight+~pad)> w.bounds.height, {
-// 				yPos = topOfLocBoxes;
-// 				xPos = xPos + ~checkBoxWidth + ~pad;
-// 				}, {
-// 					yPos = yPos + ~checkBoxHeight + ~pad;
-//
-// 			});
-// 		});
-// 	});
-// }.value;
-//
-//);
-
