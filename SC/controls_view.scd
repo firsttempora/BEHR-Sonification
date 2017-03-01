@@ -18,7 +18,7 @@
 
 // play pause button
 ~playPauseButton = Button(~controlsView,
-    Rect(~pad, 0, ~leftColWidth, ~height))
+    Rect(~pad, 0, ~buttonWidth, ~height))
     .states_([["play"],["pause"]])
     .action_({|button|
     if(button.value == 0, {
@@ -27,6 +27,20 @@
     }, {
         //~t.play;
         "playing".postln;
+    });
+});
+
+// loop on / off
+~loopButton = Button(~controlsView,
+	Rect(~buttonWidth+(2*~pad), 0, ~buttonWidth, ~height))
+    .states_([["loop"],["no loop"]])
+    .action_({|button|
+    if(button.value == 0, {
+        ~loop = true;
+        "looping".postln;
+    }, {
+        ~loop = false;
+        "not looping".postln;
     });
 });
 
@@ -47,9 +61,12 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 
 
 
+
+
+
+
 // time indicator
 
-// loop on / off
 
 // o3 and no2 checkboxes
 

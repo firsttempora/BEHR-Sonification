@@ -1,7 +1,8 @@
 (
 ~numChans = 2;
-~timeInverval = 0.2;
+~timeInterval = 0.2;
 ~f0 = 60;
+~loop = true;
 );
 
 (
@@ -15,7 +16,9 @@
 
 
 ~t = Task.new({
-	~totalNumDataPts.do({|valInd|
+	var valInd = 0;
+	inf.do({
+	//~totalNumDataPts.do({|valInd|
 		~locations.keys.asArray.sort.do({|type, i|
 			~locations[type].keys.asArray.sort.do({|loc, j|
 				var curVal = ~locations[type][loc]["BEHRNO2"][valInd];
@@ -29,15 +32,24 @@
 				});
 			});
 		});
-		~timeInverval.wait;
+		~timeInterval.wait;
+
+		valInd = valInd + 1;
+		valInd.postln;
+		if(~loop and: (valInd >= ~totalNumDataPts), {valInd = 0});
+
+
 	});
 
 
-	~timeInverval.wait;
 
+
+	~timeInterval.wait;
+
+	// if(~loop, {~t.reset; ~t.play})
 	~synths.size.do({|i|
 		~synths[i].size.do({|j|
-			~synths[i][j].free;
+			~synths[i][j].run(false);
 		});
 	});
 
