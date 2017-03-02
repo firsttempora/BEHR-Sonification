@@ -96,6 +96,8 @@ In the US, the Environmental Protection Agency (EPA) has regulated measures to d
 These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} differently under different conditions.
 	
 \section{Approach to sonification}
+As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. Nevertheless, at various time scales, the trends in \ce{NO_2} and \ce{O_3} can be intuitively understood through the auditory experience. Unlike data-music, this sonification project has distinct educational goals.  While we strive to reduce the complexity of the data, we want the sonification model to convey useful information.  Furthermore, we want an interface that gives the user flexibility to determine how the data should be presented.  This fulfills the goal to let the user explore the data in a way that conveys pertinent information.  
+
 \subsection{NO$_2$ satellite dataset}
 	We make use of v2-1C of the BErkeley High Resolution (BEHR) Ozone Monitoring Instrument (OMI) \ce{NO_2} gridded product, which is publicly available at \url{http://behr.cchem.berkeley.edu/DownloadBEHRData.aspx}. The BEHR dataset is chosen because it uses high-resolution \emph{a priori} \ce{NO_2} profiles that better resolve the urban/rural \ce{NO_2} gradient than the NASA Standard Product or the KNMI DOMINO product. The OMI is carried on board the NASA Aura satellite, launched in 2004, and is a nadir-viewing, UV-visible spectrometer with an overpass time of 13:30--14:00 local standard time \cite{levelt06}.
 	
@@ -110,14 +112,40 @@ These characteristics make sonification an ideal way to describe the \ce{NO_x}/\
 	
 	The gridded data is temporally averaged, weighted by the inverse of the pixel areas that contribute to the grid cells. This gives more weight to smaller, more representative pixels.  For each monthly average, the grid cells whose centers are within the radius of the site longitude and latitude given in \cite{russell12} are then themselves averaged to give a single value for each site for each month.
 
+\subsection{Sonic Mappings}
+After all the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{)O_3}. We present several modes for listening to the data. In the simplest case, we use the data as the frequency parameter to a simple sinusoidal oscillator.  We exponetially map all the values of the compounds' into an audible range such that 
+\begin{align}
+    \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+    \text{min}(\text{freq}_1) \\
+    \text{max}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+    \text{max}(\text{freq}_1) \\
+    \text{min}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+    \text{min}(\text{freq}_2) \\
+    \text{max}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+    \text{max}(\text{freq}_2)
+    \,,
+\end{align}
+and the mapping is
+\begin{equation}
+    c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
+\end{equation}
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  Thus, \ce{NO_2} and \ce{O_3} can be constrained to different frequency ranges, scaled according to their independent global minimum and maximum values.  Over headphones, the chemical compound can each be presented in their own channel.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
+
+To address this issue, we propose using band-pass filtered triangle waves for each geographical location and incorporating panning. By placing the listener at the center of the United states (facing North), we can calculate the angle at which each location should appear to the listener.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
 
 \subsection{Sonification interface}
-As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. 
 
-In order to strip out some of the complexity, we propose a flexible sonification model with an easy to use graphical user interface. 
+While the synthesis routines do not depend on the GUI, it makes 
 
-\subsection{mappings}
-\subsection{evaluation}
+-speed
+-interpolation
+- location picking/visualization
+
+-play/pause volume
+
+
+
+\subsection{Evaluation}
 
 \section{Conclusions}
 
