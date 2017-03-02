@@ -1,4 +1,8 @@
 (
+//~state_lines_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/data/geo_data/state_lines.csv";
+~state_lines_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification/data/geo_data/state_lines.csv";
+
+
 // read the state line data
 ~sl = CSVFileReader.read(~state_lines_path);
 // cast it as float, and remove the text heading
