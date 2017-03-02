@@ -1,4 +1,5 @@
-//~base_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/";
+(
+~base_path = "/user/k/kermit/Documents/behr/BEHR-Sonification/";
 //~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
 ~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
 
@@ -14,6 +15,7 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/loc2polar.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_state_lines.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/plot_citys.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/make_checkboxes.scd");
+thisProcess.interpreter.executeFile(~base_path+/+"SC/controls_view.scd");
 
 
 
@@ -23,8 +25,4 @@ s.waitForBoot(
 );
 );
 
-(
-~numChans = 2;
-~timeInverval = 0.2;
-~f0 = 60;
 );

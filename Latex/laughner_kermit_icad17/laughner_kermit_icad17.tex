@@ -11,6 +11,10 @@
 \usepackage{hypcap}
 \usepackage{cite}
 
+\usepackage{times}
+\usepackage[english]{babel}
+\usepackage{flushend}
+
 % Example definitions.
 % --------------------
 \def\defeqn{\stackrel{\triangle}{=}}
@@ -20,7 +24,7 @@
 \newcommand{\ce}[1]{$\mathrm{#1}$}
 % Title.
 % --------------------
-\title{Illustrating trends in nitrogen oxides across the US using sonification}
+\title{Illustrating trends in nitrogen oxides \\across the United States using sonification}
 
 % *** IMPORTANT ***
 % *** PLEASE LEAVE AUTHOR INFORMATION BLANK UNTIL FINAL CAMERA-READY SUBMISSION *** 
@@ -67,13 +71,13 @@ Nitrogen oxide (\ce{NO}) and nitrogen dioxide (\ce{NO_2}), collectively known as
 
 Both ozone and particulate matter concentrations in the atmosphere are regulated by the Environmental Protection Agency (EPA) because of the negative health effects associated with exposure to them. Elevated concentrations of both are known to cause respiratory distress, especially in children \cite{romieu96}. Elevated ozone also damages crops, leading to significant economic losses as well as reducing food yields \cite{tai14}.
 
-The role \ce{NO_x} plays in the production of \ce{O_3} is complex, as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of VOCs. At both high and low concentrations of \ce{NO_x}, ozone production due to \ce{NO_x} cycling is suppressed, though for different reasons. At intermediate \ce{NO_x} concentrations, ozone production peaks \cite{murphy07}.  Therefore, cities attempting to improve their air quality by reducing \ce{NO_x} concentrations may see an increase in ozone initially, and a decrease only once \ce{NO_x} concentrations have fallen below a critical point. The value of that critical point depends on the mixture of VOCs present in the atmosphere.
+The role \ce{NO_x} plays in the production of \ce{O_3} is complex as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of VOCs. At both high and low concentrations of \ce{NO_x}, ozone production due to \ce{NO_x} cycling is suppressed, though for different reasons. At intermediate \ce{NO_x} concentrations, ozone production peaks \cite{murphy07}.  Therefore, cities attempting to improve their air quality by reducing \ce{NO_x} concentrations may see an increase in ozone initially, and a decrease only once \ce{NO_x} concentrations have fallen below a critical point. The value of that critical point depends on the mixture of VOCs present in the atmosphere.
 
 \ce{NO_x} is emitted through a number of processes, both anthropogenic and natural. Anthropogenic sources are typically those involving combustion, as the high temperatures break the \ce{N_2} and \ce{O_2} molecules in the atmosphere, allowing them to recombine as \ce{NO} or \ce{NO_2}. Examples of such sources are vehicles, power plants, ships, and aircraft. Natural sources also include high temperature sources, such as biomass burning or lightning, as well as other sources such as soil bacteria.
 
 \subsection{Space-based measurement of NO$_2$ and O$_3$ offer broad geographic and temporal coverage}
 
-Space-based measurements of \ce{NO_2} tropospheric column density began over two decades ago with the launch of the Global Ozone Monitoring Experiment (GOME) instrument onboard the ERS-2 satellite in 1996. (Only \ce{NO_2}, rather than total \ce{NO_x} is measured due to its spectroscopic properties.) Since then, several additional instruments have been launched, including the SCanning Imaging Absorption SpectroMeter for Atmospheric CHartographY (SCIAMACHY), Ozone Monitoring Instrument (OMI), and GOME-2. All these instruments are carried onboard polar orbiting satellites, allowing them to observe the entire globe in 1--6 days, depending on the instrument and operational mode.
+Space-based measurements of \ce{NO_2} tropospheric column density began over two decades ago with the launch of the Global Ozone Monitoring Experiment (GOME) instrument onboard the ERS-2 satellite in 1996. Only \ce{NO_2}, rather than total \ce{NO_x} is measured due to its spectroscopic properties. Since then, several additional instruments have been launched, including the SCanning Imaging Absorption SpectroMeter for Atmospheric CHartographY (SCIAMACHY), Ozone Monitoring Instrument (OMI), and GOME-2. All these instruments are carried onboard polar orbiting satellites, allowing them to observe the entire globe in 1--6 days, depending on the instrument and operational mode.
 
 Space-based observations of \ce{NO_2} offer a level of combined spatial and temporal coverage not possible with ground- or aircraft- based instruments.  This offers several notable advantages, such as the ability to observe an entire urban and suburban area, to compare multiple urban areas across the globe using the same instrument, as well as the ability to monitor episodic events (biomass burning, lightning) difficult to track with other types of instruments.  Multiple papers have made use of these properties to investigate both anthropogenic \cite{ding15, lamsal15, tong15, huang14, vinken14, gu13, miyazaki12, russell12, lin10, kim09} and natural \ce{NO_x} emissions \cite{miyazaki14, beirle10, castellanos14, mebust14, mebust13, zorner16}.
 
@@ -83,7 +87,7 @@ Measurements of \ce{O_3} from space are done similarly to measurements of \ce{NO
 
 \subsection{NO$_x$ has decreased in the US over the past decade.}
 \label{sec:nox-decrease}
-In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 on.
+In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 onwards.
 
 \subsection{Sonifcation is an ideal educational tool to communicate the complexity of NO$_x$/O$_3$ chemistry.}
 
@@ -92,6 +96,8 @@ In the US, the Environmental Protection Agency (EPA) has regulated measures to d
 These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} differently under different conditions.
 	
 \section{Approach to sonification}
+As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. Nevertheless, at various time scales, the trends in \ce{NO_2} and \ce{O_3} can be intuitively understood through the auditory experience. Unlike data-music, this sonification project has distinct educational goals.  While we strive to reduce the complexity of the data, we want the sonification model to convey useful information.  Furthermore, we want an interface that gives the user flexibility to determine how the data should be presented.  This fulfills the goal to let the user explore the data in a way that conveys pertinent information.  
+
 \subsection{NO$_2$ satellite dataset}
 	We make use of v2-1C of the BErkeley High Resolution (BEHR) Ozone Monitoring Instrument (OMI) \ce{NO_2} gridded product, which is publicly available at \url{http://behr.cchem.berkeley.edu/DownloadBEHRData.aspx}. The BEHR dataset is chosen because it uses high-resolution \emph{a priori} \ce{NO_2} profiles that better resolve the urban/rural \ce{NO_2} gradient than the NASA Standard Product or the KNMI DOMINO product. The OMI is carried on board the NASA Aura satellite, launched in 2004, and is a nadir-viewing, UV-visible spectrometer with an overpass time of 13:30--14:00 local standard time \cite{levelt06}.
 	
@@ -106,13 +112,48 @@ These characteristics make sonification an ideal way to describe the \ce{NO_x}/\
 	
 	The gridded data is temporally averaged, weighted by the inverse of the pixel areas that contribute to the grid cells. This gives more weight to smaller, more representative pixels.  For each monthly average, the grid cells whose centers are within the radius of the site longitude and latitude given in \cite{russell12} are then themselves averaged to give a single value for each site for each month.
 
+\subsection{Sonic Mappings}
+After all the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{)O_3}. We present several modes for listening to the data. In the simplest case, we use the data as the frequency parameter to a simple sinusoidal oscillator.  We exponetially map all the values of the compounds' into an audible range such that 
+\begin{align}
+    \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+    \text{min}(\text{freq}_1) \\
+    \text{max}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+    \text{max}(\text{freq}_1) \\
+    \text{min}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+    \text{min}(\text{freq}_2) \\
+    \text{max}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+    \text{max}(\text{freq}_2)
+    \,,
+\end{align}
+and the mapping is
+\begin{equation}
+    c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
+\end{equation}
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  Thus, \ce{NO_2} and \ce{O_3} can be constrained to different frequency ranges, scaled according to their independent global minimum and maximum values.  Over headphones, the chemical compound can each be presented in their own channel.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
 
-\section{REFERENCES}
-\label{sec:ref}
+To address this issue, we propose using band-pass filtered triangle waves for each geographical location and incorporating panning. By placing the listener at the center of the United states (facing North), we can calculate the angle at which each location should appear to the listener.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
+
+\subsection{Sonification interface}
+
+While the synthesis routines do not depend on the GUI, it makes 
+
+-speed
+-interpolation
+- location picking/visualization
+
+-play/pause volume
 
 
-\section{ACKNOWLEDGMENT}
-\label{sec:ack}
+
+\subsection{Evaluation}
+
+\section{Conclusions}
+
+
+
+
+% \section{ACKNOWLEDGMENT}
+% \label{sec:ack}
 
 % The preferred spelling of the word acknowledgment in America is without an ``e'' after the ``g.'' Try to avoid the stilted expression, ``One of us (R. B. G.) thanks ...'' Instead, try ``R.B.G.\ thanks ...''  Put sponsor acknowledgments in the unnumbered footnote on the first page.
 
