@@ -129,21 +129,27 @@ and the mapping is
 \begin{equation}
     c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
 \end{equation}
-where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  Thus, \ce{NO_2} and \ce{O_3} can be constrained to different frequency ranges, scaled according to their independent global minimum and maximum values.  Over headphones, the chemical compound can each be presented in their own channel.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  Thus, \ce{NO_2} and \ce{O_3} can be constrained to different frequency ranges, scaled according to their independent global minimum and maximum values.  The chemical compounds can each be presented in their own channel so they can be more easily differentiated.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
 
-To address this issue, we propose using band-pass filtered triangle waves for each geographical location and incorporating panning. By placing the listener at the center of the United states (facing North), we can calculate the angle at which each location should appear to the listener.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
+To address this issue, we propose using band-pass filtered triangle waves for each geographical location and the incorporation of panning. By placing the listener at the center of the United states, we can calculate the angle at which each location should appear, given the direction the listener is facing.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
+
+In order to bring out some features of the data we provide two more options. First, we can highlight seasonal fluctuations by controlling the $Q$ factor of the band-pass filter as a function of season. This highlights the effects of annual seasonal changes. Second, we provide the ability to change the waveforms used in the sonification of location types. While it is useful to compare \ce{NO_2} and \ce{O_3} concentrations, this feature allows power plant, cities, and rural areas to stand out from one another. 
+
 
 \subsection{Sonification interface}
 
-While the synthesis routines do not depend on the GUI, it makes 
+While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI displays a map of the United State with indicators for where we present data and can be seen in Fig. \ref{fig:gui}.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of checkboxes allow the user to select which locations contribute to the sonification. Naturally, the map updates to reflect which locations are selected.  
 
--speed
--interpolation
-- location picking/visualization
+\begin{figure}[thb]
+\centering
+% \includegraphics[width=\columnwidth]{DSC_0028sml.jpg}
+\label{fig:gui}
+\caption{BEHR Sonification GUI.}
+\end{figure}
 
--play/pause volume
+Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the the most current month.  Controls are also provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
 
-
+Finally, controls are offered for switching between the various sonification schemes. We provide the appropriate controls to enable, disable features of the model, and when appropriate, control parameters of their control.  
 
 \subsection{Evaluation}
 
@@ -155,26 +161,14 @@ While the synthesis routines do not depend on the GUI, it makes
 % \section{ACKNOWLEDGMENT}
 % \label{sec:ack}
 
-% The preferred spelling of the word acknowledgment in America is without an ``e'' after the ``g.'' Try to avoid the stilted expression, ``One of us (R. B. G.) thanks ...'' Instead, try ``R.B.G.\ thanks ...''  Put sponsor acknowledgments in the unnumbered footnote on the first page.
 
 % -------------------------------------------------------------------------
-% Either list references using the bibliography style file IEEEtran.bst
+% create the bibliography
 \bibliographystyle{IEEEtran}
 % \footnotesize{
 \bibliography{refs2014}
 % }
-%
-% or list them by yourself
-% \begin{thebibliography}{9}
-% 
-% \bibitem{icad2015web}
-%   \url{http://www.icad.org}.
-%
-%\bibitem[1]{icad1} A.~Bee, C.D.~Player, and X.~Lastname, ``A correct citation,'' in {\it Proc. of the 1st Int. Conf. (IC)}, Helsinki, Finland, June 2001, pp. 1119-1134.  
-%\bibitem[2]{icad2} E.~Zwicker and H.~Fastl, {\it Psychoacoustics: Facts and Models}, Springer-Verlag, Heidelberg, Germany, 1990.
-%\bibitem[3]{icad3} M.R.~Smith, ``A good journal article,'' {\it J. Acoust. Soc. Am.}, vol. 110, no. 3, pp. 1598--1608, Mar. 2001.
-% 
-% \end{thebibliography}
+
 
 \end{sloppy}
 \end{document}
