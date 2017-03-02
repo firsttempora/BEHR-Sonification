@@ -4,8 +4,7 @@ function [ o3_surf, o3_column, start_date, end_date ] = generate_o3_trends( locn
 
 du2mpsc = 2.69e16;
 
-locname = strsplit(locname, ',');
-locname = regexprep(locname{1}, '\W', '_');
+locname = sanitize_names(locname);
 
 %[globe_alt, globe_lon, globe_lat] = load_globe_alts([-125 -65],[25 50]);
 G = load(fullfile(repo_data_dir,'geo_data','globe_alts.mat'));
@@ -55,4 +54,8 @@ function vmr = o3_du2vmr(o3_du, pres_edge)
 % https://disc.gsfc.nasa.gov/Aura/data-holdings/OMI/documents/v003/OMO3PRO_README.shtml
 % for calculation
 vmr = 1.2672 .* o3_du / abs(diff(pres_edge));
+end
+
+function name = sanitize_names(name)
+name = regexprep(name, '\W', '_');
 end

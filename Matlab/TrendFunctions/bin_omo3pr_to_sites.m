@@ -8,12 +8,13 @@ omo3pr_fields = {'AerosolOpticalThickness','EffectiveCloudFractionUV1',...
     'EffectiveCloudFractionUV2','O3','ReflectanceCostFunction'};
 cities = read_trend_loc_xls('Cities');
 power_plants = read_trend_loc_xls('PowerPlants');
-
-cities = make_short_names(cities);
-power_plants = make_short_names(power_plants);
+rural = read_trend_loc_xls('RuralAreas');
 
 substruct = make_empty_struct_from_cell({'o3','lon','lat','dnum'});
-short_names = [{cities.ShortName}, {power_plants.ShortName}];
+short_names = [{cities.ShortName}, {power_plants.ShortName}, {rural.ShortName}];
+for a=1:numel(short_names)
+    short_names{a} = sanitize_names(short_names{a});
+end
 
 walk_dirs = make_walk_dirs(omo3pr_dir);
 
@@ -92,12 +93,8 @@ dstr = strrep(dstr,'t','_');
 dnum = datenum(dstr, 'yyyymmdd_HHMM');
 end
 
-function S = make_short_names(S)
-for a=1:numel(S)
-    tmp = strsplit(S(a).Location,',');
-    tmp = regexprep(tmp, '\W', '_');
-    S(a).ShortName = tmp{1};
-end
+function name = sanitize_names(name)
+name = regexprep(name, '\W', '_');
 end
 
 function save_o3(o3, dnum) %#ok<INUSL>
