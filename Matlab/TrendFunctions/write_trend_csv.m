@@ -1,4 +1,4 @@
-function [  ] = write_trend_csv( filename, site_name, lon, lat, varargin )
+function [  ] = write_trend_csv( filename, site_name, short_name, lon, lat, varargin )
 %WRITE_TREND_CSV Write a trend .csv file for a single site
 %   WRITE_TREND_CSV( FILENAME, SITE_NAME, LON, LAT, ... ) Writes a .csv
 %   file at FILENAME. Writes the SITE_NAME, LON, and LAT in the header. The
@@ -34,6 +34,7 @@ format_spec = sprintf('%s\n', strjoin(formats,','));
     
 fid = fopen(filename,'w');
 fprintf(fid, 'SiteName,%s\n', site_name);
+fprintf(fid, 'ShortName,%s\n', short_name);
 fprintf(fid, 'SiteLongitude,%.4f\n', lon);
 fprintf(fid, 'SiteLatitude,%.4f\n',lat);
 
