@@ -1,6 +1,6 @@
 (
 ~pad = 5;
-~checkBoxWidth = 180;
+~checkBoxWidth = w.bounds.width/3.0 - (4*~pad);
 ~checkBoxHeight = 15;
 ~checkBoxViewWidth = w.bounds.width;
 ~checkBoxViewHeight = 200;

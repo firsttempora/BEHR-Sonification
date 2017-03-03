@@ -16,7 +16,7 @@
     ~locations[type] = Dictionary.new;
     ~location_names[i].keys.do({|citynames|
         var cityname = citynames.replace("Trend.csv", "");
-        var datasize = ~location_names[i][citynames].size-4;
+        var datasize = ~location_names[i][citynames].size-5;
         ~locations[type][cityname] = Dictionary.new;
         ~locations[type][cityname]["SiteName"] = ~location_names[i][citynames][0][1];
         ~locations[type][cityname]["ShortName"] = ~location_names[i][citynames][1][1];
@@ -28,7 +28,7 @@
         ~locations[type][cityname]["O3_VMR"] = Array.newClear(datasize);
         ~locations[type][cityname]["O3_tVCD"] = Array.newClear(datasize);
         datasize.do({|j|
-            var data = ~location_names[i][citynames][j+4];
+            var data = ~location_names[i][citynames][j+5];
             ~locations[type][cityname]["StartDate"][j] = data[0];
             ~locations[type][cityname]["EndDate"][j] = data[1];
             ~locations[type][cityname]["BEHRNO2"][j] = data[2].asFloat;

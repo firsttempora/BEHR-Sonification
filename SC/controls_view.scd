@@ -10,7 +10,7 @@
 
 ~height = 20;
 ~buttonWidth = 80;
-~labelWidth = 70;
+~labelWidth = 80;
 ~numberBoxWidth = 35;
 ~sliderWidth = 160;
 ~leftColWidth = ~labelWidth+~numberBoxWidth+~sliderWidth+(2*~pad);
@@ -18,7 +18,7 @@
 
 // play pause button
 ~playPauseButton = Button(~controlsView,
-    Rect(~pad, 0, ~buttonWidth, ~height))
+    Rect(~pad, 0, (2*~buttonWidth)+~pad, ~height))
     .states_([["play"],["pause"]])
     .action_({|button|
     if(button.value == 0, {
@@ -32,7 +32,7 @@
 
 // loop on / off
 ~loopButton = Button(~controlsView,
-	Rect(~buttonWidth+(2*~pad), 0, ~buttonWidth, ~height))
+    Rect((2*~buttonWidth)+(3*~pad), 0, ~buttonWidth, ~height))
     .states_([["loop"],["no loop"]])
     .action_({|button|
     if(button.value == 0, {
@@ -56,27 +56,97 @@
 	~timeInverval = ~speedNumber.value;
 });
 ~speedNumber = NumberBox(~controlsView,
-Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height));
+Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height))
+.action_({|v| ~speedSlider.value = ~speedSpec.unmap(~speedNumber.value)});
 ~speedSlider.valueAction = ~speedSpec.unmap(1);
 
+// time indicator (slider)
+~timeLabel = StaticText(~controlsView,
+    Rect(~pad, (2*~height)+(2*~pad), ~labelWidth, ~height));
+~timeLabel.string = "date";
+~timeSpec = ControlSpec(0,~totalNumDataPts-1,\linear, 1);
+~timeSlider = Slider(~controlsView,
+	Rect(~labelWidth+(2*~pad), (2*~height)+(2*~pad), ~sliderWidth, ~height))
+.action_({|v|
+    ~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][~timeSpec.map(~timeSlider.value)];
+});
+~timeSlider.valueAction = ~timeSpec.unmap(0);
+
+// time indicator (date)
+~dateStart = StaticText(~controlsView,
+    Rect(~pad, (3*~height)+(3*~pad), ~labelWidth, ~height));
+~dateStart.string = ~locations["Cities"]["Tucson"]["StartDate"][0];
+
+~dateCur = StaticText(~controlsView,
+    Rect((~leftColWidth/2.0)-(~labelWidth/2.0), (3*~height)+(3*~pad), ~labelWidth, ~height));
+~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][0];
+~dateCur.align = \center;
+
+~dateEnd = StaticText(~controlsView,
+    Rect(~leftColWidth-~labelWidth, (3*~height)+(3*~pad), ~labelWidth, ~height));
+~dateEnd.string = ~locations["Cities"]["Tucson"]["EndDate"][~totalNumDataPts-1];
+~dateEnd.align = \right;
 
 
 
 
+// enable/disable no2
+~no2Label = StaticText(~controlsView,
+    Rect(~pad, (4*~height)+(4*~pad), ~labelWidth, ~height));
+~no2Label.string = "NO_2";
+~no2CheckBox = CheckBox.new(~controlsView,
+    Rect((~labelWidth/(3.0/2))+(2*~pad), (4*~height)+(4*~pad), ~labelWidth, ~height))
+.action_({|v|
+});
+~no2CheckBox.value = true;
+~no2CheckBox.string = "(on/off)";
 
 
-// time indicator
+// enable/disable 03
+~o3Label = StaticText(~controlsView,
+    Rect(~leftColWidth/2.0, (4*~height)+(4*~pad), ~labelWidth, ~height));
+~o3Label.string = "O_3";
+~o3CheckBox = CheckBox.new(~controlsView,
+    Rect((~leftColWidth/2.0)+(~labelWidth/(3.0/2))+(0*~pad), (4*~height)+(4*~pad), ~labelWidth, ~height))
+.action_({|v|
+});
+~o3CheckBox.value = false;
+~o3CheckBox.string = "(on/off)";
 
 
-// o3 and no2 checkboxes
-
-// season filter on/off
-
-// relative vs absolute mapping
+// season filter (on/off)
+~seasonFilterLabel = StaticText(~controlsView,
+    Rect(~pad, (5*~height)+(5*~pad), ~labelWidth, ~height));
+~seasonFilterLabel.string = "season filter";
+~seasonFilterCheckBox = CheckBox.new(~controlsView,
+	Rect(~labelWidth+(2*~pad), (5*~height)+(5*~pad), ~labelWidth, ~height))
+.action_({|v|
+});
+~seasonFilterCheckBox.value = false;
+~seasonFilterCheckBox.string = "(on/off)";
 
 // city/power plant same sound or not
+~synthesisSoundFilterLabel = StaticText(~controlsView,
+    Rect(~pad, (6*~height)+(6*~pad), ~labelWidth, ~height));
+~synthesisSoundFilterLabel.string = "synth sound";
+~synthesisSoundFilterCheckBox = CheckBox.new(~controlsView,
+	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), 2*~labelWidth, ~height))
+.action_({|v|
+});
+~synthesisSoundFilterCheckBox.value = false;
+~synthesisSoundFilterCheckBox.string = "(based on location type)";
 
-
+// relative vs absolute mapping
+// scale filter (on/off)
+~scaleFilterLabel = StaticText(~controlsView,
+    Rect(~pad, (7*~height)+(7*~pad), ~labelWidth, ~height));
+~scaleFilterLabel.string = "scaling";
+~scaleFilterCheckBox = CheckBox.new(~controlsView,
+	Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 2*~labelWidth, ~height))
+.action_({|v|
+});
+~scaleFilterCheckBox.value = false;
+~scaleFilterCheckBox.string = "(absolute/relative)";
 
 
 
