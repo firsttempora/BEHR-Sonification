@@ -1,7 +1,7 @@
 function [ cities, plants ] = trend_driver( )
 %TREND_DRIVER Drivers overall creation of trend files from BEHR_AVG files
 
-
+%o3 = load_all_ozone();
 
 cities = read_trend_loc_xls('Cities');
 cities = make_loc_trend_files(cities, 'Cities');
@@ -17,6 +17,7 @@ end
 function locs = make_loc_trend_files(locs, data_subdir)
 save_dir = fullfile(repo_data_dir, 'trend_data', data_subdir);
 for a=1:numel(locs)
+    fprintf('Trends for %s\n', locs(a).Location);
     % Quick check against misstypes
     if locs(a).Longitude < -125 || locs(a).Longitude > -65
         error('trend_driver:longitude', 'Longitude for %s outside of [-125 -65]', locs(a).Location);
@@ -25,12 +26,11 @@ for a=1:numel(locs)
     end
     [no2, dstart, dend] = generate_no2_trends(locs(a).Longitude, locs(a).Latitude, locs(a).Radius);
     [o3_surf, o3_tvcd, dstart_o3, dend_o3] = generate_o3_trends(locs(a).ShortName);
-    xx = o3_no2_inds_matchup(dstart, dend, dstart_o3, dend_o3);
+    xx = o3_no2_inds_matchup(datenum(dstart), datenum(dend), datenum(dstart_o3), datenum(dend_o3));
     o3_surf = o3_surf(xx);
     o3_tvcd = o3_tvcd(xx);
     
-    tmp_str = strsplit(locs(a).Location, ',');
-    tmp_str = strrep(tmp_str{1},' ','');
+    tmp_str = strrep(locs(a).ShortName,' ','');
     save_name = fullfile(save_dir, sprintf('%sTrend.csv',tmp_str));
     loc_name = strrep(locs(a).Location, ',','');
     write_trend_csv(save_name,loc_name,locs(a).ShortName,locs(a).Longitude,locs(a).Latitude,...
@@ -52,3 +52,8 @@ for a=1:numel(no2_dst)
     xx(a) = i;
 end
 end
+
+% function o3 = load_all_ozone()
+% F = fullfile(repo_data_dir,'intermediate_data','Ozone','OMO3PR*.mat');
+% o3 = 
+% end
