@@ -17,6 +17,7 @@ end
 function locs = make_loc_trend_files(locs, data_subdir)
 save_dir = fullfile(repo_data_dir, 'trend_data', data_subdir);
 for a=1:numel(locs)
+    fprintf('Trends for %s\n', locs(a).Location);
     % Quick check against misstypes
     if locs(a).Longitude < -125 || locs(a).Longitude > -65
         error('trend_driver:longitude', 'Longitude for %s outside of [-125 -65]', locs(a).Location);

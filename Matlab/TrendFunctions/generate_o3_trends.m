@@ -10,7 +10,7 @@ locname = sanitize_names(locname);
 G = load(fullfile(repo_data_dir,'geo_data','globe_alts.mat'));
 o3_pres = omo3pr_pres;
 o3_pres = o3_pres(:);
-pp = o3_pres >= 200; % tropospheric column indicies
+pp = o3_pres > 200; % tropospheric column indicies
 
 o3_bin_dir = fullfile(repo_data_dir, 'intermediate_data', 'Ozone');
 F = dir(fullfile(o3_bin_dir,'*.mat'));
@@ -21,7 +21,7 @@ start_date = cell(size(F));
 end_date = cell(size(F));
 
 for a=1:numel(F)
-    fprintf('File %d of %d\n', a, numel(F));
+    %fprintf('File %d of %d\n', a, numel(F));
     O = load(fullfile(o3_bin_dir, F(a).name));
     o3 = O.o3;
     filedate = datenum(regexp(F(a).name,'\d\d\d\d\d\d','match','once'),'yyyymm');
@@ -33,20 +33,24 @@ for a=1:numel(F)
     % since the profile measurements are given in DU I "think" we can just
     % add them, though I will convert to molec./cm^2
     site = o3.(locname);
-    surf_o3_du = site.o3(1,:);
-    pres_edge = o3_pres(1:2);
-    surf_o3_vmr = nan(size(surf_o3_du));
-    for b=1:numel(site.lon)
-        [sub_lon, sub_lat, sub_alt] = cut_globe_mats(G.globe_lon, G.globe_lat, G.globe_alt, site.lon(b), site.lat(b));
-        surfalt = interp2(sub_lon, sub_lat, sub_alt, site.lon(b), site.lat(b));
-        pres_edge(1) = 1013*exp(-surfalt/7400); % standard scale height conversion to pressure. globe_alt in meters.
-        surf_o3_vmr(b) = o3_du2vmr(surf_o3_du(b), pres_edge);
+    if isempty(site.o3)
+        fprintf('  No O3 for %s in %s\n', locname, datestr(filedate, 'mmm yyyy'));
+    else
+        surf_o3_du = site.o3(1,:);
+        pres_edge = o3_pres(1:2);
+        surf_o3_vmr = nan(size(surf_o3_du));
+        for b=1:numel(site.lon)
+            [sub_lon, sub_lat, sub_alt] = cut_globe_mats(G.globe_lon, G.globe_lat, G.globe_alt, site.lon(b), site.lat(b));
+            surfalt = interp2(sub_lon, sub_lat, sub_alt, site.lon(b), site.lat(b));
+            pres_edge(1) = 1013*exp(-surfalt/7400); % standard scale height conversion to pressure. globe_alt in meters.
+            surf_o3_vmr(b) = o3_du2vmr(surf_o3_du(b), pres_edge);
+        end
+        o3_surf(a) = nanmean(surf_o3_vmr);
+        % do sum so that any nan in the profile results in whole profile being
+        % nan'ed but nanmean so that we get a valid average if one of the
+        % profiles is bad.
+        o3_column(a) = nanmean(sum(site.o3(pp,:),1))*du2mpsc;
     end
-    o3_surf(a) = nanmean(surf_o3_vmr);
-    % do sum so that any nan in the profile results in whole profile being
-    % nan'ed but nanmean so that we get a valid average if one of the
-    % profiles is bad.
-    o3_column(a) = nanmean(sum(site.o3(pp,:),1))*du2mpsc; 
 end
 
 end

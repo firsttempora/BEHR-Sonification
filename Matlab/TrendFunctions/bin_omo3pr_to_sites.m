@@ -19,6 +19,7 @@ short_names = [{cities.ShortName}, {power_plants.ShortName}, {rural.ShortName}];
 for a=1:numel(short_names)
     short_names{a} = sanitize_names(short_names{a});
 end
+all_sites = [cities; power_plants; rural];
 
 walk_dirs = make_walk_dirs(omo3pr_dir);
 
@@ -47,7 +48,7 @@ for d=1:numel(walk_dirs)
         rejects = omo3pr_reject_pixel(Data);
         Data.O3(:,rejects) = nan;
         
-        o3 = bin_ozone(Data, o3, [cities; power_plants], filedate);
+        o3 = bin_ozone(Data, o3, all_sites, filedate);
     end
     save_o3(o3,filedate);
 end
