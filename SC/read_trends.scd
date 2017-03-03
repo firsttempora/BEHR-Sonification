@@ -19,16 +19,21 @@
         var datasize = ~location_names[i][citynames].size-4;
         ~locations[type][cityname] = Dictionary.new;
         ~locations[type][cityname]["SiteName"] = ~location_names[i][citynames][0][1];
-        ~locations[type][cityname]["SiteLongitude"] = ~location_names[i][citynames][1][1].asFloat;
-        ~locations[type][cityname]["SiteLatitude"] = ~location_names[i][citynames][2][1].asFloat;
+        ~locations[type][cityname]["ShortName"] = ~location_names[i][citynames][1][1];
+        ~locations[type][cityname]["SiteLongitude"] = ~location_names[i][citynames][2][1].asFloat;
+        ~locations[type][cityname]["SiteLatitude"] = ~location_names[i][citynames][3][1].asFloat;
         ~locations[type][cityname]["StartDate"] = Array.newClear(datasize);
         ~locations[type][cityname]["EndDate"] = Array.newClear(datasize);
         ~locations[type][cityname]["BEHRNO2"] = Array.newClear(datasize);
+        ~locations[type][cityname]["O3_VMR"] = Array.newClear(datasize);
+        ~locations[type][cityname]["O3_tVCD"] = Array.newClear(datasize);
         datasize.do({|j|
             var data = ~location_names[i][citynames][j+4];
             ~locations[type][cityname]["StartDate"][j] = data[0];
             ~locations[type][cityname]["EndDate"][j] = data[1];
             ~locations[type][cityname]["BEHRNO2"][j] = data[2].asFloat;
+            ~locations[type][cityname]["O3_VMR"][j] = data[3].asFloat;
+            ~locations[type][cityname]["O3_tVCD"][j] = data[4].asFloat;
         });
 
     });

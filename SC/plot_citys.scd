@@ -14,13 +14,16 @@
 		{type == "Cities"} {
 			Pen.fillColor = Color.new255(205, 201, 165).alpha_(0.5);
 			Pen.strokeColor = Color.red;
+		}
+        {type == "Rural"} {
+			Pen.fillColor = Color.new255(139, 71, 137).alpha_(0.5);
+			Pen.strokeColor = Color.new255(219, 112, 147);
 		};
 
 		~locations[type].keys.do({|loc|
 			var lon = ~locations[type][loc]["SiteLongitude"];
 			var lat = ~locations[type][loc]["SiteLatitude"];
 			var cityCenter = (lon.linlin(~lonMin, ~lonMax, 0, ~mapWidth))@((lat.linlin(~latMin, ~latMax, 0,~mapHeight))*(-1)+~mapHeight);
-
 			Pen.addOval(Rect.fromPoints(cityCenter+~cityRadius, cityCenter-~cityRadius));
 		});
 		Pen.fillStroke;

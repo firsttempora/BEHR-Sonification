@@ -34,7 +34,7 @@ var xPos = ~pad;
 	~locations.keys.asArray.sort.do({|type, i|
 		~locations[type].keys.asArray.sort.do({|loc, j|
 			var cb = CheckBox.new(~checkBoxView, Rect(xPos,yPos,~checkBoxWidth,~checkBoxHeight));
-			cb.string = loc;
+            cb.string = ~locations[type][loc]["ShortName"];
 			cb.action = {
 				~locsSelected[i][j] = cb.value;
 				~markStatus.(~locsViews[i][j], cb.value);
