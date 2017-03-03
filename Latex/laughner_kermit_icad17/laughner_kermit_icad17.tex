@@ -95,6 +95,13 @@ In the US, the Environmental Protection Agency (EPA) has regulated measures to d
 
 These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} differently under different conditions.
 	
+\begin{figure*}[t]
+\centering
+\includegraphics[width=300px]{figs/gui.png}
+\label{fig:gui}
+\caption{BEHR Sonification GUI.}
+\end{figure*}
+
 \section{Approach to sonification}
 As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. Nevertheless, at various time scales, the trends in \ce{NO_2} and \ce{O_3} can be intuitively understood through the auditory experience. Unlike data-music, this sonification project has distinct educational goals.  While we strive to reduce the complexity of the data, we want the sonification model to convey useful information.  Furthermore, we want an interface that gives the user flexibility to determine how the data should be presented.  This fulfills the goal to let the user explore the data in a way that conveys pertinent information.  
 
@@ -166,12 +173,6 @@ In order to bring out some features of the data we provide two more options. Fir
 
 While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI displays a map of the United State with indicators for where we present data and can be seen in Fig. \ref{fig:gui}.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of checkboxes allow the user to select which locations contribute to the sonification. Naturally, the map updates to reflect which locations are selected.  
 
-\begin{figure}[thb]
-\centering
-% \includegraphics[width=\columnwidth]{DSC_0028sml.jpg}
-\label{fig:gui}
-\caption{BEHR Sonification GUI.}
-\end{figure}
 
 Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the the most current month.  Controls are also provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
 

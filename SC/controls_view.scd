@@ -1,9 +1,14 @@
 (
 
 ~controlsViewWidth = w.bounds.width;
-~controlsViewHeight = 200;
+~controlsViewHeight = 250;
 
-~controlsView =  UserView(w, Rect(0, ~mapHeight + ~checkBoxHeight + ~checkBoxViewHeight + (3*~pad),
+// ~controlsViewLeftBound = 0;
+// this is a hack right now; it centers the controls column in case we don't add a right column
+~controlsViewLeftBound = (w.bounds.width/2.0) - 143;
+
+~controlsView =  UserView(w, Rect(~controlsViewLeftBound,
+    ~mapHeight + ~checkBoxHeight + ~checkBoxViewHeight + (3*~pad),
 	~controlsViewWidth, ~controlsViewHeight)
 );
 
@@ -88,8 +93,6 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~dateEnd.align = \right;
 
 
-
-
 // enable/disable no2
 ~no2Label = StaticText(~controlsView,
     Rect(~pad, (4*~height)+(4*~pad), ~labelWidth, ~height));
@@ -147,6 +150,17 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 });
 ~scaleFilterCheckBox.value = false;
 ~scaleFilterCheckBox.string = "(absolute/relative)";
+
+// panning (on/off)
+~panningLabel = StaticText(~controlsView,
+    Rect(~pad, (8*~height)+(8*~pad), ~labelWidth, ~height));
+~panningLabel.string = "scaling";
+~panningCheckBox = CheckBox.new(~controlsView,
+	Rect(~labelWidth+(2*~pad), (8*~height)+(8*~pad), 3*~labelWidth, ~height))
+.action_({|v|
+});
+~panningCheckBox.value = false;
+~panningCheckBox.string = "(NO_2:left O_3:right/surround)";
 
 
 

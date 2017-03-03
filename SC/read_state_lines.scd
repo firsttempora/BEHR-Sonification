@@ -23,7 +23,7 @@
 ~latMax = ~lat.maxItem;
 ~lon2latRatio = (~lonMax-~lonMin)/(~latMax-~latMin);
 
-w = Window("BEHR Sonification", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height, 500, 650)).front;
+w = Window("BEHR Sonification", Rect(Window.screenBounds.width/2-250, Window.screenBounds.height, 500, 670)).front;
 w.onClose = ({if(~cityView.notNil, {~cityView = nil;});});
 
 ~mapWidth = w.bounds.width;
