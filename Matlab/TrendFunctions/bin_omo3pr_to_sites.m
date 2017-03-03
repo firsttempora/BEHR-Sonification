@@ -1,6 +1,10 @@
-function [  ] = bin_omo3pr_to_sites(  )
+function [  ] = bin_omo3pr_to_sites( start_date, end_date )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
+
+% Make the date limits beginnings and ends of months
+start_dnum = datenum(datestr(start_date,'yyyymm'),'yyyymm');
+end_dnum = datenum(eomdate(end_date));
 
 omo3pr_dir = '/Volumes/share-sat/SAT/OMI/OMO3PR/';
 %omo3pr_dir = '/home/josh/Downloads';
@@ -19,6 +23,11 @@ end
 walk_dirs = make_walk_dirs(omo3pr_dir);
 
 for d=1:numel(walk_dirs)
+    tmp = strsplit(walk_dirs{d},'/');
+    dir_dnum = datenum(strjoin(tmp(end-1:end),''),'yyyymm');
+    if dir_dnum < start_dnum || dir_dnum > end_dnum
+        continue
+    end
     F = dir(fullfile(walk_dirs{d}, 'OMI-Aura_L2-OMO3PR*.he5'));
     o3 = make_empty_struct_from_cell(short_names, substruct);
     fprintf('Binning data from %s\n',walk_dirs{d});
@@ -67,7 +76,7 @@ for a=1:numel(sites)
     % sneaky about doing the distance calculation to save time - m_lldist
     % takes more time than a simple magnitude calc, but the difference in
     % Haversine distance between 25 and 50 N matters.
-    
+    site_name = sanitize_names(sites(a).ShortName);
     r = sqrt((Data.Longitude - sites(a).Longitude).^2 + (Data.Latitude - sites(a).Latitude).^2);
     xx = find(r < 1); % 1 degree is more than 50 km even at 50N
     
@@ -78,10 +87,10 @@ for a=1:numel(sites)
         elseif all(isnan(Data.O3(:,xx(b)))); continue; 
         end
         
-        o3.(sites(a).ShortName).o3(:,end+1) = Data.O3(:,xx(b));
-        o3.(sites(a).ShortName).lon(end+1) = Data.Longitude(xx(b));
-        o3.(sites(a).ShortName).lat(end+1) = Data.Latitude(xx(b));
-        o3.(sites(a).ShortName).dnum(end+1) = filedate;
+        o3.(site_name).o3(:,end+1) = Data.O3(:,xx(b));
+        o3.(site_name).lon(end+1) = Data.Longitude(xx(b));
+        o3.(site_name).lat(end+1) = Data.Latitude(xx(b));
+        o3.(site_name).dnum(end+1) = filedate;
     end
 end
 end
