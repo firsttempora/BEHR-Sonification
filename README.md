@@ -1,6 +1,7 @@
 # Sonification of NO<sub>2</sub> and O<sub>3</sub> trends
 
 This repository is largely broken down into 3 components.
+
 1. Matlab code to generate Supercollider readable CSV files
 2. Supercollider code to sonify the trends in the CSV files
 3. Latex document for submission to ICAD 2017
