@@ -65,18 +65,6 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 .action_({|v| ~speedSlider.value = ~speedSpec.unmap(~speedNumber.value)});
 ~speedSlider.valueAction = ~speedSpec.unmap(1);
 
-// time indicator (slider)
-~timeLabel = StaticText(~controlsView,
-    Rect(~pad, (2*~height)+(2*~pad), ~labelWidth, ~height));
-~timeLabel.string = "date";
-~timeSpec = ControlSpec(0,~totalNumDataPts-1,\linear, 1);
-~timeSlider = Slider(~controlsView,
-	Rect(~labelWidth+(2*~pad), (2*~height)+(2*~pad), ~sliderWidth, ~height))
-.action_({|v|
-    ~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][~timeSpec.map(~timeSlider.value)];
-});
-~timeSlider.valueAction = ~timeSpec.unmap(0);
-
 // time indicator (date)
 ~dateStart = StaticText(~controlsView,
     Rect(~pad, (3*~height)+(3*~pad), ~labelWidth, ~height));
@@ -91,6 +79,18 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
     Rect(~leftColWidth-~labelWidth, (3*~height)+(3*~pad), ~labelWidth, ~height));
 ~dateEnd.string = ~locations["Cities"]["Tucson"]["EndDate"][~totalNumDataPts-1];
 ~dateEnd.align = \right;
+
+// time indicator (slider)
+~timeLabel = StaticText(~controlsView,
+    Rect(~pad, (2*~height)+(2*~pad), ~labelWidth, ~height));
+~timeLabel.string = "date";
+~timeSpec = ControlSpec(0,~totalNumDataPts-1,\linear, 1);
+~timeSlider = Slider(~controlsView,
+	Rect(~labelWidth+(2*~pad), (2*~height)+(2*~pad), ~sliderWidth, ~height))
+.action_({|v|
+    ~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][~timeSpec.map(~timeSlider.value)];
+});
+~timeSlider.valueAction = ~timeSpec.unmap(0);
 
 
 // enable/disable no2
