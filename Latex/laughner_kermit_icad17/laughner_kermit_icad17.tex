@@ -120,7 +120,7 @@ These characteristics make sonification an ideal way to describe the \ce{NO_x}/\
 \end{figure*}
 
 \section{Approach to sonification}
-As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. Nevertheless, at various time scales, the trends in \ce{NO_2} and \ce{O_3} can be intuitively understood through the auditory experience. Unlike data-music, this sonification project has distinct educational goals.  While we strive to reduce the complexity of the data, we want the sonification model to convey useful information.  Furthermore, we want an interface that gives the user flexibility to determine how the data should be presented.  This fulfills the goal to let the user explore the data in a way that conveys pertinent information.  
+As an educational tool, sonification allows the user to engage with data in a completely different mode than visualization. The streaming capabilities of the human auditory system makes it good at processing multiple, synchronous data series. As \S \ref{sec:nox-chemistry} describes, the interactions of atmospheric chemicals, meteorological conditions, and ground activity are extremely complicated. Nevertheless, at various time scales, the trends in \ce{NO_2} and \ce{O_3} can be intuitively understood through the auditory experience. Unlike data-music, this sonification project has distinct educational goals and is designed for non-experts in particular. While we strive to reduce the complexity of the data, we want the sonification model to convey useful information.  Furthermore, we want an interface that gives the user flexibility to determine how the data should be presented.  This fulfills the goal to let the user explore the data in a way that conveys pertinent information.  
 
 \subsection{NO$_2$ satellite dataset}
 	We make use of v2-1C of the BErkeley High Resolution (BEHR) Ozone Monitoring Instrument (OMI) \ce{NO_2} gridded product, which is publicly available at \url{http://behr.cchem.berkeley.edu/DownloadBEHRData.aspx}. The BEHR dataset is chosen because it uses high-resolution \emph{a priori} \ce{NO_2} profiles that better resolve the urban/rural \ce{NO_2} gradient than the NASA Standard Product or the KNMI DOMINO product. The OMI is carried on board the NASA Aura satellite, launched in 2004, and is a nadir-viewing, UV-visible spectrometer with an overpass time of 13:30--14:00 local standard time \cite{levelt06}.
@@ -131,14 +131,17 @@ As an educational tool, sonification allows the user to engage with data in a co
 	\item Cloud fraction $\leq 0.2$
 	\item The XTrackQualityFlags value must be 0 for all pixels that contribute to this grid cell
 	\item The vcdQualityFlags must be an even integer (least significant bit is 0)
-	\item Only rows 1--58 (0 based indexing) are used due to a bug in v2-1C of the BEHR product that causes the edge rows to be too large.
+	\item Only rows 1--58 (0 based indexing) are used due to a 
+    %bug 
+    row anomaly 
+    in v2-1C of the BEHR product that causes the edge rows to be too large.
 	\end{itemize}
 	
 	The gridded data is temporally averaged, weighted by the inverse of the pixel areas that contribute to the grid cells. This gives more weight to smaller, more representative pixels.  For each monthly average, the grid cells whose centers are within the radius of the site longitude and latitude given in \cite{russell12} are then themselves averaged to give a single value for each site for each month.
 
 \subsection{O$_3$ satellite dataset}
 
-	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3}. This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. An \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values may still be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
+	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3} available from \urs{https://disc.gsfc.nasa.gov/Aura/data-holdings/OMI/omo3pr_v003.shtml}.   This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. An \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values may still be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
 	
 	A gridded version of this product is not available; therefore we obtain monthly averages differently than with the \ce{NO_2} product. Similarly to \ce{NO_2}, pixels with centers within the radii defined for the geographic sites are identified as contributing to the trend for that site; unlike the \ce{NO_2} product, these are the native satellite pixels, rather than regridded data. All valid pixels for a site for a month are binned in this step. Pixels are considered invalid if:
 	
@@ -163,7 +166,7 @@ molec. cm$^{-2}$ / DU.
 	Both the surface concentration and tVCD are averaged over all pixels binned to a given site for a given month. Unlike the \ce{NO_2} product, no weighting for pixel area is applied, as the pixel size is not given in this product.
 	 
 \subsection{Sonic Mappings}
-After all the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{O_3}. We present several modes for listening to the data. In the simplest case, we use the data as the frequency parameter to a simple sinusoidal oscillator.  We exponetially map all the values of the compounds' into an audible range such that 
+After the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{O_3}. We present several modes for listening to the data. In the simplest case, we use the data for each location as the frequency parameter to a simple sinusoidal oscillator.  We exponetially map all the values of the compounds' into an audible range such that 
 \begin{align}
     \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
     \text{min}(\text{freq}_1) \\
@@ -188,7 +191,7 @@ In order to bring out some features of the data we provide two more options. Fir
 
 \subsection{Sonification interface}
 
-While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI displays a map of the United State with indicators for where we present data and can be seen in Fig. \ref{fig:gui}.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of checkboxes allow the user to select which locations contribute to the sonification. Naturally, the map updates to reflect which locations are selected.  
+While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI displays a map of the United State with indicators for where we present data and can be seen in Fig. \ref{fig:gui}.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of checkboxes allow the user to select which locations contribute to the sonification. Naturally, the map is updated to reflect which locations are selected.  
 
 
 Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the most current month.  Controls are also provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
