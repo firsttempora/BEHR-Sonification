@@ -71,7 +71,7 @@ Nitrogen oxide (\ce{NO}) and nitrogen dioxide (\ce{NO_2}), collectively known as
 
 Both ozone and particulate matter concentrations in the atmosphere are regulated by the Environmental Protection Agency (EPA) because of the negative health effects associated with exposure to them. Elevated concentrations of both are known to cause respiratory distress, especially in children \cite{romieu96}. Elevated ozone also damages crops, leading to significant economic losses as well as reducing food yields \cite{tai14}.
 
-The role \ce{NO_x} plays in the production of \ce{O_3} is complex as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of VOCs. At both high and low concentrations of \ce{NO_x}, ozone production due to \ce{NO_x} cycling is suppressed, though for different reasons. At intermediate \ce{NO_x} concentrations, ozone production peaks \cite{murphy07}.  Therefore, cities attempting to improve their air quality by reducing \ce{NO_x} concentrations may see an increase in ozone initially, and a decrease only once \ce{NO_x} concentrations have fallen below a critical point. The value of that critical point depends on the mixture of VOCs present in the atmosphere.
+The role \ce{NO_x} plays in the production of \ce{O_3} is complex, as the production efficiency of \ce{O_3} depends nonlinearly on both the \ce{NO_x} concentration and the concentrations and identities of VOCs present in the atmosphere. At both high and low concentrations of \ce{NO_x}, \ce{O_3} production due to \ce{NO_x} cycling is suppressed, though for different reasons. At intermediate \ce{NO_x} concentrations, ozone production peaks \cite{murphy07}.  Therefore, cities attempting to improve their air quality by reducing \ce{NO_x} concentrations may see an increase in ozone initially, and a decrease only once \ce{NO_x} concentrations have fallen below a critical point. The value of that critical point depends on the mixture of VOCs present in the atmosphere.
 
 \ce{NO_x} is emitted through a number of processes, both anthropogenic and natural. Anthropogenic sources are typically those involving combustion, as the high temperatures break the \ce{N_2} and \ce{O_2} molecules in the atmosphere, allowing them to recombine as \ce{NO} or \ce{NO_2}. Examples of such sources are vehicles, power plants, ships, and aircraft. Natural sources also include high temperature sources, such as biomass burning or lightning, as well as other sources such as soil bacteria \cite{monks-beirle}.
 
@@ -81,25 +81,42 @@ Space-based measurements of \ce{NO_2} tropospheric column density began over two
 
 Space-based observations of \ce{NO_2} offer a level of combined spatial and temporal coverage not possible with ground- or aircraft- based instruments.  This offers several notable advantages, such as the ability to observe an entire urban and suburban area, to compare multiple urban areas across the globe using the same instrument, as well as the ability to monitor episodic events (biomass burning, lightning) difficult to track with other types of instruments.  Multiple papers have made use of these properties to investigate both anthropogenic \cite{ding15, lamsal15, tong15, huang14, vinken14, gu13, miyazaki12, russell12, lin10, kim09} and natural \ce{NO_x} emissions \cite{miyazaki14, beirle10, castellanos14, mebust14, mebust13, zorner16}.
 
-The result of these measurements is a ``tropospheric vertical column density'' (tVCD), usually in units of molecules/cm$^2$. This is the total number of molecules of \ce{NO_2} over one square centimeter of the Earth's surface between the surface and the top of the troposphere (typically $\sim$ 12 km). Rural areas considered ``clean'' typical have tVCDs of $\leq 1 \times 10^{15}$ molec. cm$^{-2}$. Highly polluted areas such as Los Angeles, CA, USA or Beijing, China have tVCDs in excess of $1 \times 10^{16}$ molec. cm$^{-2}$.
+The result of these measurements is a ``tropospheric vertical column density'' (tVCD), usually in units of molecules/cm$^2$. This is the total number of molecules of \ce{NO_2} over one square centimeter of the Earth's surface between the surface and the top of the troposphere (typically $\sim$ 12 km). Rural areas considered ``clean'' typically have tVCDs of $\leq 1 \times 10^{15}$ molec. cm$^{-2}$. Highly polluted areas such as Los Angeles, CA, USA or Beijing, China have tVCDs in excess of $1 \times 10^{16}$ molec. cm$^{-2}$.
 
 Measurements of \ce{O_3} from space can be done similarly to measurements of \ce{NO_2} using ultraviolet-visible spectroscopy and are almost always measured by the same satellites. However, measurements of \emph{tropospheric} \ce{O_3} are complicated by the high concentration of \ce{O_3} in the stratosphere. Whereas the tropospheric and stratospheric components of the total \ce{NO_2} vertical column density are similar orders of magnitude, the tropospheric component of the \ce{O_3} total VCD is minor compared to the stratospheric component \cite{monks-beirle}. Alternatively, the retrieval of tropospheric \ce{O_3} may be done using infrared spectroscopy \cite{nassar08}.
 
 \subsection{NO$_x$ has decreased in the US over the past decade.}
 \label{sec:nox-decrease}
-In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 onwards.
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.9\textwidth]{figs/no2vcds.png} 
+\caption{\ce{NO_2} Summertime (Apr--Sept) tVCDs from the BEHR product for 2005 and 2015. A clear decrease throughout the US can be seen.}
+\label{fig:sat-obs}
+\end{figure*}
+
+In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 onwards (Fig. \ref{fig:sat-obs}).
 
 \subsection{Sonifcation is an ideal educational tool to communicate the complexity of NO$_x$/O$_3$ chemistry.}
 
-\ce{NO_x} and \ce{O_3} have interesting temporal patterns on both the interannual and seasonal time scales. As discussed in \S\ref{sec:nox-decrease}, \ce{NO_x} has, in general, decreased across the US in the past decades. \ce{NO_x} concentrations also follow a seasonal cycle, owing to temperature dependent shifts in the chemistry, leading to a sinusoidal pattern superimposed on top of the interannual decrease.  The chemistry described in \S\ref{sec:nox-chemistry} means that \ce{O_3} concentrations will be related to \ce{NO_x} concentrations, but the exact dependence will vary from location to location.
+\begin{figure*}
+\centering
+\includegraphics[width=0.75\textwidth]{figs/four-site-trends.png} 
+\caption{\ce{NO_2} tVCD and \ce{O_3} surface concentration trends at two cities (San Francisco, CA and Philadelphia, PA), one coal-fired power plant (Hatsfield, in Masontown, PA) and Yellowstone National Park (WY).}
+\label{fig:trends}
+\end{figure*}
+
+\ce{NO_x} and \ce{O_3} have interesting temporal patterns on both the interannual and seasonal time scales. As discussed in \S\ref{sec:nox-decrease}, \ce{NO_x} has, in general, decreased across the US in the past decade. \ce{NO_x} concentrations also follow a seasonal cycle, owing to temperature dependent shifts in the chemistry, leading to a sinusoidal pattern superimposed on top of the interannual decrease.  The chemistry described in \S\ref{sec:nox-chemistry} means that \ce{O_3} concentrations will be related to \ce{NO_x} concentrations, but the exact dependence will vary from location to location.
+
+This is shown in Fig. \ref{fig:trends} for two cities, one power plant, and one rural area. Both seasonal and interannual trends are clear. The cities and powerplant exhibit maximum \ce{NO_2} values in the winter, while the rural location does so in the summer. Overall, \ce{NO_2} tVCDs decrease over the cities and power plant, while remaining fairly constant over Yellowstone. \ce{O_3} appears to increase over the interannual time scale for the cities and power plant, but not over Yellowstone. 
 
 These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} differently under different conditions.
 	
 \begin{figure*}[t]
 \centering
 \includegraphics[width=300px]{figs/gui.png}
-\label{fig:gui}
 \caption{BEHR Sonification GUI.}
+\label{fig:gui}
 \end{figure*}
 
 \section{Approach to sonification}
@@ -121,7 +138,7 @@ As an educational tool, sonification allows the user to engage with data in a co
 
 \subsection{O$_3$ satellite dataset}
 
-	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3}. This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. A \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values may still be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
+	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3}. This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. An \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values may still be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
 	
 	A gridded version of this product is not available; therefore we obtain monthly averages differently than with the \ce{NO_2} product. Similarly to \ce{NO_2}, pixels with centers within the radii defined for the geographic sites are identified as contributing to the trend for that site; unlike the \ce{NO_2} product, these are the native satellite pixels, rather than regridded data. All valid pixels for a site for a month are binned in this step. Pixels are considered invalid if:
 	
@@ -174,11 +191,13 @@ In order to bring out some features of the data we provide two more options. Fir
 While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI displays a map of the United State with indicators for where we present data and can be seen in Fig. \ref{fig:gui}.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of checkboxes allow the user to select which locations contribute to the sonification. Naturally, the map updates to reflect which locations are selected.  
 
 
-Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the the most current month.  Controls are also provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
+Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the most current month.  Controls are also provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
 
 Finally, controls are offered for switching between the various sonification schemes. We provide the appropriate controls to enable, disable features of the model, and when appropriate, control their parameters.  
 
 \subsection{Evaluation}
+\subsubsection{Reliability of O$_3$ trends}
+\emph{if ozone really going up at all sites} Listening to the \ce{O_3} trends alone indicates that the OMO3PR product shows \ce{O_3} is increasing on the interannual timescale throughout the US. This is consistent with studies showing that \ce{O_3} increases with temperature \cite{lin17}. Due to the difficulting retrieving tropospheric \ce{O_3} from space, verifying this with other tropospheric \ce{O_3} satellite products (e.g. \cite{choi08}) should be considered, and comparison to surface-based measurements should be carried out. Additionally, we are planning on including temperature data to demonstrate the relationship between \ce{O_3} and temperature.
 
 \section{Conclusions}
 
