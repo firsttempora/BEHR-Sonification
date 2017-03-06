@@ -164,6 +164,7 @@ molec. cm$^{-2}$ / DU.
 	Both the surface concentration and tVCD are averaged over all pixels binned to a given site for a given month. Unlike the \ce{NO_2} product, no weighting for pixel area is applied, as the pixel size is not given in this product.
 	 
 \subsection{Sonic Mappings}
+\label{sec:sonic-mappings}
 After the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{O_3}. We present several modes for listening to the data. In the simplest case, we use the data for each location as the frequency parameter to a simple sinusoidal oscillator.  We exponetially map all the values of the compounds' into an audible range such that 
 \begin{align}
     \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
@@ -197,8 +198,36 @@ Basic control is provided for playing/pausing and loudness. We also provide the 
 Finally, controls are offered for switching between the various sonification schemes. We provide the appropriate controls to enable, disable features of the model, and when appropriate, control their parameters.  
 
 \subsection{Evaluation}
-\subsubsection{Reliability of O$_3$ trends}
-\emph{if ozone really going up at all sites} Listening to the \ce{O_3} trends alone indicates that the OMO3PR product shows \ce{O_3} is increasing on the interannual timescale throughout the US. This is consistent with studies showing that \ce{O_3} increases with temperature \cite{lin17}. Due to the difficulting retrieving tropospheric \ce{O_3} from space, verifying this with other tropospheric \ce{O_3} satellite products (e.g. \cite{choi08}) should be considered, and comparison to surface-based measurements should be carried out. Additionally, we are planning on including temperature data to demonstrate the relationship between \ce{O_3} and temperature.
+
+
+\subsubsection{NO$_2$ interannual trends}
+
+\subsubsection{O$_3$ interannual trends}
+For evaluation, we use the \ce{O_3} concentration nearest the surface, rather than the partial \ce{O_3} column.
+
+Gross patterns are apparent to a listener without extensive knowledge of \ce{NO_x}/\ce{O_3} trends and chemistry.  An overall rise at most cities is readily apparent, as are the seasonal oscillations. 
+
+This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the interannual timescale throughout the US. This is consistent with the hypothesis that \ce{O_3} increases with temperature \cite{lin17}. However, due to the difficulting retrieving tropospheric \ce{O_3} from space, verifying this with other tropospheric \ce{O_3} satellite products (e.g. \cite{choi08}) should be considered, and comparison to surface-based measurements should be carried out. Additionally, we are planning on including temperature data to demonstrate the relationship between \ce{O_3} and temperature.  Nevertheless, the listener can clearly hear interannual trends in the \ce{O_3} retrieved with the OMO3PR product; thus the sonfication itself represents this successfully and can be used with other \ce{O_3} measurements in the future.
+
+Identifying the finer differences in trends between different cities...
+
+\ce{O_3} faces some challenges, given that the data has more very large extreme values, compared to \ce{NO_2}. These comparatively infrequent but very large values compress the majority of interannual \ce{O_3} variability into a small range of frequencies after the mapping described in \S\ref{sec:sonic-mappings}.  This can be alleviated by doing the same mapping, but substituting the local maximum and minimum for that site in place of the global maximum and minimum. This makes the interannual variability much clearer for most sites, but means the listener cannot compare magnitudes across multiple sites. Additionally, at sites with the infrequent, extreme values (e.g. Los Angeles), hearing the interannual trend even in this ``local'' mode is difficult.
+
+\subsubsection{Relationship between NO$_2$ and O$_3$}
+
+	As described in \S\ref{sec:nox-chemistry}, the changes in \ce{O_3} concentration can be positively or negatively correlated with changes in the \ce{NO_x} concentrations. Identifying this correlation soninically is challenging, but this is in part because the correlation is weak itself.
+	
+	% Read this and edit so it sounds less ad hoc and super cheesy
+	To examine this, we listened to the \ce{NO_2} and \ce{O_3} trends for Phoenix, AZ (a city not previously examined graphically). With \ce{NO_2} and \ce{O_3} in distinct channels, and the speed slowed down to $\sim 2$ data points per second, a listener trained in \ce{NO_x}/\ce{O_3} chemistry could identify times when positive and negative correlations exist, but this was difficult.
+	
+	\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{figs/delta-delta-timeser-phoenix_AZ.png} 
+	\caption{Delta-delta timeseries plot of \ce{O_3} and \ce{NO_2} for Phoenix, AZ.}
+	\label{fig:del-del}
+	\end{figure}
+	
+	Fig. \ref{fig:del-del} plots the change in \ce{NO_2} and \ce{O_3} between adjacent datapoints as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive, as was deduced from listening. Both the graphical and sonic representation of this relationship are challenging; however, we believe that the sonic representation is ultimately more engaging for a non-expert.
 
 \section{Conclusions}
 
@@ -208,7 +237,7 @@ Finally, controls are offered for switching between the various sonification sch
 \section{ACKNOWLEDGMENT}
 \label{sec:ack}
 
-JLL acknowledges support from NASA through the Earth and Space Science Fellowship NNX14AK89H, NASA grants NNX15AE37G and NNX14AH04G, and the TEMPO project grant SV3-83019.  JLL also thanks Ronald C. Cohen for advice as a Ph.D. advisor.
+JLL acknowledges support from NASA through the Earth and Space Science Fellowship NNX14AK89H, NASA grants NNX15AE37G and NNX14AH04G, and the TEMPO project grant SV3-83019.  JLL also thanks Ronald C. Cohen for advice and support as a Ph.D. advisor.
 
 
 % -------------------------------------------------------------------------
