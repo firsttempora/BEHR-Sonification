@@ -45,7 +45,7 @@
 	/* This is the function that the main sound task will execute.
 	* As long as the inputs are arrays (and so passed by reference)
 	* you *should* be able to pass whatever variables you want to
-	* it via ~create_sound_task and it will look to the right place
+	* it when creating the task and it will look to the right place
 	* in the global scope
 	*
 	* Inputs:
@@ -61,6 +61,8 @@
 	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop"]);
 	/* normType = a string, either "global" or "local" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
+    *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
+    *  doLoop = boolean, true to loop back to the beginning once the end is reached, false to play once and stop.
 	*/
 
 	var valInd, statDict;
