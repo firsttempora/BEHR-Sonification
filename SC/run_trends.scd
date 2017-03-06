@@ -9,6 +9,7 @@
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/funcs.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/trend_data_funcs.scd");
+thisProcess.interpreter.executeFile(~base_path+/+"SC/play_funcs.scd");
 
 thisProcess.interpreter.executeFile(~base_path+/+"SC/read_trends.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/trend_statistics.scd");

@@ -62,7 +62,7 @@
 ~generate_global_stats = {|summary, varsToDo|
 	var globalSummary = Dictionary.new;
 	var varSummary, data;
-	var globMin, globMax, globCount, globSum;
+	var globMin, globMax, globCount, globSum, globNpoints;
 
 	varsToDo.do({|varName|
 
@@ -70,6 +70,7 @@
 		globMax = -inf;
 		globCount = 0;
 		globSum = 0;
+		globNpoints = inf;
 
 		summary.keys.do({|locType|
 			summary[locType].keys.do({|locName|
@@ -86,6 +87,8 @@
 					"generate_global_stats: found a nan in the data".warn;
 					});
 				});
+
+				if (data.size < globNpoints, {globNpoints = data.size});
 			});
 		});
 		varSummary = Dictionary.new;
@@ -93,6 +96,7 @@
 		varSummary["max"] = globMax;
 		varSummary["avg"] = globSum / globCount.asFloat;
 		varSummary["range"] = globMax - globMin;
+		varSummary["minDataPts"] = globNpoints;
 
 
 		globalSummary[varName] = varSummary;
