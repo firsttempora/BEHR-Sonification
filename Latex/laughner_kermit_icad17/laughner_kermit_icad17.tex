@@ -67,7 +67,7 @@
 \begin{sloppy}
 
 \begin{abstract}
-    Leveraging the human auditory system, sonification can be used as educational tool for non-experts to engage with data in a different mode than visualization.  Without oversimplifying the data, this project presents a sonification tool for exploring \ce{NO_2} and \ce{O_3} data from the BErkeley High Resolution (BEHR) Ozone Monitoring Instrument (OMI) and OMO3PR ozone profile datasets.  By allowing the listener control over the data-to-sound mapping and synthesis parameters, one can experience and learn about the interplay between \ce{NO_2} and \ce{O_3} concentrations.  Furthermore, interannual and seasonal trends can be perceived across different types of locations. 
+    Leveraging the human auditory system, sonification can be used as educational tool for non-experts to engage with data in a different mode than visualization.  Without oversimplifying the data, this project presents a sonification tool for exploring \ce{NO_2} and \ce{O_3} data from the BErkeley High Resolution (BEHR) tropospheric \ce{NO_2} and OMO3PR ozone profile datasets.  By allowing the listener control over the data-to-sound mapping and synthesis parameters, one can experience and learn about the interplay between \ce{NO_2} and \ce{O_3} concentrations.  Furthermore, interannual and seasonal trends can be perceived across different types of locations. 
 \end{abstract}
 
 \section{Introduction}
@@ -147,7 +147,7 @@ As an educational tool, sonification allows the user to engage with data in a co
 
 \subsection{O$_3$ satellite dataset}
 
-	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3} available from \url{https://disc.gsfc.nasa.gov/Aura/data-holdings/OMI/omo3pr_v003.shtml}.   This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. An \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values may still be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
+	We use the OMO3PR ozone profile dataset to obtain tropospheric \ce{O_3} available from \url{https://disc.gsfc.nasa.gov/Aura/data-holdings/OMI/omo3pr_v003.shtml}.   This retrieval uses optimal estimation to fit an \ce{O_3} profile to observed absorbance in two wavelengths. An \emph{a priori} \ce{O_3} profile is used as the basis for the profile shape.  We choose this product because it is also derived from the Ozone Monitoring Instrument, as is our \ce{NO_2} product, and so has similar spatial and temporal coverage. Kroon et al. compared this product again multiple other satellite \ce{O_3} products and \emph{in situ} sonde measurements and found a +30\% bias in the midlatitudes  \cite{kroon11}. While this alone should not interfere significantly in the use of this product for the trend sonification in this work as the bias is systematic, uncertainty in the values will= be high due to the challenge of separating tropospheric and stratospheric \ce{O_3}.
 	
 	A gridded version of this product is not available; therefore we obtain monthly averages differently than with the \ce{NO_2} product. Similarly to \ce{NO_2}, pixels with centers within the radii defined for the geographic sites are identified as contributing to the trend for that site; unlike the \ce{NO_2} product, these are the native satellite pixels, rather than regridded data. All valid pixels for a site for a month are binned in this step. Pixels are considered invalid if:
 	
@@ -221,6 +221,8 @@ This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the 
 \subsection{Relationship between NO$_2$ and O$_3$}
 
 	As described in \S\ref{sec:nox-chemistry}, the changes in \ce{O_3} concentration can be positively or negatively correlated with changes in the \ce{NO_x} concentrations. Identifying this correlation soninically is challenging, but this is in part because the correlation is weak itself. To examine this, we listened to the \ce{NO_2} and \ce{O_3} trends for Phoenix, AZ\footnote{A city not previously examined graphically} with \ce{NO_2} and \ce{O_3} in distinct channels, and the speed slowed down to $\sim 2$ data points per second.  Although the task was difficult, a listener trained in \ce{NO_x}/\ce{O_3} chemistry could identify times when positive and negative correlations exist.  
+	
+	An additional element of difficulty comes from the high uncertainty in the chosen \ce{O_3} satellite product. Future refinements will explore using alternate sources of \ce{O_3} data, including other satellite products and direct surface measurements of \ce{O_3}.
 	
 	\begin{figure}
 	\centering
