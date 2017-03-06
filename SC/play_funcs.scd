@@ -58,7 +58,7 @@
 	*    optsDict = a dictionary of options that control how the task executes. See below for list of required options
 	*/
 
-	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI"]);
+	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName"]);
 	/* normType = a string, either "global" or "local" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
@@ -77,6 +77,19 @@
 	// End input checking //
 
 	valInd = 0;
+
+    if(optsDict["updateGUI"], {
+        {~speedSlider.valueAction = ~speedSpec.unmap(optsDict["delay"]);}.defer;
+        {~no2CheckBox.valueAction = optsDict["playNO2"];}.defer;
+        {~o3CheckBox.valueAction = optsDict["playO3"];}.defer;
+        {~loopButton.valueAction = optsDict["doLoop"]}.defer;
+
+        if(optsDict["normType"] == "global", {
+            {~scaleFilterCheckBox.valueAction = false;}.defer;
+        },{
+            {~scaleFilterCheckBox.valueAction = true;}.defer;
+        });
+    });
 
 	inf.do({
 		locs.keys.asArray.sort.do({|type,i|
@@ -128,6 +141,7 @@
 			});
 		});
 
+        {~timeSlider.valueAction = ~timeSpec.unmap(valInd);}.defer;
 		optsDict["delay"].wait;
 
 		valInd = valInd + 1;
