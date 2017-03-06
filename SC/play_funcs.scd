@@ -80,14 +80,14 @@
 
     if(optsDict["updateGUI"], {
         {~speedSlider.valueAction = ~speedSpec.unmap(optsDict["delay"]);}.defer;
-        {~no2CheckBox.value = optsDict["playNO2"];}.defer;
-        {~o3CheckBox.value = optsDict["playO3"];}.defer;
-        {~loopButton.value = optsDict["doLoop"]}.defer;
+        {~no2CheckBox.valueAction = optsDict["playNO2"];}.defer;
+        {~o3CheckBox.valueAction = optsDict["playO3"];}.defer;
+        {~loopButton.valueAction = optsDict["doLoop"]}.defer;
 
         if(optsDict["normType"] == "global", {
-            {~scaleFilterCheckBox.value = false;}.defer;
+            {~scaleFilterCheckBox.valueAction = false;}.defer;
         },{
-            {~scaleFilterCheckBox.value = true;}.defer;
+            {~scaleFilterCheckBox.valueAction = true;}.defer;
         });
     });
 
@@ -141,6 +141,7 @@
 			});
 		});
 
+        {~timeSlider.valueAction = ~timeSpec.unmap(valInd);}.defer;
 		optsDict["delay"].wait;
 
 		valInd = valInd + 1;
