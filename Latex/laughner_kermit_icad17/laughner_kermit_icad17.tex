@@ -205,7 +205,7 @@ Basic control is provided for playing/pausing and loudness. We also provide the 
 
 Finally, controls are offered for switching between the various sonification schemes. We provide the appropriate controls to enable/disable features of the model, and when appropriate, control their parameters.  
 
-\subsection{Evaluation}
+\section{Evaluation}
 
 \subsubsection{NO$_2$ interannual trends}
 The \ce{NO_2} trends are quite apparent both for a single location and when comparing multiple locations.  When using the global scaling, the seasonal oscillation in \ce{NO_2} concentrations stands out quite clearly, especially for cities. For rural environments, the global scaling compresses the values.  This is useful, however, for comparing them to urban locations.  Aurally, it is obvious that the overall \ce{NO_2} levels are much lower in rural environments. Using the local scaling, the downward trends and seasonal oscillatory trends become more apparent. 
@@ -214,7 +214,7 @@ In general, power plants seem to be less effected by seasonal changes than citie
 
 Another interesting observation is that locations on the East Coast tend to have higher overall levels than elsewhere in the country.  For example, Shenandoah is in rural Virginia, however the \ce{NO_2} levels are comparable to those in Fresno, California.  Naturally, Shenandoah's  \ce{NO_2} levels are influence by its proximity to large cities like Baltimore. Likewise, trends in Philadelphia and Pittsburgh are very correlated to one another. 
 
-\subsubsection{O$_3$ interannual trends}
+\subsection{O$_3$ interannual trends}
 For evaluation, we use the \ce{O_3} concentration nearest the surface rather than the partial \ce{O_3} column.  Informal listening tests show that patterns are apparent even to listeners without extensive knowledge of \ce{NO_x}/\ce{O_3} trends and chemistry.  An overall rise observed in most cities is readily apparent, as are the seasonal oscillations. 
 
 This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the interannual timescale throughout the US. This is consistent with the hypothesis that \ce{O_3} increases with temperature \cite{lin17}. However, due to the difficulty in retrieving tropospheric \ce{O_3} from space, verifying this with other tropospheric \ce{O_3} satellite products (e.g. \cite{choi08}) should be considered, and comparison to surface-based measurements should be carried out. Additionally, we are planning on including temperature data to demonstrate the relationship between \ce{O_3} and temperature.  Nevertheless, the listener can clearly hear interannual trends in the \ce{O_3} retrieved with the OMO3PR product; thus the sonification itself represents this successfully and can be used with other \ce{O_3} measurements in the future.
@@ -223,7 +223,7 @@ This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the 
 % Additionally, at sites with the infrequent, extreme values (e.g. Los Angeles), hearing the interannual trend even in this ``local'' mode is difficult.
  
 
-\subsubsection{Relationship between NO$_2$ and O$_3$}
+\subsection{Relationship between NO$_2$ and O$_3$}
 
 	As described in \S\ref{sec:nox-chemistry}, the changes in \ce{O_3} concentration can be positively or negatively correlated with changes in the \ce{NO_x} concentrations. Identifying this correlation sonically is challenging, but this is in part because the correlation is weak itself. To examine this, we listened to the \ce{NO_2} and \ce{O_3} trends for Phoenix, AZ\footnote{A city not previously examined graphically} with \ce{NO_2} and \ce{O_3} in distinct channels, and the speed slowed down to $\sim 2$ data points per second.  Although the task was difficult, a listener trained in \ce{NO_x}/\ce{O_3} chemistry could identify times when positive and negative correlations exist.  
 	
@@ -234,7 +234,7 @@ This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the 
 	\label{fig:del-del}
 	\end{figure}
 	
-	Fig. \ref{fig:del-del} plots the change in  between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive, as was deduced from listening. While both the graphical and sonic representation of this relationship are challenging, we believe that the sonic representation is ultimately more significantly more engaging for a non-expert.
+	Fig. \ref{fig:del-del} plots the change in  between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive, as was deduced from listening. While both the graphical and sonic representation of this relationship are challenging, we believe that the sonic representation is ultimately significantly more engaging for a non-expert.
 
 \section{Conclusions}
 In this paper, we have described a sonification tool for comparing trends in \ce{NO_2} and \ce{O_3} concentrations across the United States.  Overall, informal listening tests have shown that untrained listeners can  hear trends across multiple time scales and differences between various locations for which we provide data.  Clearly, there is more work to be done. We need to provide additional data such as temperature and humidity as well as ground based measurements to improve the educational value of presenting the data as a sonification for untrained listeners.  Furthermore, while this project focuses on an experiential auditory experience for non-experts, we should provide more visual feedback (e.g., generating plots on-the-fly that correspond to the sonification) as an additional avenue for learning about \ce{NO_2} and \ce{O_3} trends.  
