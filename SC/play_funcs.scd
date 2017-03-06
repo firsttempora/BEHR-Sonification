@@ -58,7 +58,7 @@
 	*    optsDict = a dictionary of options that control how the task executes. See below for list of required options
 	*/
 
-	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop"]);
+	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI"]);
 	/* normType = a string, either "global" or "local" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
@@ -131,7 +131,7 @@
 		optsDict["delay"].wait;
 
 		valInd = valInd + 1;
-		//if(optsDict["doLoop"] and: (valInd >= globStats[no2var]["minDataPts"]), {valInd = 0});
+		if(optsDict["doLoop"] and: (valInd >= globStats[no2var]["minDataPts"]), {valInd = 0});
 		"valInd: %".format(valInd).postln;
 	});
 

@@ -27,13 +27,14 @@
     .states_([["play"],["pause"]])
     .action_({|button|
     if(button.value == 0, {
-        //~t.pause;
+        if(~mainTask.notNil, {~mainTask.stop});
         "paused".postln;
     }, {
-        //~t.play;
+        if(~mainTask.notNil, {~mainTask.play});
         "playing".postln;
     });
 });
+
 
 // loop on / off
 ~loopButton = Button(~controlsView,
@@ -41,10 +42,12 @@
     .states_([["loop"],["no loop"]])
     .action_({|button|
     if(button.value == 0, {
-        ~loop = true;
+        //~loop = true;
+        if(~taskOpts.notNil, {~taskOpts["doLoop"] = true;});
         "looping".postln;
     }, {
-        ~loop = false;
+        // ~loop = false;
+        if(~taskOpts.notNil, {~taskOpts["doLoop"] = false;});
         "not looping".postln;
     });
 });
@@ -58,7 +61,8 @@
 	Rect(~labelWidth+(2*~pad), ~height+(~pad), ~sliderWidth, ~height))
 .action_({|v|
 	~speedNumber.value = ~speedSpec.map(~speedSlider.value);
-	~timeInverval = ~speedNumber.value;
+	//~timeInverval = ~speedNumber.value;
+    if(~taskOpts.notNil, {~taskOpts["delay"] = ~speedNumber.value;});
 });
 ~speedNumber = NumberBox(~controlsView,
 Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height))
@@ -100,6 +104,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~no2CheckBox = CheckBox.new(~controlsView,
     Rect((~labelWidth/(3.0/2))+(2*~pad), (4*~height)+(4*~pad), ~labelWidth, ~height))
 .action_({|v|
+        if(~taskOpts.notNil, {~taskOpts["playNO2"] = ~no2CheckBox.value;});
 });
 ~no2CheckBox.value = true;
 ~no2CheckBox.string = "(on/off)";
@@ -112,6 +117,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~o3CheckBox = CheckBox.new(~controlsView,
     Rect((~leftColWidth/2.0)+(~labelWidth/(3.0/2))+(0*~pad), (4*~height)+(4*~pad), ~labelWidth, ~height))
 .action_({|v|
+        if(~taskOpts.notNil, {~taskOpts["playO3"] = ~o3CheckBox.value;});
 });
 ~o3CheckBox.value = false;
 ~o3CheckBox.string = "(on/off)";
@@ -124,6 +130,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~seasonFilterCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (5*~height)+(5*~pad), ~labelWidth, ~height))
 .action_({|v|
+    "not implemented".error;
 });
 ~seasonFilterCheckBox.value = false;
 ~seasonFilterCheckBox.string = "(on/off)";
@@ -135,6 +142,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~synthesisSoundFilterCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), 2*~labelWidth, ~height))
 .action_({|v|
+        "not implemented".error;
 });
 ~synthesisSoundFilterCheckBox.value = false;
 ~synthesisSoundFilterCheckBox.string = "(based on location type)";
@@ -147,6 +155,13 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~scaleFilterCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 2*~labelWidth, ~height))
 .action_({|v|
+    if(~taskOpts.notNil, {
+        if(~scaleFilterCheckBox.value, {
+            ~taskOpts["normType"] = "local";
+        }, {
+            ~taskOpts["normType"] = "global";
+        });
+    });
 });
 ~scaleFilterCheckBox.value = false;
 ~scaleFilterCheckBox.string = "(absolute/relative)";
@@ -154,10 +169,11 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 // panning (on/off)
 ~panningLabel = StaticText(~controlsView,
     Rect(~pad, (8*~height)+(8*~pad), ~labelWidth, ~height));
-~panningLabel.string = "scaling";
+~panningLabel.string = "panning";
 ~panningCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (8*~height)+(8*~pad), 3*~labelWidth, ~height))
 .action_({|v|
+    "not implemented".error;
 });
 ~panningCheckBox.value = false;
 ~panningCheckBox.string = "(NO_2:left O_3:right/surround)";

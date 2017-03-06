@@ -2,7 +2,8 @@
 var synth_name = 'spectrum_pan2';
 
 // options dictionary used to control the task
-~taskOpts = Dictionary.newFrom(["delay",5,"normType","global","doLoop",false,"playNO2",true,"playO3",true]);
+~taskOpts = Dictionary.newFrom(["delay",0.3,"normType","global","doLoop",true,
+    "playNO2",true,"playO3",true,"updateGUI",true]);
 
 // init synth arrays
 ~no2SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(synth_name, [\freq, 100, \amp, 0.01])});
@@ -16,6 +17,8 @@ var synth_name = 'spectrum_pan2';
 
 /*
 * start/stop the task
+~mainTask.reset
+
 ~mainTask.play
 ~mainTask.stop
 
