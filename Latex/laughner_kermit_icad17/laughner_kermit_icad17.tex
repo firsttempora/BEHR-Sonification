@@ -207,10 +207,10 @@ Finally, controls are offered for switching between the various sonification sch
 
 \section{Evaluation}
 
-\subsubsection{NO$_2$ interannual trends}
+\subsection{NO$_2$ interannual trends}
 The \ce{NO_2} trends are quite apparent both for a single location and when comparing multiple locations.  When using the global scaling, the seasonal oscillation in \ce{NO_2} concentrations stands out quite clearly, especially for cities. For rural environments, the global scaling compresses the values.  This is useful, however, for comparing them to urban locations.  Aurally, it is obvious that the overall \ce{NO_2} levels are much lower in rural environments. Using the local scaling, the downward trends and seasonal oscillatory trends become more apparent. 
 
-In general, power plants seem to be less effected by seasonal changes than cities, but listening to the locally scaled version of the power plants makes the season changes more apparent. One interesting observation is that some power plants (e.g., Huntington) start with a sharp decrease in \ce{NO_2} emissions which then level out for the rest of the dataset. Overall, these observations provide compelling evidence for the importance of both scaling options.  
+In general, power plants seem to be less affected by seasonal changes than cities, but listening to the locally scaled version of the power plants makes the seasonal changes more apparent. One interesting observation is that some power plants (e.g., Huntington) start with a sharp decrease in \ce{NO_2} emissions which then level out for the rest of the dataset. Overall, these observations provide compelling evidence for the importance of both scaling options.  
 
 Another interesting observation is that locations on the East Coast tend to have higher overall levels than elsewhere in the country.  For example, Shenandoah is in rural Virginia, however the \ce{NO_2} levels are comparable to those in Fresno, California.  Naturally, Shenandoah's  \ce{NO_2} levels are influence by its proximity to large cities like Baltimore. Likewise, trends in Philadelphia and Pittsburgh are very correlated to one another. 
 
@@ -219,7 +219,7 @@ For evaluation, we use the \ce{O_3} concentration nearest the surface rather tha
 
 This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the interannual timescale throughout the US. This is consistent with the hypothesis that \ce{O_3} increases with temperature \cite{lin17}. However, due to the difficulty in retrieving tropospheric \ce{O_3} from space, verifying this with other tropospheric \ce{O_3} satellite products (e.g. \cite{choi08}) should be considered, and comparison to surface-based measurements should be carried out. Additionally, we are planning on including temperature data to demonstrate the relationship between \ce{O_3} and temperature.  Nevertheless, the listener can clearly hear interannual trends in the \ce{O_3} retrieved with the OMO3PR product; thus the sonification itself represents this successfully and can be used with other \ce{O_3} measurements in the future.
 
-\ce{O_3} faces some challenges, given that the data has more extreme values compared to \ce{NO_2}. These are comparatively infrequent, but significantly larger than the majority of values.  In our current mapping, this means that the majority of the variability is compressed to a very small range. This can be alleviated by doing the same mapping as described in \S\ref{sec:sonic-mappings}, but by clipping the range to prevent outliers from having such an effect on the rest of the data.  This will make the interannual variability much clearer for most sites, but means the listener cannot compare absolute magnitudes. 
+\ce{O_3} faces some challenges, given that the data has more extreme values compared to \ce{NO_2}. These are comparatively infrequent, but significantly larger than the majority of values.  In our global mapping, this means that the majority of the variability is compressed to a very small range. This can be alleviated by doing the same mapping as described in \S\ref{sec:sonic-mappings}, but by clipping the range to prevent outliers from having such an effect on the rest of the data.  This will make the interannual variability much clearer for most sites, but means the listener cannot compare absolute magnitudes. 
 % Additionally, at sites with the infrequent, extreme values (e.g. Los Angeles), hearing the interannual trend even in this ``local'' mode is difficult.
  
 
@@ -245,7 +245,7 @@ In this paper, we have described a sonification tool for comparing trends in \ce
 \section{ACKNOWLEDGMENT}
 \label{sec:ack}
 
-JLL acknowledges support from NASA through the Earth and Space Science Fellowship NNX14AK89H, NASA grants NNX15AE37G and NNX14AH04G, and the TEMPO project grant SV3-83019.  JLL also thanks Ronald C. Cohen for advice and support as a Ph.D. advisor.
+JLL acknowledges support from NASA through the Earth and Space Science Fellowship NNX14AK89H, NASA grants NNX15AE37G and NNX14AH04G, and the TEMPO project grant SV3-83019.  JLL also thanks RCC for advice and support as a Ph.D. advisor.
 
 
 % -------------------------------------------------------------------------
