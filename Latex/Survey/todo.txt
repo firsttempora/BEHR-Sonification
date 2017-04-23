@@ -1,0 +1,15 @@
+- irb
+- filtered noise, sawtooth, square wave (synth sound)
+- panning (scale to 8 channels)
+- season filter (modulate filter cut off)
+- add pause before synths start first time
+
+- guided (set system to certain settings —
+  what is the overall trend over 10 years
+  how does no2 concentration in summer compare to winter
+  how do cities/rural/powerplants differ
+  how effective is panning for differentiating sources
+  do west coast/east coast trends differ
+— unguided/short form
+
+
