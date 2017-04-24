@@ -1,0 +1,273 @@
+\documentclass[12pt]{exam}
+
+%Bring in the packages I'll need normally
+\usepackage{amsmath} %AMS Math Package
+\usepackage{amssymb} %Math symbols like \mathbb
+\usepackage{multicol} % Allows for multiple columns
+\usepackage{graphicx} %Allows images to be inserted using \includegraphics
+\usepackage{enumitem} %Allows for fancier lists, use [noitemsep] or [noitemsep, nolistsep] after \begin{}
+\usepackage{hyperref} %Allows the use of web links (\url, \href) and computer paths (\path)
+
+\usepackage[version=3]{mhchem} %Simpler chemistry notation, use \ce{} to typeset chemical formula
+	%e.g. \ce{H2O} for water and \ce{1/2SO4^2-} to set half a mol of sulfate ion.
+
+%Set the page to be letter sized with 1" margins
+\usepackage[dvips,letterpaper,margin=1in]{geometry}
+
+% See https://www.sharelatex.com/learn/Typing_exams_in_LaTeX
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\rhead{\textbf{Listening questionnaire}}
+\lhead{\textbf{Sonification of \ce{NO2} trends}}
+\headrule
+
+
+\begin{document}
+%\printanswers % comment out to hide answers
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Command defs %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\questionshook}{\setlength{\itemsep}{1cm}}
+
+\newcommand{\fiveptincdec}{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYY}
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Strongly decreasing & Weakly decreasing & No noticeable change & Weakly increasing & Strongly increasing
+\end{tabularx}
+\end{center}
+}
+
+\newcommand{\fiveptmag}{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYY}
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Much less & Slightly less & No difference & Slightly greater & Much greater
+\end{tabularx}
+\end{center}
+}
+
+\newcommand{\fiveptgeneric}[2]{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYY}
+1 & 2 & 3 & 4 & 5 \\
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+#1 & & & & #2
+\end{tabularx}
+\end{center}
+}
+
+\newcommand{\fiveptgna}[3]{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYYY}
+1 & 2 & 3 & 4 & 5 & N/A \\
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$\\
+#1 & & & & #2 & #3
+\end{tabularx}
+\end{center}
+}
+
+
+
+\newcommand{\instructions}[1]{%
+\vspace{1in}%
+\begin{EnvUplevel}
+#1
+\end{EnvUplevel}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Begin survey proper %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Understanding trends through sound}
+
+\noindent This first section will guide you through exploring \ce{NO2} trends through the sonifcation interface. To begin, use the following settings:
+\begin{itemize}[noitemsep]
+\item All cities \textbf{ON}
+\item Looping \textbf{OFF}
+\item Speed \textbf{0.05}
+\item \ce{NO2} \textbf{ON}, \ce{O3} \textbf{OFF}
+\item Season filter \textbf{OFF}
+\item Synth sound based on location \textbf{ON}
+\item Scaling \textbf{RELATIVE}
+\item Panning \textbf{SURROUND}
+\end{itemize}
+
+\noindent Listen to the data record as many times as necessary to answer the following questions.
+
+\begin{questions}
+\setcounter{question}{-1}
+\question Please indicate whether you are listening on a stereo or 8-channel setup\\
+	\begin{oneparchoices}
+	\choice Stereo
+	\choice 8-channel
+	\end{oneparchoices}
+
+
+\question \ce{NO2} from cities:
+	\begin{parts}
+	\part Is the overall trend in cities' \ce{NO2} increasing, decreasing, or staying constant?
+	\fiveptincdec
+	
+	\begin{solution}
+	\emph{Strongly decreasing} best, \emph{weakly decreasing} acceptable
+	\end{solution}
+
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+
+	\end{parts}
+
+
+\instructions{%
+Now turn \textbf{OFF} all the cities and turn \textbf{ON} all the power plants. Leave the other settings the same.
+}
+
+\question \ce{NO2} from power plants:
+	\begin{parts}
+	\part Is the overall trend in power plants' \ce{NO2} increasing, decreasing, or staying constant?
+	\fiveptincdec
+
+	\begin{solution}
+	\emph{Strongly decreasing} best, \emph{weakly decreasing} acceptable
+	\end{solution}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+
+	\end{parts}
+
+
+\instructions{%
+Now turn \textbf{OFF} all the power plants and turn \textbf{ON} all the rural sites. Leave the other settings the same.
+}
+
+\question
+	\begin{parts}
+	\part Is the overall trend in rural sites' \ce{NO2} increasing, decreasing, or staying constant?
+	\fiveptincdec
+
+	\begin{solution}
+	\emph{Staying constant} is most correct, some may say \emph{weakly decreasing}
+	\end{solution}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+	\end{parts}
+
+
+\instructions{%
+Now turn \textbf{OFF} all the rural sites and turn \textbf{ON} the following cities:
+	\begin{itemize} [noitemsep, nolistsep]
+	\item Indianapolis, IN
+	\item Los Angeles, VA
+	\item Reno, NV
+	\item San Antonio, TX
+	\end{itemize}
+Also turn \textbf{ON} the season filter and increase the speed to \textbf{0.5}.
+}
+
+\question Seasonal variation:
+	\begin{parts}
+	\part Is the \ce{NO2} in the summer greater or less than in the winter?
+	\fiveptmag
+
+	\begin{solution}
+	The mean summer--winter difference is $-27.5\% \pm 26.5\%$ ($1\sigma$), the median difference is $-29.8\%$ with quartiles of $[-42.3\%, -19.5\%]$. Therefore, I'd say \emph{slightly less} is the best answer, but \emph{much less} is also valid.
+	\end{solution}
+
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+
+	\end{parts}
+
+\instructions{Turn the seasonal filter \textbf{OFF}.}	
+
+\question Spatialization:
+	\begin{parts}
+	\part Which city has the largest relative change in \ce{NO2}? \\
+		\begin{choices}
+		\CorrectChoice Indianapolis
+		\CorrectChoice Los Angeles, CA
+		\choice Reno, NV
+		\choice San Antonio, TX
+		\choice These cities' trends sounded too similar
+		\choice I could not identify which city was which
+		\end{choices}
+		
+	\begin{solution}
+	Los Angeles and Indianapolis both have slopes of $\sim -4.1\%$ yr$^{-1}$. San Antonio and Reno are much lower, $\sim -1.7\%$ yr$^{-1}$.  If instead we just consider the average of the first and last years, LA changed $-49\%$, San Antonio $-39\%$, Indianapolis $-37\%$, and Reno $-15\%$.
+	\end{solution}		
+		
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	
+\instructions{Change the scaling to \textbf{ABSOLUTE}.}	
+
+	\part Which city has the largest absolute change in \ce{NO2}? \\
+		\begin{choices}
+		\choice Indianapolis
+		\CorrectChoice Los Angeles, CA
+		\choice Reno, NV
+		\choice San Antonio, TX
+		\choice These cities' trends sounded too similar
+		\choice I could not identify which city was which
+		\end{choices}
+		
+	\begin{solution}
+	Los Angeles has a slope of $\sim -7.3 \times 10^{14}$ molec. cm$^{-2}$ yr$^{-1}$. Indianapolis is the next largest at $\sim -2.6 \times 10^{14}$ molec. cm$^{-2}$ yr$^{-1}$.  The differences between the average of the first and last year are $-7.3 \times 10^{14}$, $-2.7 \times 10^{14}$, $-0.9 \times 10^{14}$, and $-0.8 \times 10^{14}$ molec. cm$^{-2}$ yr$^{-1}$ for LA, Indianapolis, Reno, and San Antonio, respectively.
+	\end{solution}		
+		
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	\end{parts}
+	
+	
+\instructions{Turn \textbf{ON} all sites.}
+
+\question Regional trends:
+	\begin{parts}
+	\part Which region had the greatest \ce{NO2} in 2005?\\
+		\begin{choices}
+		\CorrectChoice Northeast
+		\choice Southeast
+		\choice Northwest
+		\choice Southwest
+		\choice These regions' trends sounded too similar
+		\choice I could not identify which region was which
+		\end{choices}
+		
+	\begin{solution}
+	I don't have specific numbers for this one at the moment, but the northeast (esp. NY-Philly-NJ-Baltimore-DC) had so much \ce{NO2} their plumes were essentially indistinguishable from space. Los Angeles' signal may be large enough to make the SW a reasonable alternative sonically.
+	\end{solution}		
+		
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	\end{parts}
+	
+\instructions{For these next questions, start with only the rural sites \textbf{ON}. Turn on and off the sites as needed to explore the data and answer the questions.}
+
+\question Trends at rural sites:
+	\begin{parts}
+	\part Identify the two rural sites with the greatest change in \ce{NO2}.
+	\begin{solutionorbox}[1cm]
+	Shenandoah and Rural AL
+	\end{solutionorbox}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	\end{parts}
+
+\end{questions}
+
+\section*{Unguided exploration and interface feedback}
+\begin{questions}
+\question Add some questions about elements of the sonfication/interface for feedback. If you want to provide a box for testers to write in, use the ``makeemptybox'' command.
+	\makeemptybox{2in}
+\end{questions}
+
+\end{document}
