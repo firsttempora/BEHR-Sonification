@@ -41,7 +41,7 @@
 	[tind, nind];
 };
 
-~task_driver_func = {|locs, locsActive, siteStats, globStats, no2Synths, o3Synths, optsDict|
+~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
 	/* This is the function that the main sound task will execute.
 	* As long as the inputs are arrays (and so passed by reference)
 	* you *should* be able to pass whatever variables you want to
@@ -52,6 +52,7 @@
 	*    locs = the dictionary of locations by type then name that contains the data
 	*    locsActive = the array of boolean values setting whether a location is playing
 	*    siteStats = the dictionary of statistics by site
+	*    catStats = the dictionary of statistics by category
 	*    globStats = the dictionary of global statistics
 	*    no2Synths = the array of synths representing NO2 values
 	*    o3Synths = the array of synths representing O3 values
@@ -59,7 +60,7 @@
 	*/
 
 	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName"]);
-	/* normType = a string, either "global" or "local" - controls whether the data value is normalized by the global min/max or the min/max for that site
+	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
     *  doLoop = boolean, true to loop back to the beginning once the end is reached, false to play once and stop.
@@ -84,11 +85,11 @@
         {~o3CheckBox.valueAction = optsDict["playO3"];}.defer;
         {~loopButton.valueAction = optsDict["doLoop"]}.defer;
 
-        if(optsDict["normType"] == "global", {
-            {~scaleFilterCheckBox.valueAction = false;}.defer;
-        },{
-            {~scaleFilterCheckBox.valueAction = true;}.defer;
-        });
+		switch(optsDict["normType"],
+			"global", {{~scaleFilterButton.valueAction = 0;}.defer;},
+			"local", {{~scaleFilterButton.valueAction = 1;}.defer;},
+			"categorical", {{~scaleFilterButton.valueAction = 2;}.defer;}
+		);
     });
 
 	inf.do({
@@ -100,6 +101,7 @@
 
 				switch(optsDict["normType"],
 					"global", {statDict = globStats},
+					"categorical", {statDict = catStats[type]},
 					"local", {statDict = siteStats[type][name]},
 					{Error("Unrecognized value for normType: %".format(optsDict["normType"])).throw}
 				);

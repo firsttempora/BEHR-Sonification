@@ -150,21 +150,21 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 // relative vs absolute mapping
 // scale filter (on/off)
 ~scaleFilterLabel = StaticText(~controlsView,
-    Rect(~pad, (7*~height)+(7*~pad), ~labelWidth, ~height));
-~scaleFilterLabel.string = "scaling";
-~scaleFilterCheckBox = CheckBox.new(~controlsView,
-	Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 2*~labelWidth, ~height))
-.action_({|v|
-    if(~taskOpts.notNil, {
-        if(~scaleFilterCheckBox.value, {
-            ~taskOpts["normType"] = "local";
-        }, {
-            ~taskOpts["normType"] = "global";
-        });
-    });
+	Rect(~pad, (7*~height)+(7*~pad), ~labelWidth, ~height));
+~scaleFilterLabel.string = "Scaling";
+
+~scaleFilterButton = Button(~controlsView,
+	Rect((2*~pad)+~labelWidth, (7*~height)+(7*~pad), 3*~buttonWidth, ~height))
+.states_([["absolute"],["relative to individual maximum"],["relative to category maximum"]])
+.action_({|thisButton|
+	if(~taskOpts.notNil,{
+		switch(thisButton.value,
+			0, {~taskOpts["normType"]="global"},
+			1, {~taskOpts["normType"]="local"},
+			2, {~taskOpts["normType"]="categorical"}
+		)
+	})
 });
-~scaleFilterCheckBox.value = false;
-~scaleFilterCheckBox.string = "(absolute/relative)";
 
 // panning (on/off)
 ~panningLabel = StaticText(~controlsView,
