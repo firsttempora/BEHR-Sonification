@@ -24,7 +24,7 @@
 
 
 \begin{document}
-%\printanswers % comment out to hide answers
+\printanswers % comment out to hide answers
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Command defs %%%%%
@@ -50,6 +50,15 @@ Much less & Slightly less & No difference & Slightly greater & Much greater
 \end{center}
 }
 
+\newcommand{\fiveptcorrna}{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYYY}
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Strongly anti-correlated & Weakly anti-correlated & No significant correlation & Weakly correlated & Strongly correlated & Could not tell
+\end{tabularx}
+\end{center}
+}
+
 \newcommand{\fiveptgeneric}[2]{%
 \begin{center}
 \begin{tabularx}{\textwidth}{YYYYY}
@@ -60,12 +69,12 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 \end{center}
 }
 
-\newcommand{\fiveptgna}[3]{%
+\newcommand{\fiveptgna}[4][]{%
 \begin{center}
 \begin{tabularx}{\textwidth}{YYYYYY}
 1 & 2 & 3 & 4 & 5 & N/A \\
 $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$\\
-#1 & & & & #2 & #3
+#2 & & #1 & & #3 & #4
 \end{tabularx}
 \end{center}
 }
@@ -103,7 +112,8 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$\\
 \setcounter{question}{-1}
 \question Please indicate whether you are listening on a stereo or 8-channel setup\\
 	\begin{oneparchoices}
-	\choice Stereo
+	\choice Stereo speakers
+	\choice Stereo headphones
 	\choice 8-channel
 	\end{oneparchoices}
 
@@ -185,7 +195,7 @@ Also turn \textbf{ON} the season filter and increase the speed to \textbf{0.5}.
 
 	\end{parts}
 
-\instructions{Turn the seasonal filter \textbf{OFF}.}	
+\instructions{Turn the seasonal filter \textbf{OFF}. Reset the speed to \textbf{0.05}.}	
 
 \question Spatialization:
 	\begin{parts}
@@ -227,7 +237,7 @@ Also turn \textbf{ON} the season filter and increase the speed to \textbf{0.5}.
 	\end{parts}
 	
 	
-\instructions{Turn \textbf{ON} all sites.}
+\instructions{Turn \textbf{ON} all sites. Adjust the speed as needed to answer the question.}
 
 \question Regional trends:
 	\begin{parts}
@@ -249,7 +259,7 @@ Also turn \textbf{ON} the season filter and increase the speed to \textbf{0.5}.
 	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
 	\end{parts}
 	
-\instructions{For these next questions, start with only the rural sites \textbf{ON}. Turn on and off the sites as needed to explore the data and answer the questions.}
+\instructions{For these next questions, start with only the rural sites \textbf{ON}. Turn on and off the sites and adjust the speed as needed to explore the data and answer the questions.}
 
 \question Trends at rural sites:
 	\begin{parts}
@@ -261,13 +271,63 @@ Also turn \textbf{ON} the season filter and increase the speed to \textbf{0.5}.
 	\part Rate your confidence in this answer.
 	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
 	\end{parts}
+	
+\instructions{Now, turn \textbf{OFF} all sites \emph{except} Phoenix, AZ. Change panning to \textbf{\ce{NO2}/\ce{O3}}. Change scaling to \textbf{RELATIVE}. Turn \ce{O3} \textbf{ON}. Adjust the speed as needed to answer the question.}
+
+\question \ce{NO2}/\ce{O3} relationship:
+	\begin{parts}
+	\part Satellite measurements of surface \ce{O3} are highly uncertain, so the data here may not represent the relationship between \ce{NO2} and \ce{O3} accurately. Nevertheless, based on the sonification, would you say \ce{NO2} and \ce{O3} concentrations are correlated, anti-correlated, or have no significant relationship?
+	\fiveptcorrna
+	
+	\begin{solution}
+	Technically, the correlation of $\Delta \ce{O3}$ and $\Delta \ce{NO2}$ is negative with a $p$ value of 0. However, the $R^2$ is $< 0.1$, so either ``weakly anti-correlated'' or ``no significant correlation'' are acceptable.
+	\end{solution}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	\end{parts}
 
 \end{questions}
 
 \section*{Unguided exploration and interface feedback}
 \begin{questions}
-\question Add some questions about elements of the sonfication/interface for feedback. If you want to provide a box for testers to write in, use the ``makeemptybox'' command.
-	\makeemptybox{2in}
+
+
+\question How effectively did the panning (distribution of sound between the left and right/8 surround channels) communicate the position of various sites?
+\fiveptgeneric{Very ineffective}{Very effective}
+
+
+
+\question If you had one of each type of site playing (city, power plant, and rural), how well could you distinguish each type by its sound?
+\fiveptgeneric{Not at all}{Very well}	
+
+
+\question How engaging was the aural presentation?
+\fiveptgeneric{Not at all}{Very engaging}
+
+\question Any other observations about the trends of \ce{NO2}, \ce{O3}, or their relationship from your listening?
+\makeemptybox{\stretch{1}}
+
+\newpage
+\question What elements of the \emph{sonification} (not the GUI) were most difficult to interpret or understand?
+\makeemptybox{\stretch{1}}
+
+\question What elements of the \emph{sonficiation} (not the GUI) were easiest to interpret or understand?
+\makeemptybox{\stretch{1}}
+\newpage
+
+\newpage
+\question What elements of the \emph{GUI} were most difficult to use or understand?
+\makeemptybox{\stretch{1}}
+
+\question What elements of the \emph{GUI} were easiest to use or understand?
+\makeemptybox{\stretch{1}}
+\newpage
+
+\question Additional comments:
+\makeemptybox{\stretch{1}}
+\newpage
+
 \end{questions}
 
 \end{document}

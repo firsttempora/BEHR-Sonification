@@ -47,12 +47,21 @@ Much less & Slightly less & No difference & Slightly greater & Much greater
 \end{center}
 }
 
-\newcommand{\fiveptgeneric}[2]{%
+\newcommand{\fiveptcorr}{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYY}
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+Strongly anti-correlated & Weakly anti-correlated & No significant correlation & Weakly correlated & Strongly correlated
+\end{tabularx}
+\end{center}
+}
+
+\newcommand{\fiveptgeneric}[3][]{%
 \begin{center}
 \begin{tabularx}{\textwidth}{YYYYY}
 1 & 2 & 3 & 4 & 5 \\
 $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-#1 & & & & #2
+#2 & & #1 & & #3
 \end{tabularx}
 \end{center}
 }
@@ -79,7 +88,7 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 	\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
 
-
+\newpage
 \question \ce{NO2} in rural areas:
 	\begin{parts}
 	\part Do you expect the overall trend in rural locations' \ce{NO2} to be increasing, decreasing, or staying constant over the time period 2005 to 2015?
@@ -99,6 +108,9 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 	\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
 	
+
+	
+\begin{minipage}{\linewidth}
 \question Spatialization:
 	\begin{parts}
 	\part Which city would you expect to have the largest change in \ce{NO2}? \\
@@ -113,6 +125,7 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 		\fiveptgeneric{Minimal confidence}{Extremely confident}
 		
 	\end{parts}
+\end{minipage}
 
 \question Regional trends:
 	\begin{parts}
@@ -127,7 +140,8 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 		\part Rate your confidence in this answer.
 		\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
-	
+
+\begin{minipage}{\linewidth}	
 \question \ce{NO2} at rural sites:
 	\begin{parts}
 	\part This interface includes \ce{NO2} from 15 rural sites, shown in the image below.  Which two do you expect would have the greatest change in \ce{NO2} from 2005 to 2015?
@@ -138,9 +152,21 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 	\includegraphics[width=0.75\textwidth]{Images/rural-sites.png} 	
 	\end{center}
 	
-
-
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
+	\end{minipage}
+
+\begin{minipage}{\linewidth}
+\question \ce{NO2}/\ce{O3} relationship:
+	\begin{parts}
+	\part Would you expect \ce{NO2} and \ce{O3}	concentrations in Phoenix, AZ to be correlated, anti-correlated, or have no statistically significant relationship?
+	\fiveptcorr
+	
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+	\end{parts}
+\end{minipage}
 \end{questions}
 
 \end{document}
