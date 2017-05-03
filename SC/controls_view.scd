@@ -56,13 +56,13 @@
 ~speedLabel = StaticText(~controlsView,
 	Rect(~pad, ~height+(~pad), ~labelWidth, ~height));
 ~speedLabel.string = "speed";
-~speedSpec = ControlSpec(0.005,3,\linear, 0.005);
+~speedSpec = ControlSpec(0.3,200,\linear, 0.1);
 ~speedSlider = Slider(~controlsView,
 	Rect(~labelWidth+(2*~pad), ~height+(~pad), ~sliderWidth, ~height))
 .action_({|v|
 	~speedNumber.value = ~speedSpec.map(~speedSlider.value);
 	//~timeInverval = ~speedNumber.value;
-    if(~taskOpts.notNil, {~taskOpts["delay"] = ~speedNumber.value;});
+	if(~taskOpts.notNil, {~taskOpts["delay"] = 1.0/~speedNumber.value; ~taskOpts["delay"].postln;});
 });
 ~speedNumber = NumberBox(~controlsView,
 Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height))
@@ -140,7 +140,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
     Rect(~pad, (6*~height)+(6*~pad), ~labelWidth, ~height));
 ~synthesisSoundFilterLabel.string = "synth sound";
 ~synthesisSoundFilterCheckBox = CheckBox.new(~controlsView,
-	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), 2*~labelWidth, ~height))
+	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), 3*~labelWidth, ~height))
 .action_({|v|
         "not implemented".error;
 });
@@ -169,16 +169,11 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 // panning (on/off)
 ~panningLabel = StaticText(~controlsView,
     Rect(~pad, (8*~height)+(8*~pad), ~labelWidth, ~height));
-~panningLabel.string = "panning";
-~panningCheckBox = CheckBox.new(~controlsView,
+~panningLabel.string = "Panning";
+~panningButton = Button.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (8*~height)+(8*~pad), 3*~labelWidth, ~height))
+.states_([["NO2: left, O3: right"], ["Site location"]])
 .action_({|v|
-    "not implemented".error;
+	"not implemented".error;
 });
-~panningCheckBox.value = false;
-~panningCheckBox.string = "(NO_2:left O_3:right/surround)";
-
-
-
-
 );
