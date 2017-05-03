@@ -8,7 +8,7 @@
 ~controlsViewLeftBound = (w.bounds.width/2.0) - 143;
 
 ~controlsView =  UserView(w, Rect(~controlsViewLeftBound,
-    ~mapHeight + ~checkBoxHeight + ~checkBoxViewHeight + (3*~pad),
+	~mapHeight + (2*~checkBoxHeight) + ~checkBoxViewHeight + (4*~pad),
 	~controlsViewWidth, ~controlsViewHeight)
 );
 
