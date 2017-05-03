@@ -10,7 +10,7 @@
 // other persistent arrays
 ~locsSelected = ~init_play_array.(~locations, {false});
 
-~mainTask = Task.new({~task_driver_func.(~locations, ~locsSelected, ~site_stats, ~global_stats, ~no2SynthsArr, ~o3SynthsArr, ~taskOpts)});
+~mainTask = Task.new({~task_driver_func.(~locations, ~locsSelected, ~site_stats, ~category_stats, ~global_stats, ~no2SynthsArr, ~o3SynthsArr, ~taskOpts)});
 )
 
 /*

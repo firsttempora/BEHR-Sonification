@@ -59,6 +59,55 @@
 	locsStats;
 };
 
+~generate_type_stats = {|locs, varsToDo|
+	var typeStats = Dictionary.new;
+	var typeMin, typeMax, typeCount, typeSum, typeNpoints, data;
+
+	// Input checking
+	if( locs.class != Dictionary, {Error("locs must be a dictionary").throw} );
+	if( varsToDo.class != Array, {Error("varsToDo must be an array").throw} );
+	locs.do({|val|
+		if ( val.class != Dictionary, {Error("locs must contain dictionaries").throw} );
+	}); // there should probably be more checks here, but I got tired of writing them
+
+	locs.keys.do({|locType|
+		typeStats[locType] = Dictionary.new;
+
+		varsToDo.do({|varName|
+			typeMin = inf;
+			typeMax = -inf;
+			typeCount = 0;
+			typeSum = 0;
+			typeNpoints = inf;
+
+			locs[locType].keys.do({|locName|
+				data = locs[locType][locName][varName];
+				data.do({|val|
+					if (data.size < 10, {Error("Pass the dictionary of locations (not the summary) to generate_global_stats").throw});
+					if (isNaN(val).not, {
+						if(val < typeMin, {typeMin = val});
+						if(val > typeMax, {typeMax = val});
+						typeCount = typeCount + 1;
+						typeSum = typeSum + val;
+					},{"generate_type_stats: found a nan in the data".warn});
+				});
+
+				if(data.size < typeNpoints, {typeNpoints = data.size});
+			});
+
+			typeStats[locType][varName] = Dictionary.new;
+			typeStats[locType][varName]["min"] = typeMin;
+			typeStats[locType][varName]["max"] = typeMax;
+			typeStats[locType][varName]["avg"] = typeSum / typeCount.asFloat;
+			typeStats[locType][varName]["range"] = typeMax - typeMin;
+			typeStats[locType][varName]["minDataPts"] = typeNpoints;
+		});
+	});
+
+	// return typeStats
+	typeStats;
+};
+
 ~generate_global_stats = {|summary, varsToDo|
 	var globalSummary = Dictionary.new;
 	var varSummary, data;
