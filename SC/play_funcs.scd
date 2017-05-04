@@ -147,7 +147,16 @@
 		optsDict["delay"].wait;
 
 		valInd = valInd + 1;
-		if(optsDict["doLoop"] and: (valInd >= globStats[no2var]["minDataPts"]), {valInd = 0});
+		if(valInd >= globStats[no2var]["minDataPts"],{
+			if(optsDict["doLoop"],
+				{valInd = 0},
+				{valInd = globStats[no2var]["minDataPts"]-1;
+					if(~playPauseButton.notNil,
+						{AppClock.sched(0.0, { ~playPauseButton.valueAction_(0);})},
+						{~mainTask.stop;})
+			});
+		});
+
 		"valInd: %".format(valInd).postln;
 	});
 
