@@ -52,6 +52,14 @@
 	theTask.play(doReset: true);
 };
 
+~mute_unmute_synths = {|val, no2Synths, o3Synths|
+	no2Synths.do({|subArr|
+		subArr.do({|thisSyn|
+			thisSyn.set(\trig, val);
+		});
+	});
+};
+
 ~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
 	/* This is the function that the main sound task will execute.
 	* As long as the inputs are arrays (and so passed by reference)
@@ -91,7 +99,6 @@
 		~playDateInd = 0;}
 	);
 
-	"updating GUI".postln;
 
     if(optsDict["updateGUI"], {
         {~speedSlider.valueAction = ~speedSpec.unmap(1.0/optsDict["delay"]);}.defer;
@@ -106,7 +113,6 @@
 		);
     });
 
-	"starting loop".postln;
 
 	inf.do({
 		locs.keys.asArray.sort.do({|type,i|
