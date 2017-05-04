@@ -41,6 +41,17 @@
 	[tind, nind];
 };
 
+~step_date_ind = {|step, globStats, theTask, theTaskOpts|
+	var maxInd = globStats["BEHRNO2"]["minDataPts"]-1;
+	"~globStats = %".format(~globStats).postln;
+	~playDateInd = ~playDateInd + step;
+	if(~playDateInd < 0, {~playDateInd = 0;});
+	if(~playDateInd > maxInd, {~playDateInd = maxInd});
+	theTaskOpts["updateGUI"] = true;
+	theTaskOpts["oneStep"] = true;
+	theTask.play(doReset: true);
+};
+
 ~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
 	/* This is the function that the main sound task will execute.
 	* As long as the inputs are arrays (and so passed by reference)
@@ -59,7 +70,7 @@
 	*    optsDict = a dictionary of options that control how the task executes. See below for list of required options
 	*/
 
-	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName"]);
+	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName","oneStep"]);
 	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
@@ -80,6 +91,8 @@
 		~playDateInd = 0;}
 	);
 
+	"updating GUI".postln;
+
     if(optsDict["updateGUI"], {
         {~speedSlider.valueAction = ~speedSpec.unmap(1.0/optsDict["delay"]);}.defer;
         {~no2CheckBox.valueAction = optsDict["playNO2"];}.defer;
@@ -92,6 +105,8 @@
 			"categorical", {{~scaleFilterButton.valueAction = 2;}.defer;}
 		);
     });
+
+	"starting loop".postln;
 
 	inf.do({
 		locs.keys.asArray.sort.do({|type,i|
@@ -147,15 +162,20 @@
         {~timeSlider.valueAction = ~timeSpec.unmap(~playDateInd);}.defer;
 		optsDict["delay"].wait;
 
-		~playDateInd = ~playDateInd + 1;
-		if(~playDateInd >= globStats[no2var]["minDataPts"],{
-			if(optsDict["doLoop"],
-				{~playDateInd = 0},
-				{~playDateInd = globStats[no2var]["minDataPts"]-1;
-					if(~playPauseButton.notNil,
-						{AppClock.sched(0.0, { ~playPauseButton.valueAction_(0);})},
-						{~mainTask.stop;})
-			});
+		if(optsDict["oneStep"], {
+			~mainTask.stop;
+			},{
+				// else if not just taking one step
+				~playDateInd = ~playDateInd + 1;
+				if(~playDateInd >= globStats[no2var]["minDataPts"],{
+					if(optsDict["doLoop"],
+						{~playDateInd = 0},
+						{~playDateInd = globStats[no2var]["minDataPts"]-1;
+							if(~playPauseButton.notNil,
+								{AppClock.sched(0.0, { ~playPauseButton.valueAction_(0);})},
+								{~mainTask.stop;})
+					});
+				});
 		});
 
 		"~playDateInd: %".format(~playDateInd).postln;
