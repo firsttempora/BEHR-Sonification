@@ -66,7 +66,7 @@
     *  doLoop = boolean, true to loop back to the beginning once the end is reached, false to play once and stop.
 	*/
 
-	var valInd, statDict;
+	var statDict;
 	var no2var = "BEHRNO2";
 	var o3var = "O3_VMR";
 	var no2freqs = [500, 8000];
@@ -76,11 +76,12 @@
 	if (optsDict.keys != req_opts, {Error("optsDict must have the keys: %. (Modify req_opts in this function if needed.)".format(req_opts)).throw});
 
 	// End input checking //
-
-	valInd = 0;
+	if(~playDateInd.isNil, {
+		~playDateInd = 0;}
+	);
 
     if(optsDict["updateGUI"], {
-        {~speedSlider.valueAction = ~speedSpec.unmap(optsDict["delay"]);}.defer;
+        {~speedSlider.valueAction = ~speedSpec.unmap(1.0/optsDict["delay"]);}.defer;
         {~no2CheckBox.valueAction = optsDict["playNO2"];}.defer;
         {~o3CheckBox.valueAction = optsDict["playO3"];}.defer;
         {~loopButton.valueAction = optsDict["doLoop"]}.defer;
@@ -110,7 +111,7 @@
 				//"min = %, max = %".format(statDict[no2var]["min"], statDict[no2var]["max"]).postln;
 
 				// Do the value normalization - NO2 first
-				curNO2Val = locs[type][name][no2var][valInd];
+				curNO2Val = locs[type][name][no2var][~playDateInd];
 				//"%: val = %".format(name, curNO2Val).postln;
 
 				curNO2ValScaled = curNO2Val.linexp(statDict[no2var]["min"], statDict[no2var]["max"], no2freqs[0], no2freqs[1]);
@@ -126,7 +127,7 @@
 
 				// Then O3
 				//"min = %, max = %".format(statDict[o3var]["min"], statDict[o3var]["max"]).postln;
-				curO3Val = locs[type][name][o3var][valInd];
+				curO3Val = locs[type][name][o3var][~playDateInd];
 				curO3ValScaled = curO3Val.linexp(statDict[o3var]["min"], statDict[o3var]["max"], o3freqs[0], o3freqs[1]);
 				//"%: o3 val = %".format(name, curO3Val).postln;
 				//"%: o3 scaled = %".format(name, curO3ValScaled).postln;
@@ -143,21 +144,21 @@
 			});
 		});
 
-        {~timeSlider.valueAction = ~timeSpec.unmap(valInd);}.defer;
+        {~timeSlider.valueAction = ~timeSpec.unmap(~playDateInd);}.defer;
 		optsDict["delay"].wait;
 
-		valInd = valInd + 1;
-		if(valInd >= globStats[no2var]["minDataPts"],{
+		~playDateInd = ~playDateInd + 1;
+		if(~playDateInd >= globStats[no2var]["minDataPts"],{
 			if(optsDict["doLoop"],
-				{valInd = 0},
-				{valInd = globStats[no2var]["minDataPts"]-1;
+				{~playDateInd = 0},
+				{~playDateInd = globStats[no2var]["minDataPts"]-1;
 					if(~playPauseButton.notNil,
 						{AppClock.sched(0.0, { ~playPauseButton.valueAction_(0);})},
 						{~mainTask.stop;})
 			});
 		});
 
-		"valInd: %".format(valInd).postln;
+		"~playDateInd: %".format(~playDateInd).postln;
 	});
 
 };
