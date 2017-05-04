@@ -56,6 +56,15 @@ Strongly anti-correlated & Weakly anti-correlated & No significant correlation &
 \end{center}
 }
 
+\newcommand{\fiveptknow}{%
+\begin{center}
+\begin{tabularx}{\textwidth}{YYYYY}
+$\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+No prior knowledge & Little prior knowledge & Some prior knowledge & Much prior knowledge & Expert
+\end{tabularx}
+\end{center}
+}
+
 \newcommand{\fiveptgeneric}[3][]{%
 \begin{center}
 \begin{tabularx}{\textwidth}{YYYYY}
@@ -66,6 +75,17 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 \end{center}
 }
 
+\textbf{Prior knowledge}
+\begin{questions}
+\question Please rate your prior knowledge of \ce{NO_x}/\ce{O_3} chemistry in the atmosphere and \ce{NO_x} emissions in the US
+\fiveptknow
+
+\question Pleasre rate your prior knowledge of sonification (the representation of data aurally, rather than visually)
+\fiveptknow
+\end{questions}
+
+\vspace{2in}
+\textbf{Specific questions}
 \begin{questions}
 
 
@@ -88,7 +108,7 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 	\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
 
-\newpage
+
 \question \ce{NO2} in rural areas:
 	\begin{parts}
 	\part Do you expect the overall trend in rural locations' \ce{NO2} to be increasing, decreasing, or staying constant over the time period 2005 to 2015?
@@ -98,7 +118,7 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 	\fiveptgeneric{Minimal confidence}{Extremely confident}
 	\end{parts}
 
-
+\newpage
 \question Seasonal variation:
 	\begin{parts}
 	\part Do you expect the amount of \ce{NO2} in the summer to be greater or less than in the winter, in general?
