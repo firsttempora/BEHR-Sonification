@@ -67,7 +67,7 @@
 ~speedLabel = StaticText(~controlsView,
 	Rect(~pad, ~height+(~pad), ~labelWidth, ~height));
 ~speedLabel.string = "speed";
-~speedSpec = ControlSpec(0.3,200,\linear, 0.1);
+~speedSpec = ControlSpec(0.3,20,\linear, 0.1);
 ~speedSlider = Slider(~controlsView,
 	Rect(~labelWidth+(2*~pad), ~height+(~pad), ~sliderWidth, ~height))
 .action_({|v|
