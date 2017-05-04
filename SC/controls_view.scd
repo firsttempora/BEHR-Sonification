@@ -24,7 +24,7 @@
 
 // play pause button
 ~playPauseButton = Button(~controlsView,
-    Rect(~pad, 0, (2*~buttonWidth)+~pad, ~height))
+    Rect(~pad, 0, ~buttonWidth, ~height))
     .states_([["play"],["pause"]])
     .action_({|button|
     if(button.value == 0, {
@@ -32,9 +32,19 @@
         "paused".postln;
     }, {
 			if(~mainTask.notNil, {~taskOpts["oneStep"] = false; ~mainTask.play});
+			if(~muteButton.notNil, {~muteButton.valueAction_(1)});
         "playing".postln;
     });
 });
+
+// mute/unmute button
+~muteButton = Button(~controlsView,
+	Rect((2*~pad)+~buttonWidth, 0, ~buttonWidth, ~height))
+.states_([["muted"],["unmuted"]])
+.action_({|button|
+	~mute_unmute_synths.(button.value, ~no2SynthsArr, ~o3SynthsArr)
+});
+
 
 
 // loop on / off
