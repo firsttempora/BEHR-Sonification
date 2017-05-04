@@ -1,6 +1,6 @@
 (
-//~base_path = Document.current.path.dirname +/+ ".."; // seems to require 3.7_
-~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
+~base_path = Document.current.path.dirname +/+ ".."; // seems to require 3.7_
+// ~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
 
 ~state_lines_path = ~base_path +/+ "data/geo_data/state_lines.csv";
 ~trends_path = ~base_path +/+ "data/trend_data/";

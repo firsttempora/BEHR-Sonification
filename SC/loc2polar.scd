@@ -14,4 +14,13 @@
 	cityCenter.rho = cityCenter.rho / sqrt(2);
 	cityCenter;
 };
+
+
+/* takes a location and computes a values (-1,1) to pan based on longitude in the stereo field */
+~loc2PanStereo = {|loc|
+	var lon = loc["SiteLongitude"];
+	lon = lon.linlin(~lonMin, ~lonMax, -1, 1);
+	lon.postln;
+	lon;
+};
 );

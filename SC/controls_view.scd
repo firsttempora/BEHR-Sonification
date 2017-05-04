@@ -200,8 +200,8 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 			0, {~taskOpts["normType"]="global"},
 			1, {~taskOpts["normType"]="local"},
 			2, {~taskOpts["normType"]="categorical"}
-		)
-	})
+		);
+	});
 });
 
 // panning (on/off)
@@ -211,7 +211,12 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~panningButton = Button.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (9*~height)+(9*~pad), 3*~labelWidth, ~height))
 .states_([["NO2: left, O3: right"], ["Site location"]])
-.action_({|v|
-	"not implemented".error;
+.action_({|thisButton|
+	if(~taskOpts.notNil,{
+		switch(thisButton.value,
+			0, {~taskOpts["pan"]="no2Left"},
+			1, {~taskOpts["pan"]="siteLocation"},
+		);
+	});
 });
 );

@@ -58,6 +58,11 @@
 			thisSyn.set(\trig, val);
 		});
 	});
+	o3Synths.do({|subArr|
+		subArr.do({|thisSyn|
+			thisSyn.set(\trig, val);
+		});
+	});
 };
 
 ~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
@@ -78,7 +83,7 @@
 	*    optsDict = a dictionary of options that control how the task executes. See below for list of required options
 	*/
 
-	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName","oneStep"]);
+	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName","oneStep","pan"]);
 	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
@@ -117,7 +122,7 @@
 	inf.do({
 		locs.keys.asArray.sort.do({|type,i|
 			locs[type].keys.asArray.sort.do({|name, j|
-				var curNO2Val, curNO2ValScaled, curO3Val, curO3ValScaled;
+				var curNO2Val, curNO2ValScaled, curO3Val, curO3ValScaled, curLocPan;
 				//"delay = %, optDict[delay] = %".format(delay, optsDict["delay"]).postln;
 				//"%: %, %: %".format(i, type, j, name).postln;
 
@@ -139,8 +144,20 @@
 				//"%: scaled = %".format(name, curNO2ValScaled).postln;
 
 				if(locsActive[i][j] and: optsDict["playNO2"], {
+					// calculate the panning value corresponding to location
+					curLocPan = ~loc2PanStereo.(locs[type][name]);
+					// "%: pan = %".format(name, curLocPan).postln;
+
+
 					"Setting % no2 freq to %".format(name, curNO2ValScaled).postln;
 					no2Synths[i][j].set(\freq, curNO2ValScaled);
+
+					if( optsDict["pan"] == "no2Left", {
+						no2Synths[i][j].set(\pan, -1);
+					}, {
+						no2Synths[i][j].set(\pan, curLocPan);
+					});
+
 					no2Synths[i][j].run(true);
 				}, {
 					no2Synths[i][j].run(false);
@@ -156,6 +173,13 @@
 				if(locsActive[i][j] and: optsDict["playO3"], {
 					"Setting % o3 freq to %".format(name, curO3ValScaled).postln;
 					o3Synths[i][j].set(\freq, curO3ValScaled);
+
+					if( optsDict["pan"] == "no2Left", {
+						o3Synths[i][j].set(\pan, 1);
+					}, {
+						o3Synths[i][j].set(\pan, curLocPan);
+					});
+
 					o3Synths[i][j].run(true);
 				}, {
 					o3Synths[i][j].run(false);
