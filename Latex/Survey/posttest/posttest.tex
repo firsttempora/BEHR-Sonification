@@ -24,7 +24,7 @@
 
 
 \begin{document}
-\printanswers % comment out to hide answers
+%\printanswers % comment out to hide answers
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Command defs %%%%%
@@ -132,7 +132,7 @@ $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$\\
 
 	\end{parts}
 
-
+\newpage
 \instructions{%
 Now turn \textbf{OFF} all the cities and turn \textbf{ON} all the power plants. Leave the other settings the same.
 }
@@ -171,14 +171,40 @@ Now turn \textbf{OFF} all the power plants and turn \textbf{ON} all the rural si
 
 
 \instructions{%
-Now turn \textbf{OFF} all the rural sites and turn \textbf{ON} the following cities:
+Now \textbf{PAUSE} and \textbf{MUTE} the sound, then turn \textbf{OFF} all the rural sites and turn \textbf{ON} the following sites:
+	\begin{itemize}
+	\item Atlanta (city)
+	\item Cholla (power plant)
+	\item Crater Lake (rural)
+	\end{itemize}
+Decrease the speed to \textbf{10}. Turning \textbf{ON} looping will probably help.
+}
+
+\question Inter-category correlation:
+	\begin{parts}
+	\part How strongly are Atlanta and Cholla's \ce{NO2} concentrations correlated?
+	\fiveptcorrna
+	
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+	
+	\part How strongly are Atlanta and Crater Lake's \ce{NO2} concentrations correlated?
+	\fiveptcorrna
+	
+	\part Rate your confidence in this answer.
+	\fiveptgeneric{Minimal confidence}{Extremely confident}
+	\end{parts}
+
+
+\instructions{%
+Now turn \textbf{OFF} those three sites and turn \textbf{ON} the following cities:
 	\begin{itemize} [noitemsep, nolistsep]
 	\item Indianapolis, IN
 	\item Los Angeles, VA
 	\item Reno, NV
 	\item San Antonio, TX
 	\end{itemize}
-Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2}. Turning \textbf{ON} looping will probably help.
+Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2--4}. 
 }
 
 \question Seasonal variation:
@@ -199,9 +225,9 @@ Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2}. Tu
 
 \question Spatialization:
 	\begin{parts}
-	\part Which city has the largest relative change in \ce{NO2}? \\
+	\part Keep all four cities on. Which city has the largest relative change in \ce{NO2}? \\
 		\begin{choices}
-		\CorrectChoice Indianapolis
+		\CorrectChoice Indianapolis, IN
 		\CorrectChoice Los Angeles, CA
 		\choice Reno, NV
 		\choice San Antonio, TX
@@ -216,9 +242,22 @@ Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2}. Tu
 	\part Rate your confidence in this answer.
 	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
 	
-\instructions{Change the scaling to \textbf{ABSOLUTE}.}	
+	\part Now turn the cities on and off as you wish. Now which city would you say has the largest relative change in \ce{NO2}? \\
+	\begin{choices}
+	\CorrectChoice Indianapolis
+	\CorrectChoice Los Angeles, CA
+	\choice Reno, NV
+	\choice San Antonio, TX
+	\choice These cities' trends sounded too similar
+	\choice I could not identify which city was which
+	\end{choices}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	
+\instructions{Change the scaling to \textbf{ABSOLUTE} and make sure all four cities (Indianapolis, Los Angeles, Reno, and San Antonio) are on.}	
 
-	\part Which city has the largest absolute change in \ce{NO2}? \\
+	\part Keep all four cities on. Which city has the largest absolute change in \ce{NO2}? \\
 		\begin{choices}
 		\choice Indianapolis
 		\CorrectChoice Los Angeles, CA
@@ -234,14 +273,27 @@ Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2}. Tu
 		
 	\part Rate your confidence in this answer.
 	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
+	
+	\part Now turn the cities on and off as you wish. Now which city would you say has the largest absolute change in \ce{NO2}? \\
+	\begin{choices}
+	\CorrectChoice Indianapolis
+	\CorrectChoice Los Angeles, CA
+	\choice Reno, NV
+	\choice San Antonio, TX
+	\choice These cities' trends sounded too similar
+	\choice I could not identify which city was which
+	\end{choices}
+	
+	\part Rate your confidence in this answer.
+	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
 	\end{parts}
 	
 	
-\instructions{Turn \textbf{ON} all sites. Adjust the speed as needed to answer the question.}
+\instructions{Turn \textbf{ON} all sites. Turn \textbf{OFF} the site-type specific sounds. Adjust the speed as needed to answer the question.}
 
 \question Regional trends:
 	\begin{parts}
-	\part Which region had the greatest \ce{NO2} in 2005?\\
+	\part Which region had the greatest \ce{NO2} in 2005? (Users testing in stereo may circle both east or both west regions if you cannot distinguish north and south.)\\
 		\begin{choices}
 		\CorrectChoice Northeast
 		\choice Southeast
@@ -259,7 +311,7 @@ Also turn \textbf{ON} the season filter and decrease the speed to \textbf{2}. Tu
 	\fiveptgna{Minimal confidence}{Extremely confident}{Could not tell}
 	\end{parts}
 	
-\instructions{For these next questions, start with only the rural sites \textbf{ON}. Turn on and off the sites and adjust the speed as needed to explore the data and answer the questions. Set scaling to \textbf{RELATIVE TO CATEGORY MAXIMUM}}
+\instructions{For these next questions, start with only the rural sites \textbf{ON}. Turn on and off the sites and adjust the speed as needed to explore the data and answer the questions. Set scaling to \textbf{RELATIVE TO CATEGORY MAXIMUM}. Turn site-type-specific sounds back on.}
 
 \question Trends at rural sites:
 	\begin{parts}
