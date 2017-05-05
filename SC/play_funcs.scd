@@ -83,7 +83,8 @@
 	*    optsDict = a dictionary of options that control how the task executes. See below for list of required options
 	*/
 
-	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop","updateGUI","synthName","oneStep","pan"]);
+	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop",
+		"updateGUI","synthName","oneStep","pan","seasonFilter"]);
 	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
@@ -122,7 +123,7 @@
 	inf.do({
 		locs.keys.asArray.sort.do({|type,i|
 			locs[type].keys.asArray.sort.do({|name, j|
-				var curNO2Val, curNO2ValScaled, curO3Val, curO3ValScaled, curLocPan;
+				var curNO2Val, curNO2ValScaled, curO3Val, curO3ValScaled, curLocPan, curSeasonFilterScale;
 				//"delay = %, optDict[delay] = %".format(delay, optsDict["delay"]).postln;
 				//"%: %, %: %".format(i, type, j, name).postln;
 
@@ -148,6 +149,14 @@
 					curLocPan = ~loc2PanStereo.(locs[type][name]);
 					// "%: pan = %".format(name, curLocPan).postln;
 
+					// calculate the season filter based on month
+					// {sin(((~dateCur.string.split($-)[1].asInt)-4/12)*2*pi).postln}.defer;
+					curSeasonFilterScale =
+					    sin(((~locations["Cities"]["Tucson"]["StartDate"][~playDateInd].split($-)[1].asInt)-4/12)*2*pi);
+
+					curSeasonFilterScale = 2.0 * (4.0 ** (0.5 * curSeasonFilterScale));
+					// "%: seasonFilter = %".format(name, curSeasonFilterScale.asString).postln;
+
 
 					"Setting % no2 freq to %".format(name, curNO2ValScaled).postln;
 					no2Synths[i][j].set(\freq, curNO2ValScaled);
@@ -156,6 +165,13 @@
 						no2Synths[i][j].set(\pan, -1);
 					}, {
 						no2Synths[i][j].set(\pan, curLocPan);
+					});
+
+					if(optsDict["seasonFilter"], {
+						no2Synths[i][j].set(\seasonCutoff, min(curNO2ValScaled * curSeasonFilterScale, 20000));
+						// "%: seasonFilter = %".format(name, min(curNO2ValScaled * curSeasonFilterScale, 20000).asString).postln;
+					}, {
+						no2Synths[i][j].set(\seasonCutoff, 20000);
 					});
 
 					no2Synths[i][j].run(true);
@@ -178,6 +194,13 @@
 						o3Synths[i][j].set(\pan, 1);
 					}, {
 						o3Synths[i][j].set(\pan, curLocPan);
+					});
+
+					if(optsDict["seasonFilter"], {
+						o3Synths[i][j].set(\seasonCutoff, min(curO3ValScaled * curSeasonFilterScale, 20000));
+						// "%: seasonFilter = %".format(name, min(curO3ValScaled * curSeasonFilterScale, 20000).asString).postln;
+					}, {
+						o3Synths[i][j].set(\seasonCutoff, 20000);
 					});
 
 					o3Synths[i][j].run(true);

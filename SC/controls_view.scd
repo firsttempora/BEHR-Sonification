@@ -157,7 +157,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 .action_({|v|
         if(~taskOpts.notNil, {~taskOpts["playO3"] = ~o3CheckBox.value;});
 });
-~o3CheckBox.value = false;
+~o3CheckBox.value = true;
 ~o3CheckBox.string = "(on/off)";
 
 
@@ -168,7 +168,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~seasonFilterCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), ~labelWidth, ~height))
 .action_({|v|
-    "not implemented".error;
+	if(~taskOpts.notNil,{~taskOpts["seasonFilter"] = ~seasonFilterCheckBox.value;});
 });
 ~seasonFilterCheckBox.value = false;
 ~seasonFilterCheckBox.string = "(on/off)";

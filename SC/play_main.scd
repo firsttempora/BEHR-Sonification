@@ -1,8 +1,8 @@
 (
 // options dictionary used to control the task
 ~taskOpts = Dictionary.newFrom(["delay",0.3,"normType","global","doLoop",true,
-	"playNO2",true,"playO3",true,"updateGUI",true, "synthName",\spectrum_pan2,
-	"oneStep",false,"pan","no2Left"]);
+	"playNO2",true,"playO3",true,"updateGUI",true, "synthName",\saw_pan2,
+	"oneStep",false,"pan","no2Left", "seasonFilter", false]);
 
 // init synth arrays
 ~no2SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["synthName"], [\freq, 100, \amp, 0.01])});
