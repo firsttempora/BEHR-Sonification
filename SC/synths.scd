@@ -44,7 +44,7 @@ SynthDef(\sine_pan2, {|freq, amp, pan=0, chan=0, trig=0, seasonCutoff=20000|
 (
 SynthDef(\noise_pan2, {|freq, amp, pan=0, chan=0, trig=0, seasonCutoff=20000|
 	var env, envamp;
-	env = Env.asr(0.5, amp*2, 0.5);
+	env = Env.asr(0.5, amp*8, 0.5);
 	envamp = EnvGen.kr(env, trig);
 	Out.ar(chan, Pan2.ar(envamp * RLPF.ar(BPF.ar(WhiteNoise.ar(), Lag.kr(freq), 0.2), seasonCutoff, 0.3), pos:pan))
 }).add;

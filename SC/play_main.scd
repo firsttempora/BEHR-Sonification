@@ -1,12 +1,14 @@
 (
 // options dictionary used to control the task
 ~taskOpts = Dictionary.newFrom(["delay",0.3,"normType","global","doLoop",true,
-	"playNO2",true,"playO3",true,"updateGUI",true, "synthName",\saw_pan2,
-	"oneStep",false,"pan","no2Left", "seasonFilter", false]);
+	"playNO2",true,"playO3",true,"updateGUI",true, "defaultSynthName",\saw_pan2,
+	"oneStep",false,"pan","no2Left", "seasonFilter", false, "synthSound", "uniform",
+    "powerPlantSynth", \saw_pan2, "citySynth", \square_pan2, "ruralSynth", \noise_pan2
+]);
 
 // init synth arrays
-~no2SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["synthName"], [\freq, 100, \amp, 0.01])});
-~o3SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["synthName"], [\freq, 100, \amp, 0.01])});
+~no2SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["defaultSynthName"], [\freq, 100, \amp, 0.01])});
+~o3SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["defaultSynthName"], [\freq, 100, \amp, 0.01])});
 
 // other persistent arrays
 ~locsSelected = ~init_play_array.(~locations, {false});

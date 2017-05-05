@@ -180,7 +180,14 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~synthesisSoundFilterCheckBox = CheckBox.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 3*~labelWidth, ~height))
 .action_({|v|
-        "not implemented".error;
+    if(~synthesisSoundFilterCheckBox.value, {
+        ~taskOpts["synthSound"] = "basedOnLocationType";
+        ~switchSynths.("basedOnLocationType");
+    },{
+        ~taskOpts["synthSound"] = "uniform";
+        ~switchSynths.("uniform");
+    });
+    ~taskOpts["synthSound"].postln;
 });
 ~synthesisSoundFilterCheckBox.value = false;
 ~synthesisSoundFilterCheckBox.string = "(based on location type)";

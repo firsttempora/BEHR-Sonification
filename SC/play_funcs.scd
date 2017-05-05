@@ -65,6 +65,88 @@
 	});
 };
 
+
+~switchSynths = {|typeOfSynth|
+    if(typeOfSynth == "uniform", {
+        {
+            ~mainTask.pause;
+            ~mute_unmute_synths.(0, ~no2SynthsArr, ~o3SynthsArr);
+
+            // free the synthes, set reference in array to nil
+            ~no2SynthsArr.do({|locTypes, i|
+                ~no2SynthsArr[i].do({|synth, j|
+                    ~no2SynthsArr[i][j].free;
+                    ~no2SynthsArr[i][j].free;
+                    ~o3SynthsArr[i][j] = nil;
+                    ~o3SynthsArr[i][j] = nil;
+                });
+            });
+
+            // instantiate the new synths
+            ~locations.keys.asArray.sort.do({|type,i|
+                ~no2SynthsArr[i].do({|v, j|
+                    ~no2SynthsArr[i][j] = Synth.newPaused(~taskOpts["defaultSynthName"], [\freq, 100, \amp, 0.01]);
+                    ~o3SynthsArr[i][j] = Synth.newPaused(~taskOpts["defaultSynthName"], [\freq, 100, \amp, 0.01]);
+                });
+            });
+
+            // unmute the synths
+            ~mute_unmute_synths.(1, ~no2SynthsArr, ~o3SynthsArr);
+
+            // resume the main task loop
+            ~mainTask.resume;
+        }.defer;
+    // different synth for each location type
+    }, {
+        {
+            ~mainTask.pause;
+            ~mute_unmute_synths.(0, ~no2SynthsArr, ~o3SynthsArr);
+
+            // free the synthes, set reference in array to nil
+            ~no2SynthsArr.do({|locTypes, i|
+                ~no2SynthsArr[i].do({|synth, j|
+                     ~no2SynthsArr[i][j].free;
+                     ~no2SynthsArr[i][j].free;
+                     ~o3SynthsArr[i][j] = nil;
+                     ~o3SynthsArr[i][j] = nil;
+                });
+            });
+
+            // instantiate the new synths
+            ~locations.keys.asArray.sort.do({|type,i|
+                if(type == "Cities", {
+                    ~no2SynthsArr[i].do({|v, j|
+                        ~no2SynthsArr[i][j] = Synth.newPaused(~taskOpts["citySynth"], [\freq, 100, \amp, 0.01]);
+                        ~o3SynthsArr[i][j] = Synth.newPaused(~taskOpts["citySynth"], [\freq, 100, \amp, 0.01]);
+                    });
+                });
+                if(type == "PowerPlants", {
+                    ~no2SynthsArr[i].do({|v, j|
+                        ~no2SynthsArr[i][j] = Synth.newPaused(~taskOpts["powerPlantSynth"], [\freq, 100, \amp, 0.01]);
+                        ~o3SynthsArr[i][j] = Synth.newPaused(~taskOpts["powerPlantSynth"], [\freq, 100, \amp, 0.01]);
+                    });
+                });
+                if(type == "Rural", {
+                    ~no2SynthsArr[i].do({|v, j|
+                        ~no2SynthsArr[i][j] = Synth.newPaused(~taskOpts["ruralSynth"], [\freq, 100, \amp, 0.01]);
+                        ~o3SynthsArr[i][j] = Synth.newPaused(~taskOpts["ruralSynth"], [\freq, 100, \amp, 0.01]);
+                    });
+                });
+
+            });
+
+            // unmute the synths
+            ~mute_unmute_synths.(1, ~no2SynthsArr, ~o3SynthsArr);
+
+            // resume the main task loop
+
+            ~mainTask.resume;
+        }.defer;
+    });
+};
+
+
+
 ~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
 	/* This is the function that the main sound task will execute.
 	* As long as the inputs are arrays (and so passed by reference)
@@ -84,7 +166,9 @@
 	*/
 
 	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop",
-		"updateGUI","synthName","oneStep","pan","seasonFilter"]);
+		"updateGUI","defaultSynthName","oneStep","pan","seasonFilter","synthSound",
+        "powerPlantSynth","citySynth","ruralSynth"
+    ]);
 	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
     *  playNO2, playO3 = boolean values, turn on or off NO2 and O3 sounds for all sites
