@@ -105,6 +105,8 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 .action_({|v|
     ~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][~timeSpec.map(~timeSlider.value)];
 });
+~timeSlider.thumbSize = 1;
+~timeSlider.background = Color.gray(0.85);
 ~timeSlider.valueAction = ~timeSpec.unmap(0);
 
 

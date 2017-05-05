@@ -50,6 +50,8 @@
 	theTaskOpts["updateGUI"] = true;
 	theTaskOpts["oneStep"] = true;
 	theTask.play(doReset: true);
+
+	~playPauseButton.value = 0;
 };
 
 ~mute_unmute_synths = {|val, no2Synths, o3Synths|
@@ -67,6 +69,8 @@
 
 
 ~switchSynths = {|typeOfSynth|
+	// find out if the task is currently playing
+	var taskStatus = ~mainTask.isPlaying;
     if(typeOfSynth == "uniform", {
         {
             ~mainTask.pause;
@@ -76,8 +80,8 @@
             ~no2SynthsArr.do({|locTypes, i|
                 ~no2SynthsArr[i].do({|synth, j|
                     ~no2SynthsArr[i][j].free;
-                    ~no2SynthsArr[i][j].free;
-                    ~o3SynthsArr[i][j] = nil;
+                    ~o3SynthsArr[i][j].free;
+                    ~no2SynthsArr[i][j] = nil;
                     ~o3SynthsArr[i][j] = nil;
                 });
             });
@@ -93,8 +97,8 @@
             // unmute the synths
             ~mute_unmute_synths.(1, ~no2SynthsArr, ~o3SynthsArr);
 
-            // resume the main task loop
-            ~mainTask.resume;
+            // resume the main task loop if it was playing
+			if(taskStatus, {~mainTask.resume;});
         }.defer;
     // different synth for each location type
     }, {
@@ -106,8 +110,8 @@
             ~no2SynthsArr.do({|locTypes, i|
                 ~no2SynthsArr[i].do({|synth, j|
                      ~no2SynthsArr[i][j].free;
-                     ~no2SynthsArr[i][j].free;
-                     ~o3SynthsArr[i][j] = nil;
+                     ~o3SynthsArr[i][j].free;
+                     ~no2SynthsArr[i][j] = nil;
                      ~o3SynthsArr[i][j] = nil;
                 });
             });
@@ -138,9 +142,8 @@
             // unmute the synths
             ~mute_unmute_synths.(1, ~no2SynthsArr, ~o3SynthsArr);
 
-            // resume the main task loop
-
-            ~mainTask.resume;
+            // resume the main task loop if it was playing
+            if(taskStatus, {~mainTask.resume;});
         }.defer;
     });
 };
