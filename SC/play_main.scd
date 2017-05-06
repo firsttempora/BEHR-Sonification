@@ -1,10 +1,11 @@
 (
 // options dictionary used to control the task
-~taskOpts = Dictionary.newFrom(["delay",0.3,"normType","global","doLoop",true,
-	"playNO2",true,"playO3",true,"updateGUI",true, "defaultSynthName",\saw_pan2,
+~taskOpts = Dictionary.newFrom(["delay",0.1,"normType","global","doLoop",true,
+	"playNO2",true,"playO3",false,"updateGUI",true, "defaultSynthName",\saw_pan2,
 	"oneStep",false,"pan","no2Left", "seasonFilter", false, "synthSound", "uniform",
-    "powerPlantSynth", \saw_pan2, "citySynth", \square_pan2, "ruralSynth", \noise_pan2
+	"powerPlantSynth", \saw_pan2, "citySynth", \square_pan2, "ruralSynth", \noise_pan2
 ]);
+
 
 // init synth arrays
 ~no2SynthsArr = ~init_play_array.(~locations, {Synth.newPaused(~taskOpts["defaultSynthName"], [\freq, 100, \amp, 0.01])});
@@ -14,6 +15,8 @@
 ~locsSelected = ~init_play_array.(~locations, {false});
 
 ~mainTask = Task.new({~task_driver_func.(~locations, ~locsSelected, ~site_stats, ~category_stats, ~global_stats, ~no2SynthsArr, ~o3SynthsArr, ~taskOpts)});
+
+~setGuiState.(~taskOpts);
 
 "Finished play_main".postln;
 )

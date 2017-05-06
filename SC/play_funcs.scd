@@ -149,6 +149,25 @@
 };
 
 
+~setGuiState = {|taskOpts|
+	~loopCheckBox.value = taskOpts["doLoop"];
+	~speedSlider.valueAction = ~speedSpec.unmap(1/taskOpts["delay"]);
+	~no2CheckBox.value = taskOpts["playNO2"];
+	~o3CheckBox.value = taskOpts["playO3"];
+	if(taskOpts["seasonFilter"], {~seasonFilterPopup.value = 1}, {~seasonFilterPopup.value = 0});
+	if(taskOpts["synthSound"] == "uniform", {
+		~synthesisSoundFilterPopup.valueAction = 1;
+		}, {
+			~synthesisSoundFilterPopup.valueAction = 0;
+	});
+	switch (taskOpts["normType"],
+		"global" , {~scaleFilterPopup.value = 0},
+		"local" , {~scaleFilterPopup.value = 1},
+		"categorical" , {~scaleFilterPopup.value = 2}
+	);
+	if(taskOpts["pan"] == "siteLocation", {~panningPopup.value = 1}, {~panningPopup.value = 0});
+};
+
 
 ~task_driver_func = {|locs, locsActive, siteStats, catStats, globStats, no2Synths, o3Synths, optsDict|
 	/* This is the function that the main sound task will execute.
@@ -231,20 +250,20 @@
 				curNO2ValScaled = curNO2Val.linexp(statDict[no2var]["min"], statDict[no2var]["max"], no2freqs[0], no2freqs[1]);
 				//"%: scaled = %".format(name, curNO2ValScaled).postln;
 
-				if(locsActive[i][j] and: optsDict["playNO2"], {
-					// calculate the panning value corresponding to location
-					curLocPan = ~loc2PanStereo.(locs[type][name]);
-					// "%: pan = %".format(name, curLocPan).postln;
+				// calculate the panning value corresponding to location
+				if(locsActive[i][j], {curLocPan = ~loc2PanStereo.(locs[type][name])});
+				// "%: pan = %".format(name, curLocPan).postln;
 
-					// calculate the season filter based on month
-					// {sin(((~dateCur.string.split($-)[1].asInt)-4/12)*2*pi).postln}.defer;
+				// calculate the season filter based on month
+				if(locsActive[i][j], {
 					curSeasonFilterScale =
 					    sin(((~locations["Cities"]["Tucson"]["StartDate"][~playDateInd].split($-)[1].asInt)-4/12)*2*pi);
-
 					curSeasonFilterScale = 2.0 * (4.0 ** (0.5 * curSeasonFilterScale));
 					// "%: seasonFilter = %".format(name, curSeasonFilterScale.asString).postln;
+				});
 
-
+				// if NO2 is playing, calculate synth values
+				if(locsActive[i][j] and: optsDict["playNO2"], {
 					"Setting % no2 freq to %".format(name, curNO2ValScaled).postln;
 					no2Synths[i][j].set(\freq, curNO2ValScaled);
 
@@ -252,8 +271,10 @@
 
 					if( optsDict["pan"] == "no2Left", {
 						no2Synths[i][j].set(\pan, -1);
+						"Setting % no2 pan to %".format(name, -1).postln;
 					}, {
 						no2Synths[i][j].set(\pan, curLocPan);
+						"Setting % no2 pan to %".format(name, curLocPan).postln;
 					});
 
 					if(optsDict["seasonFilter"], {
@@ -281,11 +302,14 @@
 
 					if( optsDict["pan"] == "no2Left", {
 						o3Synths[i][j].set(\pan, 1);
+						"Setting % o3 pan to %".format(name, 1).postln;
 					}, {
 						o3Synths[i][j].set(\pan, curLocPan);
+						"Setting % o3 pan to %".format(name, curLocPan).postln;
 					});
 
 					if(optsDict["seasonFilter"], {
+						// "Setting % o3 seasonFilter to %".format(name, min(curO3ValScaled * curSeasonFilterScale, 20000)).postln;
 						o3Synths[i][j].set(\seasonCutoff, min(curO3ValScaled * curSeasonFilterScale, 20000));
 						// "%: seasonFilter = %".format(name, min(curO3ValScaled * curSeasonFilterScale, 20000).asString).postln;
 					}, {
