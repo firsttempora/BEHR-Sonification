@@ -159,32 +159,36 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 ~seasonFilterLabel = StaticText(~controlsView,
     Rect(~pad, (6*~height)+(6*~pad), ~labelWidth, ~height));
 ~seasonFilterLabel.string = "season filter";
-~seasonFilterCheckBox = CheckBox.new(~controlsView,
-	Rect(~labelWidth+(2*~pad), (6*~height)+(6*~pad), ~labelWidth, ~height))
-.action_({|v|
-	if(~taskOpts.notNil,{~taskOpts["seasonFilter"] = ~seasonFilterCheckBox.value;});
-});
-~seasonFilterCheckBox.value = false;
-~seasonFilterCheckBox.string = "(on/off)";
+
+~seasonFilterPopup = PopUpMenu(~controlsView,
+	Rect(~labelWidth + (2*~pad), (6*~height)+(6*~pad),~labelWidth,~height));
+~seasonFilterPopup.items = ["Off", "On"];
+~seasonFilterPopup.action = {|pup|
+	var pupBool;
+	pupBool = pup.value > 0;
+	if(~taskOpts.notNil, {~taskOpts["seasonFilter"] = pupBool;});
+};
 
 // city/power plant same sound or not
 ~synthesisSoundFilterLabel = StaticText(~controlsView,
     Rect(~pad, (7*~height)+(7*~pad), ~labelWidth, ~height));
 ~synthesisSoundFilterLabel.string = "synth sound";
-~synthesisSoundFilterCheckBox = CheckBox.new(~controlsView,
-	Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 3*~labelWidth, ~height))
-.action_({|v|
-    if(~synthesisSoundFilterCheckBox.value, {
-        ~taskOpts["synthSound"] = "basedOnLocationType";
-        ~switchSynths.("basedOnLocationType");
-    },{
-        ~taskOpts["synthSound"] = "uniform";
-        ~switchSynths.("uniform");
-    });
-    ~taskOpts["synthSound"].postln;
-});
-~synthesisSoundFilterCheckBox.value = false;
-~synthesisSoundFilterCheckBox.string = "(based on location type)";
+~synthesisSoundFilterPopup = PopUpMenu(~controlsView,
+Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 3*~labelWidth, ~height));
+~synthesisSoundFilterPopup.items = ["Based on Location Type", "Uniform"];
+~synthesisSoundFilterPopup.action = {|pup|
+	var ssound;
+
+	if(~taskOpts.notNil, {
+		switch(pup.value,
+			0, {ssound = "basedOnLocationType"},
+			1, {ssound = "uniform"}
+		);
+		~taskOpts["synthSound"] = ssound;
+		~switchSynths.(ssound);
+	});
+};
+
 
 // relative vs absolute mapping
 // scale filter (on/off)
@@ -192,24 +196,36 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 	Rect(~pad, (8*~height)+(8*~pad), ~labelWidth, ~height));
 ~scaleFilterLabel.string = "Scaling";
 
-~scaleFilterButton = Button(~controlsView,
-	Rect((2*~pad)+~labelWidth, (8*~height)+(8*~pad), 3*~buttonWidth, ~height))
-.states_([["absolute"],["relative to individual maximum"],["relative to category maximum"]])
-.action_({|thisButton|
+~scaleFilterPopup = PopUpMenu(~controlsView,
+Rect((2*~pad)+~labelWidth, (8*~height)+(8*~pad), 3*~buttonWidth, ~height));
+~scaleFilterPopup.items = ["Absolute", "Relative to Individual Maximum", "Relative to Category Maximum"];
+~scaleFilterPopup.action = {|pup|
 	if(~taskOpts.notNil,{
-		switch(thisButton.value,
+		switch(pup.value,
 			0, {~taskOpts["normType"]="global"},
 			1, {~taskOpts["normType"]="local"},
 			2, {~taskOpts["normType"]="categorical"}
 		);
 	});
-});
+};
 
 // panning (on/off)
 ~panningLabel = StaticText(~controlsView,
     Rect(~pad, (9*~height)+(9*~pad), ~labelWidth, ~height));
 ~panningLabel.string = "Panning";
-~panningButton = Button.new(~controlsView,
+~panningPopup = PopUpMenu(~controlsView,
+Rect(~labelWidth+(2*~pad), (9*~height)+(9*~pad), 3*~labelWidth, ~height));
+~panningPopup.items = ["NO2:left, O3:right", "Panned by Site Location"];
+~panningPopup.action = {|pup|
+	if(~taskOpts.notNil,{
+		switch(pup.value,
+			0, {~taskOpts["pan"]="no2Left"},
+			1, {~taskOpts["pan"]="siteLocation"},
+		);
+	});
+};
+
+/*~panningButton = Button.new(~controlsView,
 	Rect(~labelWidth+(2*~pad), (9*~height)+(9*~pad), 3*~labelWidth, ~height))
 .states_([["NO2: left, O3: right"], ["Site location"]])
 .action_({|thisButton|
@@ -219,5 +235,5 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 			1, {~taskOpts["pan"]="siteLocation"},
 		);
 	});
-});
+});*/
 );

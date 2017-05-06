@@ -200,9 +200,9 @@
         {~loopCheckBox.valueAction = optsDict["doLoop"]}.defer;
 
 		switch(optsDict["normType"],
-			"global", {{~scaleFilterButton.valueAction = 0;}.defer;},
-			"local", {{~scaleFilterButton.valueAction = 1;}.defer;},
-			"categorical", {{~scaleFilterButton.valueAction = 2;}.defer;}
+			"global", {{~scaleFilterPopup.valueAction = 0;}.defer;},
+			"local", {{~scaleFilterPopup.valueAction = 1;}.defer;},
+			"categorical", {{~scaleFilterPopup.valueAction = 2;}.defer;}
 		);
     });
 
@@ -247,6 +247,8 @@
 
 					"Setting % no2 freq to %".format(name, curNO2ValScaled).postln;
 					no2Synths[i][j].set(\freq, curNO2ValScaled);
+
+					optsDict["pan"].postln;
 
 					if( optsDict["pan"] == "no2Left", {
 						no2Synths[i][j].set(\pan, -1);
