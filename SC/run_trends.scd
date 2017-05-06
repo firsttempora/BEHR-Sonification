@@ -25,7 +25,7 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/controls_view.scd");
 (
 s.waitForBoot(
     thisProcess.interpreter.executeFile(~base_path+/+"SC/synths.scd");
-	{thisProcess.interpreter.executeFile(~base_path+/+"SC/play_main.scd")}.defer(2.0);
+	{thisProcess.interpreter.executeFile(~base_path+/+"SC/play_main.scd")}.defer(1.5);
 );
 );
 

@@ -18,6 +18,8 @@
 
 ~setGuiState.(~taskOpts);
 
+w.front;
+
 "Finished play_main".postln;
 )
 
