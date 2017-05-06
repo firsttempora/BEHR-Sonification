@@ -108,6 +108,10 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
 .action_({|v|
     ~dateCur.string = ~locations["Cities"]["Tucson"]["StartDate"][~timeSpec.map(~timeSlider.value)];
 });
+/* this view is located at the same place as the date slider and serves to prevent a user from trying
+ * to drag the date slider as this action is currently not supported.
+ */
+~timeSliderDisableView = View(~controlsView, Rect(~labelWidth+(2*~pad), (2*~height)+(2*~pad), ~sliderWidth, ~height));
 ~timeSlider.thumbSize = 1;
 ~timeSlider.background = Color.gray(0.85);
 ~timeSlider.valueAction = ~timeSpec.unmap(0);
