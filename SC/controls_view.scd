@@ -77,7 +77,10 @@
 });
 ~speedNumber = NumberBox(~controlsView,
 Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height))
-.action_({|v| ~speedSlider.value = ~speedSpec.unmap(~speedNumber.value)});
+.action_({|v|
+	~speedSlider.value = ~speedSpec.unmap(~speedNumber.value);
+	if(~taskOpts.notNil, {~taskOpts["delay"] = 1.0/~speedNumber.value; ~taskOpts["delay"].postln;});
+}).clipHi_(20).clipLo_(0.3) ;
 ~speedSlider.valueAction = ~speedSpec.unmap(1);
 
 // time indicator (date)
