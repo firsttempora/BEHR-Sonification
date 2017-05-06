@@ -197,7 +197,7 @@
         {~speedSlider.valueAction = ~speedSpec.unmap(1.0/optsDict["delay"]);}.defer;
         {~no2CheckBox.valueAction = optsDict["playNO2"];}.defer;
         {~o3CheckBox.valueAction = optsDict["playO3"];}.defer;
-        {~loopButton.valueAction = optsDict["doLoop"]}.defer;
+        {~loopCheckBox.valueAction = optsDict["doLoop"]}.defer;
 
 		switch(optsDict["normType"],
 			"global", {{~scaleFilterButton.valueAction = 0;}.defer;},

@@ -48,20 +48,12 @@
 
 
 // loop on / off
-~loopButton = Button(~controlsView,
-    Rect((2*~buttonWidth)+(3*~pad), 0, ~buttonWidth, ~height))
-    .states_([["no loop"],["loop"]])
-    .action_({|button|
-    if(button.value == 0, {
-        //~loop = false;
-        if(~taskOpts.notNil, {~taskOpts["doLoop"] = false;});
-        "not looping".postln;
-    }, {
-        // ~loop = true;
-        if(~taskOpts.notNil, {~taskOpts["doLoop"] = true;});
-        "looping".postln;
-    });
-});
+~loopCheckBox = CheckBox(~controlsView,
+	Rect((2*~buttonWidth)+(3*~pad), 0, ~buttonWidth*2, ~height))
+.action_({|cbox|
+	if(~taskOpts.notNil, {~taskOpts["doLoop"] = cbox.value});
+})
+.string_("Loop (on/off)");
 
 // speed slider
 ~speedLabel = StaticText(~controlsView,
