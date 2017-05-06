@@ -40,7 +40,7 @@
 // mute/unmute button
 ~muteButton = Button(~controlsView,
 	Rect((2*~pad)+~buttonWidth, 0, ~buttonWidth, ~height))
-.states_([["muted"],["unmuted"]])
+.states_([["unmute"],["mute"]])
 .action_({|button|
 	~mute_unmute_synths.(button.value, ~no2SynthsArr, ~o3SynthsArr)
 });
