@@ -189,7 +189,7 @@
 
 	var req_opts = Set.newFrom(["normType","delay","playNO2","playO3","doLoop",
 		"updateGUI","defaultSynthName","oneStep","pan","seasonFilter","synthSound",
-        "powerPlantSynth","citySynth","ruralSynth"
+		"powerPlantSynth","citySynth","ruralSynth","speakerConfig"
     ]);
 	/* normType = a string, either "global", "local", or "categorical" - controls whether the data value is normalized by the global min/max or the min/max for that site
 	*  delay = time in seconds between data points
@@ -251,8 +251,14 @@
 				//"%: scaled = %".format(name, curNO2ValScaled).postln;
 
 				// calculate the panning value corresponding to location
-				if(locsActive[i][j], {curLocPan = ~loc2PanStereo.(locs[type][name])});
+				if(locsActive[i][j], {
+					if(optsDict["speakerConfig"] == "stereo", {
+						curLocPan = ~loc2PanStereo.(locs[type][name]);
+					}, {
+						curLocPan = ~loc2PanQuad.(locs[type][name]);
+					});
 				// "%: pan = %".format(name, curLocPan).postln;
+				});
 
 				// calculate the season filter based on month
 				if(locsActive[i][j], {
@@ -267,14 +273,22 @@
 					"Setting % no2 freq to %".format(name, curNO2ValScaled).postln;
 					no2Synths[i][j].set(\freq, curNO2ValScaled);
 
-					optsDict["pan"].postln;
-
-					if( optsDict["pan"] == "no2Left", {
-						no2Synths[i][j].set(\pan, -1);
-						"Setting % no2 pan to %".format(name, -1).postln;
+					if(optsDict["speakerConfig"] == "stereo", {
+						if( optsDict["pan"] == "no2Left", {
+							no2Synths[i][j].set(\pan, -1);
+							// "Setting % no2 pan to %".format(name, -1).postln;
+						}, {
+							no2Synths[i][j].set(\pan, curLocPan);
+							// "Setting % no2 pan to %".format(name, curLocPan).postln;
+						});
 					}, {
-						no2Synths[i][j].set(\pan, curLocPan);
-						"Setting % no2 pan to %".format(name, curLocPan).postln;
+						if( optsDict["pan"] == "no2Left", {
+							no2Synths[i][j].set(\panx, -1);
+							no2Synths[i][j].set(\pany, 1);
+						}, {
+							no2Synths[i][j].set(\panx, curLocPan[0]);
+							no2Synths[i][j].set(\pany, curLocPan[1]);
+						});
 					});
 
 					if(optsDict["seasonFilter"], {
@@ -300,12 +314,22 @@
 					"Setting % o3 freq to %".format(name, curO3ValScaled).postln;
 					o3Synths[i][j].set(\freq, curO3ValScaled);
 
-					if( optsDict["pan"] == "no2Left", {
-						o3Synths[i][j].set(\pan, 1);
-						"Setting % o3 pan to %".format(name, 1).postln;
+					if(optsDict["speakerConfig"] == "stereo", {
+						if( optsDict["pan"] == "no2Left", {
+							o3Synths[i][j].set(\pan, 1);
+							// "Setting % o3 pan to %".format(name, -1).postln;
+						}, {
+							o3Synths[i][j].set(\pan, curLocPan);
+							// "Setting % o3 pan to %".format(name, curLocPan).postln;
+						});
 					}, {
-						o3Synths[i][j].set(\pan, curLocPan);
-						"Setting % o3 pan to %".format(name, curLocPan).postln;
+						if( optsDict["pan"] == "no2Left", {
+							o3Synths[i][j].set(\panx, 1);
+							o3Synths[i][j].set(\pany, 1);
+						}, {
+							o3Synths[i][j].set(\panx, curLocPan[0]);
+							o3Synths[i][j].set(\pany, curLocPan[1]);
+						});
 					});
 
 					if(optsDict["seasonFilter"], {

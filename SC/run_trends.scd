@@ -1,7 +1,7 @@
 (
-//~base_path = Document.current.path.dirname +/+ ".."; // seems to require 3.7_
+~base_path = Document.current.path.dirname +/+ ".."; // seems to require 3.7_
 // ~base_path = "/home/josh/Dropbox/Supercollider/BEHR-Sonification";
- ~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
+// ~base_path = "/Users/kermit/Documents/behr_sonification/BEHR-Sonification/";
 
 
 ~state_lines_path = ~base_path +/+ "data/geo_data/state_lines.csv";
@@ -20,7 +20,11 @@ thisProcess.interpreter.executeFile(~base_path+/+"SC/plot_citys.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/make_checkboxes.scd");
 thisProcess.interpreter.executeFile(~base_path+/+"SC/controls_view.scd");
 
+~speakerConfig = "quad";
+// ~speakerConfig = "stereo";
 
+if(~speakerConfig == "stereo", {s.options.numOutputBusChannels = 2;});
+if(~speakerConfig == "quad", {s.options.numOutputBusChannels = 4;});
 
 (
 s.waitForBoot(

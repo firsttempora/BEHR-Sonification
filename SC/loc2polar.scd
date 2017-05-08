@@ -23,4 +23,13 @@
 	lon.postln;
 	lon;
 };
+
+/* takes a location and computes an X and Y pan value between (-1,1) */
+~loc2PanQuad = {|loc|
+	var lon = loc["SiteLongitude"];
+	var lat = loc["SiteLatitude"];
+	lon = (lon.linlin(~lonMin, ~lonMax, -1, 1));
+	lat = (1-(lat.linlin(~latMin, ~latMax, 0,1)));
+	[lon, -2*(lat-0.5)];
+};
 );

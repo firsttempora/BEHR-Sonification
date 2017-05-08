@@ -1,10 +1,25 @@
 (
 // options dictionary used to control the task
-~taskOpts = Dictionary.newFrom(["delay",0.1,"normType","global","doLoop",true,
-	"playNO2",true,"playO3",false,"updateGUI",true, "defaultSynthName",\saw_pan2,
-	"oneStep",false,"pan","no2Left", "seasonFilter", false, "synthSound", "uniform",
-	"powerPlantSynth", \saw_pan2, "citySynth", \square_pan2, "ruralSynth", \noise_pan2
-]);
+
+// TWO CHANNEL OPTIONS
+if(~speakerConfig == "stereo", {
+	~taskOpts = Dictionary.newFrom(["delay",0.1,"normType","global","doLoop",true,
+		"playNO2",true,"playO3",false,"updateGUI",true, "defaultSynthName",\saw_pan2,
+		"oneStep",false,"pan","no2Left", "seasonFilter", false, "synthSound", "uniform",
+		"powerPlantSynth", \saw_pan2, "citySynth", \square_pan2, "ruralSynth", \noise_pan2,
+		"speakerConfig", "stereo"
+	]);
+});
+
+// FOUR CHANNEL OPTIONS
+if(~speakerConfig == "quad", {
+	~taskOpts = Dictionary.newFrom(["delay",0.1,"normType","global","doLoop",true,
+		"playNO2",true,"playO3",false,"updateGUI",true, "defaultSynthName",\saw_pan4,
+		"oneStep",false,"pan","no2Left", "seasonFilter", false, "synthSound", "uniform",
+		"powerPlantSynth", \saw_pan4, "citySynth", \square_pan4, "ruralSynth", \noise_pan4,
+		"speakerConfig", "quad"
+	]);
+});
 
 
 // init synth arrays
