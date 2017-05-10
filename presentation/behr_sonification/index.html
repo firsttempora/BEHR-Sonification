@@ -65,22 +65,32 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                     </td>
                 </tr>
             </table>
+            <span style="text-align:center"><small><br />CCRMA Colloquium<br />May 10, 2017</small></span><br/>
         </section>
-        
-        <section>
-            <h2>NO2 and O3</h2>
-        </section>
+    
         
         <section>
             <h2>Outline</h2>
             <ul>
-                <li>Motivation: Educational Tool <br /> to Learn About Atmospheric Chemistry</li>
-                <li>Data Capture or Preperation Methods</li>
-                <li>Sonification Methods</li>
+                <li>Motivation</li>
+                <li>Methods for Data Capture</li>
+                <li>Methods for Data Preparation</li>
+                <li>Methods for Sonification (auditory mappings)</li>
                 <li>Listening Test Results</li>
                 <li>Demo</li>
             </ul>
         </section>
+
+        <section>
+            <h2>Motivation</h2>
+            <ul>
+                <li>Educational tool to learn about atmospheric chemistry</li>
+                <li>Engage with different modes of learning</li>
+                <li>Simplify complex processes</li>
+                <li>Auditory system is good at identifying correlations</li>
+            </ul>
+        </section>
+
 
         <section>
             <h2>Why is NO<sub>2</sub> important?</h2>
@@ -131,6 +141,12 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         	</table>
         </section>
 
+        <section>
+            <h2>BEHR data</h2>
+            <p>Data is freely available at <a href="http://behr.cchem.berkeley.edu/">http://behr.cchem.berkeley.edu/</a></p>
+            <p>BEHR (Berkeley High-Resolution NO<sub>2</sub>) data is collected by NASA instruments and processed by the Berkeley Satellite Group at UC Berkeley </p>
+        </section>
+
 
         <section>
         	<h2> Data preprocessing </h2>
@@ -144,6 +160,17 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         			<td style="text-align:center"> <img height="400" style="background:white" src="img/intro/MonthAvg.jpg"> </td>
         		</tr>
         	</table>
+        </section>
+
+        <section>
+            <h3>Site Selection</h3>
+            <p>Three types of sites were selected</p>
+            <ul>
+                <li>Urban</li>
+                <li>Rural</li>
+                <li>Power Plants</li>
+            </ul>
+            <p>Sites selected are distributed across the continental USA</p>
         </section>
 
 
@@ -162,6 +189,32 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
                 
         <section>
             <h2>Sonification</h2>
+            <p>The main mapping is <strong>NO<sub>2</sub> concentration &harr; pitch</strong></p>
+            <p>We allow three normalization schemes</p>
+            <ul>
+                <li>relative to site type min/max</li>
+                <li>relative to absolute min/max</li>
+                <li>relative to individual site min/max</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Sonification</h2>
+            <p>Secondary main mappings include:</p>
+                <strong>geographical location &harr; panning</strong><br />
+                <strong>season &harr; resonant low pass filter cutoff</strong><br />
+                <strong>geographical location &harr; panning</strong><br />
+                <strong>site type &harr; synthesis sound</strong>
+        </section>
+
+        <section>
+            <h2>Sonification</h2>
+            <p>We also provide controls for:</p>
+            <ul>
+                <li>looping</li>
+                <li>muting</li>
+                <li>turning on/off features</li>
+            </ul>
         </section>
         
         <section>
@@ -171,7 +224,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         
         <section>
             <h2>Trends</h2>
-            <img height="550" style="background:white" src="img/no2vcds.png" />
+            <img height="300" style="background:white" src="img/no2vcds.png" />
         </section>
         
         <section>
