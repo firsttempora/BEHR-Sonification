@@ -20,6 +20,8 @@
 ~numberBoxWidth = 35;
 ~sliderWidth = 160;
 ~leftColWidth = ~labelWidth+~numberBoxWidth+~sliderWidth+(2*~pad);
+~dropdownWidth = ~leftColWidth - (~labelWidth)+~pad;
+
 
 
 // play pause button
@@ -68,7 +70,7 @@
 	if(~taskOpts.notNil, {~taskOpts["delay"] = 1.0/~speedNumber.value; ~taskOpts["delay"].postln;});
 });
 ~speedNumber = NumberBox(~controlsView,
-Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height))
+Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth+~pad+~pad, ~height))
 .action_({|v|
 	~speedSlider.value = ~speedSpec.unmap(~speedNumber.value);
 	if(~taskOpts.notNil, {~taskOpts["delay"] = 1.0/~speedNumber.value; ~taskOpts["delay"].postln;});
@@ -181,7 +183,7 @@ Rect(~labelWidth+~sliderWidth+(3*~pad), ~height+(~pad), ~numberBoxWidth, ~height
     Rect(~pad, (7*~height)+(7*~pad), ~labelWidth, ~height));
 ~synthesisSoundFilterLabel.string = "synth sound";
 ~synthesisSoundFilterPopup = PopUpMenu(~controlsView,
-Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 3*~labelWidth, ~height));
+Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), ~dropdownWidth, ~height));
 ~synthesisSoundFilterPopup.items = ["Based on Location Type", "Uniform"];
 ~synthesisSoundFilterPopup.action = {|pup|
 	var ssound;
@@ -204,7 +206,7 @@ Rect(~labelWidth+(2*~pad), (7*~height)+(7*~pad), 3*~labelWidth, ~height));
 ~scaleFilterLabel.string = "Scaling";
 
 ~scaleFilterPopup = PopUpMenu(~controlsView,
-Rect((2*~pad)+~labelWidth, (8*~height)+(8*~pad), 3*~buttonWidth, ~height));
+Rect((2*~pad)+~labelWidth, (8*~height)+(8*~pad), ~dropdownWidth, ~height));
 ~scaleFilterPopup.items = ["Absolute", "Relative to Individual Maximum", "Relative to Category Maximum"];
 ~scaleFilterPopup.action = {|pup|
 	if(~taskOpts.notNil,{
@@ -221,7 +223,7 @@ Rect((2*~pad)+~labelWidth, (8*~height)+(8*~pad), 3*~buttonWidth, ~height));
     Rect(~pad, (9*~height)+(9*~pad), ~labelWidth, ~height));
 ~panningLabel.string = "Panning";
 ~panningPopup = PopUpMenu(~controlsView,
-Rect(~labelWidth+(2*~pad), (9*~height)+(9*~pad), 3*~labelWidth, ~height));
+Rect(~labelWidth+(2*~pad), (9*~height)+(9*~pad), ~dropdownWidth, ~height));
 ~panningPopup.items = ["NO2:left, O3:right", "Panned by Site Location"];
 ~panningPopup.action = {|pup|
 	if(~taskOpts.notNil,{
