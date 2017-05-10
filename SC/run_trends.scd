@@ -29,7 +29,7 @@ if(~speakerConfig == "quad", {s.options.numOutputBusChannels = 4;});
 (
 s.waitForBoot(
     thisProcess.interpreter.executeFile(~base_path+/+"SC/synths.scd");
-	{thisProcess.interpreter.executeFile(~base_path+/+"SC/play_main.scd")}.defer(1.5);
+	{thisProcess.interpreter.executeFile(~base_path+/+"SC/play_main.scd")}.defer(3.0);
 );
 );
 
