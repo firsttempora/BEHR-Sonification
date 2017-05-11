@@ -168,23 +168,30 @@ molec. cm$^{-2}$ / DU.
 	 
 \subsection{Sonic Mappings}
 \label{sec:sonic-mappings}
-After the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{O_3}. We present several modes for listening to the data. In the simplest case, we use the data for each location as the frequency parameter to a simple sinusoidal oscillator.  We exponentially map all the values of the compounds' into an audible range such that 
-\begin{align}
-    \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
-    \text{min}(\text{freq}_1) \\
-    \text{max}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
-    \text{max}(\text{freq}_1) \\
-    \text{min}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
-    \text{min}(\text{freq}_2) \\
-    \text{max}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
-    \text{max}(\text{freq}_2)
-    \,,
-\end{align}
+After the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} and \ce{O_3} concentrations. We present several modes for listening to the data. In the simplest case, we use the data for each location as the frequency parameter to a sinusoidal oscillator.  We exponentially map the concentrations of the compounds' into an audible range according to
+\begin{equation}
+    c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
+\end{equation}
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  In general, we can constrain \ce{NO_2} and \ce{O_3} to different frequency ranges.  Moreover, we provide three scaling/normalization schemes for mapping the data corresponding to each compound at an individual site to frequency. In order to make comparisons across all sites, we can scale the data by the global compound minimum and maximum.  Since this compresses the frequency range of the individual sites, we can scale the data by each site location's individual minimum maximum. While this makes it impossible to make judgments across locations, this highlights the seasonal and overall trends for individual site. Last, we can scale the data by the minimum and maximum values of an individual location type. This is particularly helpful for rural sites, as the concentrations of \ce{NO_2} and \ce{O_3} change much less than in cities and power plants. 
+
+% \begin{align}
+%     \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+%     \text{min}(\text{freq}_1) \\
+%     \text{max}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
+%     \text{max}(\text{freq}_1) \\
+%     \text{min}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+%     \text{min}(\text{freq}_2) \\
+%     \text{max}_{\text{global}}(\text{\ce{O_3}}) &\rightarrow
+%     \text{max}(\text{freq}_2)
+%     \,,
+% \end{align}
 and the mapping is
 \begin{equation}
     c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
 \end{equation}
-where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  Thus, \ce{NO_2} and \ce{O_3} can be constrained to different frequency ranges, scaled according to their independent global minimum and maximum values.  The chemical compounds are presented in their own audio channels so they can be more easily differentiated.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  
+
+Thus,   The chemical compounds are presented in their own audio channels so they can be more easily differentiated.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
 
 To address this issue, we propose using band-pass filtered triangle waves for each geographical location and the incorporation of panning. By placing the listener at the center of the United states, we can calculate the angle at which each location should appear, given the direction the listener is facing.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
 
