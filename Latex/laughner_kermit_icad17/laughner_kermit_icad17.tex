@@ -5,7 +5,7 @@
 %
 % --------------------------------------------------------------------------
 
-\documentclass[a4paper,10pt,oneside]{article}
+\documentclass[a4paper,10pt,oneside,keeplastbox]{article}
 \usepackage{icad2017,amsmath,epsfig,times,url}
 \usepackage{hyperref}
 \usepackage{hypcap}
@@ -172,7 +172,16 @@ After the preprocessing, we have a set of locations through the United States th
 \begin{equation}
     c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
 \end{equation}
-where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  In general, we can constrain \ce{NO_2} and \ce{O_3} to different frequency ranges.  Moreover, we provide three scaling/normalization schemes for mapping the data corresponding to each compound at an individual site to frequency. In order to make comparisons across all sites, we can scale the data by the global compound minimum and maximum.  Since this compresses the frequency range of the individual sites, we can scale the data by each site location's individual minimum maximum. While this makes it impossible to make judgments across locations, this highlights the seasonal and overall trends for individual site. Last, we can scale the data by the minimum and maximum values of an individual location type. This is particularly helpful for rural sites, as the concentrations of \ce{NO_2} and \ce{O_3} change much less than in cities and power plants. 
+where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  In general, we can constrain \ce{NO_2} and \ce{O_3} to different frequency ranges.  Moreover, we provide three scaling/normalization schemes for mapping the data corresponding to each compound at an individual site to frequency. In order to make comparisons across all sites, we can scale the data by the global compound minimum and maximum.  Since this compresses the frequency range of the individual sites, we can scale the data by each site's individual minimum and maximum. While this makes it impossible to make judgments across locations, this highlights the seasonal and overall trends for individual site. Last, we can scale the data by the minimum and maximum values of an individual type of location. This is particularly helpful for rural sites, as the concentrations of \ce{NO_2} and \ce{O_3} change much less than in cities and power plants. In all cases, as the number of geographical locations increases, it becomes challenging to to attend to which time series is which.  
+
+
+One parameter of the sonification is the sound synthesis. Sine waves are challenging to localize can make it hard to differentiate the site types. To address this issue, we propose several other sound generators to replace the sine oscillator. These include band-pass filtered noise, sawtooth oscillators, and square oscillators. These can be assigned to each site category.  
+
+One spatial panning scheme presents each compound on independent speaker channels (e.g., \ce{NO_2} $\rightarrow$ left and \ce{O_3} $\rightarrow$ right).  This  makes it easier to identify the time series related to \ce{NO_2} and \ce{O_3}.  In order to improve the listener's ability to differentiate geographical locations, we also have a second panning scheme that maps each location's longitude and latitude to auditory spatial location. We place the listener in the center of the United States facing north.  We offer a stereo mode, which maps longitude to left and right (i.e. the west coast of the United States to the left and the east coast to the right). An additional quadrophonic mode also maps latitude to front and back. 
+
+
+One final sonification parameter a ``season filter'' designed to highlight seasonal fluctuations. This is implemented as a resonant low-pass filter where the cutoff frequency oscillates as a function of season. For each site, the filter cutoff frequency is designed relative to that site's fundamental frequency.  This filters the spectrum and acts as an auditory cue that highlights the effects of annual seasonal changes. 
+
 
 % \begin{align}
 %     \text{min}_{\text{global}}(\text{\ce{NO_2}}) &\rightarrow
@@ -185,17 +194,8 @@ where $x$ is the value being mapped from the old range $[a, b]$ to the new range
 %     \text{max}(\text{freq}_2)
 %     \,,
 % \end{align}
-and the mapping is
-\begin{equation}
-    c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
-\end{equation}
-where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  
 
-Thus,   The chemical compounds are presented in their own audio channels so they can be more easily differentiated.  One can choose to listen to one or more location, and since the ranges are scaled by a common mapping, the data are sonically comparable. This model is compelling as individual geographical locations can be easily compared to one another. However, as the number of geographical locations increases, it becomes challenging to track specific locations. 
 
-To address this issue, we propose using band-pass filtered triangle waves for each geographical location and the incorporation of panning. By placing the listener at the center of the United states, we can calculate the angle at which each location should appear, given the direction the listener is facing.  For this, we use an eight channel speaker system that inscribes the listener, and we map the cities to the correct location using equal-power panning between neighbor-pairs of speakers.  The more complex waveform is required to improve localization cues.  
-
-In order to bring out some features of the data we provide several more options. First, we can highlight seasonal fluctuations by controlling the $Q$ factor of the band-pass filter as a function of season. This highlights the effects of annual seasonal changes. Second, we provide the ability to change the waveforms used in the sonification of location types. While it is useful to compare \ce{NO_2} and \ce{O_3} concentrations, this feature allows power plant, cities, and rural areas to stand out from one another. Additionally, while it is useful to compare locations, some have a smaller extent than others. To address this, we also provide the ability to scale the data for each location by its own minimum and maximum rather than the global \ce{NO_2}/\ce{O_3} minimum and maximum.  
 
 
 \subsection{Sonification interface}
@@ -214,7 +214,7 @@ The \ce{NO_2} trends are quite apparent both for a single location and when comp
 
 In general, power plants seem to be less affected by seasonal changes than cities, but listening to the locally scaled version of the power plants makes the seasonal changes more apparent. One interesting observation is that some power plants (e.g., Huntington) start with a sharp decrease in \ce{NO_2} emissions which then level out for the rest of the dataset. Overall, these observations provide compelling evidence for the importance of both scaling options.  
 
-Another interesting observation is that locations on the East Coast tend to have higher overall levels than elsewhere in the country.  For example, Shenandoah is in rural Virginia, however the \ce{NO_2} levels are comparable to those in Fresno, California.  Naturally, Shenandoah's  \ce{NO_2} levels are influence by its proximity to large cities like Baltimore. Likewise, trends in Philadelphia and Pittsburgh are very correlated to one another. 
+Another interesting observation is that locations on the East Coast tend to have higher overall levels than elsewhere in the country.  For example, Shenandoah is in rural Virginia, however the \ce{NO_2} levels are comparable to those in Fresno, California.  Naturally, Shenandoah's  \ce{NO_2} levels are influence by its proximity to large cities like Baltimore. Likewise, trends in Philadelphia and Pittsburgh are highly correlated to one another. 
 
 \subsection{O$_3$ interannual trends}
 For evaluation, we use the \ce{O_3} concentration nearest the surface rather than the partial \ce{O_3} column.  Informal listening tests show that patterns are apparent even to listeners without extensive knowledge of \ce{NO_x}/\ce{O_3} trends and chemistry.  An overall rise observed in most cities is readily apparent, as are the seasonal oscillations. 
