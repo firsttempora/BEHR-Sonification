@@ -98,7 +98,7 @@ Measurements of \ce{O_3} from space can be done similarly to measurements of \ce
 \subsection{NO$_x$ has decreased in the US over the past decade.}
 \label{sec:nox-decrease}
 
-In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 onwards (Fig. \ref{fig:sat-obs}).
+In the US, the Environmental Protection Agency (EPA) has regulated measures to decrease the emissions of \ce{NO_x} in order to reduce tropospheric ozone concentrations \cite{epa99}. Regulations targeted both vehicular emissions \cite{epa16} and power plant emissions \cite{epa-cair}.  Satellite observations of \ce{NO_2} \cite{russell12, kim09, lu15} can clearly see the decrease in \ce{NO_2} throughout the US for the time period 2004 onwards (Fig.~\ref{fig:sat-obs}).
 
 \subsection{Sonifcation is an ideal educational tool to communicate the complexity of NO$_x$/O$_3$ chemistry.}
 
@@ -111,13 +111,13 @@ In the US, the Environmental Protection Agency (EPA) has regulated measures to d
 
 \ce{NO_x} and \ce{O_3} have interesting temporal patterns on both the interannual and seasonal time scales. As discussed in \S\ref{sec:nox-decrease}, \ce{NO_x} has, in general, decreased across the US in the past decade. \ce{NO_x} concentrations also follow a seasonal cycle, owing to temperature dependent shifts in the chemistry, leading to a sinusoidal pattern superimposed on top of the interannual decrease.  The chemistry described in \S\ref{sec:nox-chemistry} means that \ce{O_3} concentrations will be related to \ce{NO_x} concentrations, but the exact dependence will vary from location to location.
 
-This is shown in Fig. \ref{fig:trends} for two cities, one power plant, and one rural area. Both seasonal and interannual trends are clear. The cities and power plants exhibit maximum \ce{NO_2} values in the winter, while the rural location does so in the summer. Overall, \ce{NO_2} tVCDs decrease over the cities and power plant, while remaining fairly constant over Yellowstone. \ce{O_3} appears to increase over the interannual time scale for the cities and power plant, but not over Yellowstone. 
+This is shown in Fig.~\ref{fig:trends} for two cities, one power plant, and one rural area. Both seasonal and interannual trends are clear. The cities and power plants exhibit maximum \ce{NO_2} values in the winter, while the rural location does so in the summer. Overall, \ce{NO_2} tVCDs decrease over the cities and power plant, while remaining fairly constant over Yellowstone. \ce{O_3} appears to increase over the interannual time scale for the cities and power plant, but not over Yellowstone. 
 
 These characteristics make sonification an ideal way to describe the \ce{NO_x}/\ce{O_3} relationship throughout the US. The temporal dependence of the data lends itself naturally to depiction in a time-dependent medium such as sound. The geographically diverse natural of the dataset can be well represented by the placement of sound in the panning field. By simultaneously representing the \ce{NO_2} and \ce{O_3} concentrations at multiple cities, power plants, and rural areas across the US, we provide an intuitive interface for the public to learn about how reductions in \ce{NO_x} concentrations affect \ce{O_3} under different conditions.
 	
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.5\textwidth]{figs/gui.png}
+\includegraphics[width=0.5\textwidth]{figs/gui_revised.png}
 \caption{BEHR Sonification GUI.}
 \label{fig:gui}
 \end{figure}
@@ -200,7 +200,7 @@ One final sonification parameter a ``season filter'' designed to highlight seaso
 
 \subsection{Sonification interface}
 
-While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI, which can be seen in Fig. \ref{fig:gui}, displays a map of the United State with indicators for where we present data.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of check-boxes allow the user to select which locations contribute to the sonification. Naturally, the map is updated to reflect which locations are selected.  
+While the synthesis routines do not depend on the GUI, having an interface makes it much easier to understand and control what one listens to. The GUI, which can be seen in Fig.~\ref{fig:gui}, displays a map of the United State with indicators for where we present data.  These locations are color coded by location type (e.g., power plants, cities, etc.). A bank of check-boxes allow the user to select which locations contribute to the sonification. Naturally, the map is updated to reflect which locations are selected.  
 
 
 Basic control is provided for playing/pausing and loudness. We also provide the ability to loop through the data or stop once the listener reaches the most current month.  Controls are provided to control the speed at which the sonification is performed.  When the data are presented quickly, the listener perceives general trends while at slower speeds the seasonal and monthly trends dominate.  This time resolution control is useful for zooming between micro and macro scales.  
@@ -225,7 +225,13 @@ This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the 
 
 \ce{O_3} faces some challenges, given that the data has more extreme values compared to \ce{NO_2}. These are comparatively infrequent, but significantly larger than the majority of values.  In our global mapping, this means that the majority of the variability is compressed to a very small range. This can be alleviated by doing the same mapping as described in \S\ref{sec:sonic-mappings}, but by clipping the range to prevent outliers from having such an effect on the rest of the data.  This will make the interannual variability much clearer for most sites, but means the listener cannot compare absolute magnitudes. 
 % Additionally, at sites with the infrequent, extreme values (e.g. Los Angeles), hearing the interannual trend even in this ``local'' mode is difficult.
- 
+
+\subsection{Panning, Season Filter, and Synthesis Sounds}
+In our listening tests, we were particularly interested in the successfulness of of some of the sonic mappings. As predicted by the resolution of human auditory spatial cues, longitudinal (left-right) spatial cues were successful while latitudinal (front-back) spatial cues were more challenging to perceive and interpret. 
+
+The season filter was unsuccessful for giving listeners seasonal cues. At high speeds, the cutoff oscillations are pronounced but the data are presented too quickly to make sense of the filtering. At slower speeds, the effects are masked.  
+
+The different sonic oscillators (filtered noise, sawtooth, etc) were easy for some listeners to differentiate but challenging for others.  When listening to multiple sites at once, listeners found it more challenging to differentiate between the square and sawtooth waveforms than the filtered noise. Listeners also found it more challenging to discriminate pitch for the filtered noise.   
 
 \subsection{Relationship between NO$_2$ and O$_3$}
 
@@ -240,7 +246,7 @@ This also indicates that the OMO3PR product shows \ce{O_3} is increasing on the 
 	\label{fig:del-del}
 	\end{figure}
 	
-	Fig. \ref{fig:del-del} plots the change in  between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive, as was deduced from listening. While both the graphical and sonic representation of this relationship are challenging, we believe that the sonic representation is ultimately significantly more engaging for a non-expert.
+	Fig.~\ref{fig:del-del} plots the change in  between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive, as was deduced from listening. While both the graphical and sonic representation of this relationship are challenging, we believe that the sonic representation is ultimately significantly more engaging for a non-expert.
 
 \section{Conclusions}
 In this paper, we have described a sonification tool for comparing trends in \ce{NO_2} and \ce{O_3} concentrations across the United States.  Overall, informal listening tests have shown that untrained listeners can  hear trends across multiple time scales and differences between various locations for which we provide data.  Clearly, there is more work to be done. We need to provide additional data such as temperature and humidity as well as ground based measurements to improve the educational value of presenting the data as a sonification for untrained listeners.  Furthermore, while this project focuses on an experiential auditory experience for non-experts, we should provide more visual feedback (e.g., generating plots on-the-fly that correspond to the sonification) as an additional avenue for learning about \ce{NO_2} and \ce{O_3} trends.  
