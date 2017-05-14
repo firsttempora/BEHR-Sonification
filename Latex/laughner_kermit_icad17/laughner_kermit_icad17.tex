@@ -65,7 +65,7 @@ Stanford, CA 94305 USA \\ {\tt
 \begin{sloppy}
 
 \begin{abstract}
-    Leveraging the human auditory system, sonification can be used as educational tool for non-experts to engage with data in a different mode than visualization.  Without oversimplifying the data, this project presents a sonification tool for exploring \ce{NO_2} and \ce{O_3} data from the BErkeley High Resolution (BEHR) tropospheric \ce{NO_2} and OMO3PR ozone profile datasets.  By allowing the listener control over the data-to-sound mapping and synthesis parameters, one can experience and learn about the interplay between \ce{NO_2} tVCDs and \ce{O_3} concentrations.  Furthermore, interannual and seasonal trends can be perceived across different types of locations. 
+    Leveraging the human auditory system, sonification can be used as an educational tool for non-experts to engage with data in a different mode than visualization.  Without oversimplifying the data, this project presents a sonification tool for exploring \ce{NO_2} and \ce{O_3} data from the BErkeley High Resolution (BEHR) tropospheric \ce{NO_2} and OMO3PR ozone profile datasets.  By allowing the listener control over the data-to-sound mapping and synthesis parameters, one can experience and learn about the interplay between \ce{NO_2} tVCDs and \ce{O_3} concentrations.  Furthermore, interannual trends can be perceived across different types of locations. 
 \end{abstract}
 
 \section{Introduction}
@@ -107,7 +107,7 @@ In the US, the Environmental Protection Agency (EPA) has regulated measures to d
 
 \begin{figure}
 \centering
-\includegraphics[width=0.95\columnwidth]{figs/four-site-trends.png} [htb]
+\includegraphics[width=0.95\columnwidth]{figs/four-site-trends.png} 
 \caption{\ce{NO_2} tVCD and \ce{O_3} surface concentration trends at two cities (San Francisco, CA and Philadelphia, PA), one coal-fired power plant (Hatsfield, in Masontown, PA) and Yellowstone National Park (WY).}
 \label{fig:trends}
 \end{figure}
@@ -177,11 +177,9 @@ After the preprocessing, we have a set of locations through the United States th
 \end{equation}
 where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  In general, we can constrain \ce{NO_2} and \ce{O_3} to different frequency ranges.  Moreover, we provide three scaling/normalization schemes for mapping the data for each compound at each site to frequency. In order to make comparisons across all sites, we scale the data by the global compound minimum and maximum.  Since this compresses the frequency range of the individual sites, we can also scale the data by each site's individual minimum and maximum. While this makes it impossible to make judgments across sites, it highlights the seasonal and overall trends for individual site. Last, we can scale the data by the minimum and maximum values of an individual type of location. This is particularly helpful for rural sites, as the quantities of \ce{NO_2} and \ce{O_3} change much less than in cities and power plants. In all cases, as the number of geographical locations increases, it becomes challenging to to attend to which time series is which.  
 
-
-One parameter of the sonification is the sound synthesis. Sine waves are challenging to localize can make it hard to differentiate between site types. To address this issue, we propose several other sound generators to replace the sine oscillator. These include band-pass filtered noise, sawtooth oscillators, and square oscillators. These can be each assigned to each site category; here, we use a square oscillator for cities, a sawtooth oscillator for power plants, and filtered noise for the rural sites. 
-
 One spatial panning scheme presents each compound on independent speaker channels (e.g., \ce{NO_2} $\rightarrow$ left and \ce{O_3} $\rightarrow$ right).  This  makes it easier to identify the time series related to \ce{NO_2} and \ce{O_3}.  In order to improve the listener's ability to differentiate geographical locations, we also have a second panning scheme that maps each location's longitude and latitude to auditory spatial location. We place the listener in the center of the United States facing north.  We offer a stereo mode, which maps longitude to left and right (i.e. the west coast of the United States to the left and the east coast to the right). An additional quadrophonic mode also maps latitude to front and back. 
 
+Another parameter of the sonification is the sound synthesis. Sine waves are challenging to localize which can make it hard to differentiate between sites playing simultaneously in the second panning mode. To address this issue, we propose several other sound generators to replace the sine oscillator. These include band-pass filtered noise, sawtooth oscillators, and square oscillators. These can be assigned to each site category; here, we use a square oscillator for cities, a sawtooth oscillator for power plants, and filtered noise for the rural sites. 
 
 One final sonification parameter a ``season filter'' designed to highlight seasonal fluctuations. This is implemented as a resonant low-pass filter where the cutoff frequency oscillates as a function of season. For each site, the filter cutoff frequency is designed relative to that site's fundamental frequency.  This filters the spectrum and acts as an auditory cue that highlights the effects of annual seasonal changes. 
 
@@ -240,7 +238,7 @@ The different sonic oscillators (filtered noise, sawtooth, etc) representing dif
 
 \subsection{Relationship between NO$_2$ and O$_3$}
 
-	As described in \S\ref{sec:nox-chemistry}, the changes in \ce{O_3} concentration can be positively or negatively correlated with changes in the \ce{NO_x} tVCDs. The informal listening tests had listeners attempt to identify whether \ce{NO_2} and \ce{O_3} were correlated, anti-correlated, or uncorrelated at Phoenix, AZ. Fig.~\ref{fig:del-del} plots the change in  between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between \ce{NO_2} and \ce{O_3} is negative, although there are times when the correlation is positive. Statistically, there is a very weak negative overall correlation ($R^2 < 0.1)$ between $\Delta$\ce{O_3} and $\Delta$\ce{NO_2} at Phoenix, where $\Delta$ indicates a month to month difference. 
+	As described in \S\ref{sec:nox-chemistry}, the changes in \ce{O_3} concentration can be positively or negatively correlated with changes in the \ce{NO_2} tVCDs. The informal listening tests had listeners attempt to identify whether \ce{NO_2} and \ce{O_3} were correlated, anti-correlated, or uncorrelated at Phoenix, AZ. Fig.~\ref{fig:del-del} plots the change in \ce{NO_2} and \ce{O_3} between adjacent data-points as a function of time for Phoenix, AZ. The overall correlation between $\Delta$\ce{NO_2} and $\Delta$\ce{O_3} is negative (where $\Delta$ indicates a month to month difference), although there are times when the correlation is positive. Statistically, there is a very weak negative overall correlation ($R^2 < 0.1)$ between $\Delta$\ce{O_3} and $\Delta$\ce{NO_2} at Phoenix. 
 	
 	This commingling of positive and negative correlations makes discerning the correlative relationship between $\Delta$\ce{NO_2} and $\Delta$\ce{O_3} sonically difficult. An additional element of difficulty comes from the high uncertainty in the chosen \ce{O_3} satellite product. Future refinements will explore using alternate sources of \ce{O_3} data, including other satellite products and direct surface measurements of \ce{O_3}.
 	
