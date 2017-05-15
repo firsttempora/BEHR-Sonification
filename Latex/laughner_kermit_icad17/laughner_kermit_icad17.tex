@@ -173,7 +173,7 @@ molec. cm$^{-2}$ / DU.
 \label{sec:sonic-mappings}
 After the preprocessing, we have a set of locations through the United States that each have corresponding time series for \ce{NO_2} tVCDs and \ce{O_3} concentrations. We present several modes for listening to the data. In the simplest case, we use the data for each location as the frequency parameter to a sinusoidal oscillator.  We exponentially map the quantities of the compounds into an audible range according to
 \begin{equation}
-    c \left[(c/d)^{\frac{x-a}{b-a}}\right]\,,
+    c \left[(d/c)^{\frac{x-a}{b-a}}\right]\,,
 \end{equation}
 where $x$ is the value being mapped from the old range $[a, b]$ to the new range $[c, d]$.  In general, we can constrain \ce{NO_2} and \ce{O_3} to different frequency ranges.  Moreover, we provide three scaling/normalization schemes for mapping the data for each compound at each site to frequency. In order to make comparisons across all sites, we scale the data by the global compound minimum and maximum.  Since this compresses the frequency range of the individual sites, we can also scale the data by each site's individual minimum and maximum. While this makes it impossible to make judgments across sites, it highlights the seasonal and overall trends for individual site. Last, we can scale the data by the minimum and maximum values of an individual type of location. This is particularly helpful for rural sites, as the quantities of \ce{NO_2} and \ce{O_3} change much less than in cities and power plants. In all cases, as the number of geographical locations increases, it becomes challenging to to attend to which time series is which.  
 
